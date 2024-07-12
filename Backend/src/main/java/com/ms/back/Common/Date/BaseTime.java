@@ -1,12 +1,14 @@
 package com.ms.back.Common.Date;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@Getter
 @MappedSuperclass
+@Getter
+@Setter
 public abstract class BaseTime {
 
     /** @MappedSuperclass
@@ -17,5 +19,9 @@ public abstract class BaseTime {
     private LocalDateTime createdDate;
 
     private LocalDateTime modifiedDate;
+
+
+
+
 
 }
