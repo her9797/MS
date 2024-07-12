@@ -1,10 +1,10 @@
-package com.ms.back;
+package com.ms.back.Notice.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class NoticeServiceTest {
 
     @Test
     void contextLoads() {
