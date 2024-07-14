@@ -15,3 +15,11 @@
 ```
 - MySQL
 ```
+
+```
+- Valid
+- QueryDSL
+- MappedSuperclass
+- builder
+```
+
