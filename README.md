@@ -4,6 +4,7 @@
 - Spring Boot
 - JPA
 - SPRING SECURITY JWT
+- Websocket
 ```
 ### FRONT 
 ```
