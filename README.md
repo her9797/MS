@@ -5,6 +5,7 @@
 - JPA
 - SPRING SECURITY JWT
 - Websocket
+- Open API
 ```
 ### FRONT 
 ```
