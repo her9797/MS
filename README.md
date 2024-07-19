@@ -7,6 +7,7 @@
 - Websocket
 - Open API
   1. pay
+  2. login (QR)
 ```
 ### FRONT 
 ```
