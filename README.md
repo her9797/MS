@@ -8,6 +8,7 @@
 - Open API
   1. pay
   2. login (QR)
+  3. 고민중
 ```
 ### FRONT 
 ```
