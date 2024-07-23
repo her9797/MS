@@ -1,9 +1,10 @@
 package com.ms.back.Common.Date;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.MappedSuperclass;
+
 import java.time.LocalDateTime;
 
 @MappedSuperclass
