@@ -16,7 +16,7 @@ class NoticeServiceTest {
     private NoticeService noticeService;
 
     @Test
-    @DisplayName("공지 조회 테스트")
+    @DisplayName("공지 조회(페이징) 테스트")
     void selectNoticeListTest() {
 
         // given
