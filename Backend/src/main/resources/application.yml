@@ -8,11 +8,13 @@ spring:
       maximum-pool-size: 10  # HikariCP 설정 예시
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true  # SQL 쿼리 포맷팅 설정
     show-sql: true
     hibernate:
       ddl-auto: update  # 애플리케이션 실행 시 DDL 자동 생성/업데이트 설정
-      format_sql: true  # SQL 쿼리 포맷팅 설정
 
   servlet:
     encoding:

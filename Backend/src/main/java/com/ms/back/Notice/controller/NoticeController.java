@@ -29,7 +29,7 @@ public class NoticeController {
     }
 
     @GetMapping("/notices")
-    public ResponseEntity<ResponseMessage> selectNoticeList( @RequestParam(value = "page", defaultValue = "1") int page,
+    public ResponseEntity<ResponseMessage> selectNoticeList ( @RequestParam(value = "page", defaultValue = "1") int page,
                                                              @RequestParam(value = "size", defaultValue = "10") int size) {
 
 
