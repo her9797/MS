@@ -57,4 +57,31 @@ public class NoticeService {
         }
         return result;
     }
+
+    /** 공지사항 수정 */
+    @Transactional
+    public Map<String,Object> updateNotice(int noticeNo, NoticeDTO notice) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        Notice noticeEntity = noticeRepository.findByNoticeNo(noticeNo);
+
+        if (noticeEntity != null) {
+
+            NoticeDTO noticeDTO = modelMapper.map(noticeEntity, NoticeDTO.class);
+
+            noticeDTO.setContent(notice.getContent());
+            noticeDTO.setTitle(notice.getTitle());
+            noticeDTO.setModifiedDate(notice.getModifiedDate());
+
+            Notice updateNotice = modelMapper.map(noticeDTO, Notice.class);
+            noticeRepository.save(updateNotice);
+
+            result.put("result", true);
+
+        } else {
+            result.put("result", false);
+        }
+        return result;
+    }
 }

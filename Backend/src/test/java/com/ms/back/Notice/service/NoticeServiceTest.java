@@ -58,7 +58,26 @@ class NoticeServiceTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result.get("result"), true);
 
+    }
 
+    @Test
+    @DisplayName("공지 수정 테스트")
+    void modifyNotice() {
+
+        // given
+        int noticeNo = 2;
+
+        NoticeDTO notice = new NoticeDTO();
+        notice.setContent("수정한 내용");
+        notice.setTitle("수정한 제목");
+        notice.setModifiedDate(LocalDateTime.now());
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", noticeService.updateNotice(noticeNo, notice));
+
+        // then
+        Assertions.assertNotNull(result);
     }
 
 }
