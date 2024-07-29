@@ -5,6 +5,7 @@ import com.ms.back.Common.ResponseMessage;
 import com.ms.back.Notice.dto.NoticeDTO;
 import com.ms.back.Notice.entity.Notice;
 import com.ms.back.Notice.service.NoticeService;
+import org.hibernate.annotations.Fetch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
@@ -56,9 +57,17 @@ public class NoticeController {
     @PostMapping("/notices")
     public ResponseEntity<ResponseMessage> insertNotice(@RequestBody NoticeDTO noticeDTO) {
 
-        noticeDTO.setCreatedAt(LocalDateTime.now());
+        noticeDTO.setCreatedDate(LocalDateTime.now());
 
         return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", noticeService.insertNotice(noticeDTO)));
+
+    }
+
+    @PatchMapping("/notices/{noticeNo}")
+    public ResponseEntity<ResponseMessage> modifyNotice(@PathVariable("noticeNo") int noticeNo,
+                                                        @RequestBody NoticeDTO noticeDTO){
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", noticeService.updateNotice(noticeNo, noticeDTO)));
 
     }
 

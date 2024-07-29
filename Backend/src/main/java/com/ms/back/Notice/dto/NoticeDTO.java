@@ -20,15 +20,23 @@ public class NoticeDTO {
 
     private char deleteYn;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
 
     private LocalDateTime modifiedDate;
 
-    public NoticeDTO(int noticeNo, String title, String content, char deleteYn, LocalDateTime createdAt) {
+    public NoticeDTO(String title, String content, LocalDateTime modifiedDate) {
+        this.title = title;
+        this.content = content;
+        this.modifiedDate = modifiedDate;
+    }
+
+    public NoticeDTO(int noticeNo, String title, String content, char deleteYn, LocalDateTime createdDate) {
         this.noticeNo = noticeNo;
         this.title = title;
         this.content = content;
         this.deleteYn = deleteYn;
-        this.createdAt = createdAt;
+        this.createdDate = createdDate;
     }
+
+
 }
