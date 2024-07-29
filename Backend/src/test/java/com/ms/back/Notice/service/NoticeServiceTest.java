@@ -1,5 +1,6 @@
 package com.ms.back.Notice.service;
 
+import com.ms.back.Notice.dto.NoticeDTO;
 import com.ms.back.Notice.entity.Notice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -7,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @SpringBootTest
@@ -28,7 +33,32 @@ class NoticeServiceTest {
 
         // then
         Assertions.assertNotNull(noticeList);
-        noticeList.forEach(notice -> System.out.println("noticeList : " + notice));
+    }
+
+    @Test
+    @DisplayName("공지 등록 테스트")
+    void insertNotice() {
+
+        // given
+        NoticeDTO notice = new NoticeDTO(2, "제목", "내용", 'N', LocalDateTime.now());
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            noticeService.insertNotice(notice);
+            result.put("result", true);
+            System.out.println("notice : " + notice);
+        } catch (Exception e) {
+            noticeService.insertNotice(notice);
+            result.put("result", false);
+        }
+
+        // then
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.get("result"), true);
+
+
     }
 
 }
