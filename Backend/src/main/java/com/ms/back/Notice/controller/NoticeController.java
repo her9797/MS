@@ -6,15 +6,15 @@ import com.ms.back.Notice.dto.NoticeDTO;
 import com.ms.back.Notice.entity.Notice;
 import com.ms.back.Notice.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +50,15 @@ public class NoticeController {
         ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", response);
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/notices")
+    public ResponseEntity<ResponseMessage> insertNotice(@RequestBody NoticeDTO noticeDTO) {
+
+        noticeDTO.setCreatedAt(LocalDateTime.now());
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", noticeService.insertNotice(noticeDTO)));
 
     }
 
