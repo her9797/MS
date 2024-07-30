@@ -74,5 +74,12 @@ public class NoticeController {
 
     }
 
+    /** 공지사항 삭제 */
+    @PutMapping("/notices/{noticeNo}")
+    public ResponseEntity<ResponseMessage> deleteNotice(@PathVariable("noticeNo") int noticeNo) {
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "삭제 성공", noticeService.deleteNotice(noticeNo)));
+    }
+
 
 }

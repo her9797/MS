@@ -88,7 +88,6 @@ class NoticeServiceTest {
         // given
         int noticeNo = 2;
 
-
         // when
         Map<String, Object> result = new HashMap<>();
         result.put("result", noticeService.deleteNotice(noticeNo));
