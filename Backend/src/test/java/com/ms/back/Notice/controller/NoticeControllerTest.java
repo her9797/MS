@@ -56,6 +56,29 @@ class NoticeControllerTest {
     }
 
     @Test
+    @DisplayName("공지사항 상세 조회")
+    void selectByNoticeIdTest() throws Exception {
+
+        // given
+        int noticeNo = 1;
+
+        // when
+        MvcResult result = mockMvc.perform(get("/notices/{noticeNo}", noticeNo)
+                        .contentType(MediaType.APPLICATION_JSON))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.httpStatusCode").value(200))
+                .andExpect(jsonPath("$.message").value("조회 성공"))
+                .andExpect(jsonPath("$.results").exists())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("Content: " + content);
+
+    }
+
+
+    @Test
     @DisplayName("공지사항 등록 테스트")
     void insertNotice() throws Exception {
 

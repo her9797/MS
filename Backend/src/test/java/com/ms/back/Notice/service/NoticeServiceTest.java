@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 @SpringBootTest
@@ -33,6 +34,21 @@ class NoticeServiceTest {
 
         // then
         Assertions.assertNotNull(noticeList);
+    }
+
+    @Test
+    @DisplayName("공지 상세 조회 테스트")
+    void selectByNoticeIdTest() {
+
+        // given
+        int noticeNo = 1;
+
+        // when
+        Optional<Notice> notice = noticeService.selectByNoticeId(noticeNo);
+
+        // then
+        Assertions.assertNotNull(notice);
+
     }
 
     @Test

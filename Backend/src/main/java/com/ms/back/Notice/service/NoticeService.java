@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -37,6 +38,11 @@ public class NoticeService {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         return noticeRepository.findAll(pageRequest);
+    }
+
+    public Optional<Notice> selectByNoticeId(int noticeNo) {
+
+        return noticeRepository.findNoticeByNoticeNo(noticeNo);
     }
 
     /** 공지사항 등록 */
@@ -103,4 +109,5 @@ public class NoticeService {
         }
         return result;
     }
+
 }

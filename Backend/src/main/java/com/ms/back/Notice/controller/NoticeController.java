@@ -5,6 +5,7 @@ import com.ms.back.Common.ResponseMessage;
 import com.ms.back.Notice.dto.NoticeDTO;
 import com.ms.back.Notice.entity.Notice;
 import com.ms.back.Notice.service.NoticeService;
+import org.apache.coyote.Response;
 import org.hibernate.annotations.Fetch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class NoticeController {
@@ -31,7 +33,7 @@ public class NoticeController {
 
     /** 공지사항 조회 */
     @GetMapping("/notices")
-    public ResponseEntity<ResponseMessage> selectNoticeList ( @RequestParam(value = "page", defaultValue = "1") int page,
+    public ResponseEntity<ResponseMessage> selectNoticeList (@RequestParam(value = "page", defaultValue = "1") int page,
                                                              @RequestParam(value = "size", defaultValue = "10") int size) {
 
 
@@ -53,6 +55,28 @@ public class NoticeController {
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
 
+    }
+
+    @GetMapping("/notices/{noticeNo}")
+    public ResponseEntity<ResponseMessage> selectByNoticeNo(@PathVariable("noticeNo") int noticeNo) {
+        // noticeService에서 Optional<Notice>를 가져옴
+        Optional<Notice> noticeOptional = noticeService.selectByNoticeId(noticeNo);
+
+        // 응답을 담을 맵
+        Map<String, Object> result = new HashMap<>();
+
+        if (noticeOptional.isPresent()) {
+            // Optional에서 값을 꺼내서 맵에 넣기
+            Notice notice = noticeOptional.get();
+            result.put("notice", notice);
+            // 조회 성공 메시지
+            ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", result);
+            return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+        } else {
+            // 조회 실패 메시지
+            ResponseMessage responseMessage = new ResponseMessage(404, "조회 데이터가 없습니다.", null);
+            return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
+        }
     }
 
     /** 공지사항 등록 */
