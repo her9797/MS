@@ -1,4 +1,4 @@
-package com.ms.back.Common.Date;
+package com.ms.back.Common;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -20,9 +20,5 @@ public abstract class BaseTime {
     private LocalDateTime createdDate;
 
     private LocalDateTime modifiedDate;
-
-
-
-
 
 }

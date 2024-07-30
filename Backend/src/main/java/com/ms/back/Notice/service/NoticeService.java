@@ -78,7 +78,26 @@ public class NoticeService {
             noticeRepository.save(updateNotice);
 
             result.put("result", true);
+        } else {
+            result.put("result", false);
+        }
+        return result;
+    }
 
+    public Map<String, Object> deleteNotice(int noticeNo) {
+        Map<String, Object> result = new HashMap<>();
+
+        // Notice 엔티티를 데이터베이스에서 조회
+        Notice notice = noticeRepository.findByNoticeNo(noticeNo);
+
+        if (notice != null) {
+            // deleteYn 상태를 'Y'로 설정
+            notice.markAsDeleted();
+
+            // 변경된 엔티티를 데이터베이스에 저장
+            noticeRepository.save(notice);
+
+            result.put("result", true);
         } else {
             result.put("result", false);
         }

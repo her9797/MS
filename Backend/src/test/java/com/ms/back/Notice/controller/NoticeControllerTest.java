@@ -61,7 +61,7 @@ class NoticeControllerTest {
     void insertNotice() throws Exception {
 
         // given
-        NoticeDTO noticeDTO = new NoticeDTO(3, "제목3", "내용3", 'N', LocalDateTime.now());
+        NoticeDTO noticeDTO = new NoticeDTO(5, "제목3", "내용3", 'N', LocalDateTime.now());
 
         // when
         MvcResult result = mockMvc.perform(post("/notices")
