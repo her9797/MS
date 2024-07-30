@@ -40,7 +40,7 @@ class NoticeServiceTest {
     void insertNotice() {
 
         // given
-        NoticeDTO notice = new NoticeDTO(2, "제목", "내용", 'N', LocalDateTime.now());
+        NoticeDTO notice = new NoticeDTO(4, "제목", "내용", 'N', LocalDateTime.now());
 
         // when
         Map<String, Object> result = new HashMap<>();
@@ -78,6 +78,23 @@ class NoticeServiceTest {
 
         // then
         Assertions.assertNotNull(result);
+    }
+
+    @Test
+    @DisplayName("공지 삭제 테스트")
+    void deleteNotice() {
+        /* 댓글 기능으로 인한 @PutMapping 사용 */
+
+        // given
+        int noticeNo = 2;
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", noticeService.deleteNotice(noticeNo));
+
+        // then
+        Assertions.assertNotNull(result);
+
     }
 
 }

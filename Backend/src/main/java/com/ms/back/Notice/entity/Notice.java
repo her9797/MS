@@ -1,6 +1,6 @@
 package com.ms.back.Notice.entity;
 
-import com.ms.back.Common.Date.BaseTime;
+import com.ms.back.Common.BaseTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -20,6 +20,18 @@ public class Notice extends BaseTime {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "delete_Yn", nullable = false)
+    private String deleteYn;
+
+    // deleteYn 상태를 설정하는 메서드
+    public void markAsDeleted() {
+        this.deleteYn = "Y";
+    }
+
+    // deleteYn 상태를 복구하는 메서드
+    public void markAsNotDeleted() {
+        this.deleteYn = "N";
+    }
 
 
 }

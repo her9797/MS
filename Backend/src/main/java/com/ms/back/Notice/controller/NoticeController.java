@@ -29,6 +29,7 @@ public class NoticeController {
         this.noticeService = noticeService;
     }
 
+    /** 공지사항 조회 */
     @GetMapping("/notices")
     public ResponseEntity<ResponseMessage> selectNoticeList ( @RequestParam(value = "page", defaultValue = "1") int page,
                                                              @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -54,6 +55,7 @@ public class NoticeController {
 
     }
 
+    /** 공지사항 등록 */
     @PostMapping("/notices")
     public ResponseEntity<ResponseMessage> insertNotice(@RequestBody NoticeDTO noticeDTO) {
 
@@ -63,6 +65,7 @@ public class NoticeController {
 
     }
 
+    /** 공지사항 수정 */
     @PatchMapping("/notices/{noticeNo}")
     public ResponseEntity<ResponseMessage> modifyNotice(@PathVariable("noticeNo") int noticeNo,
                                                         @RequestBody NoticeDTO noticeDTO){
@@ -70,5 +73,13 @@ public class NoticeController {
         return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", noticeService.updateNotice(noticeNo, noticeDTO)));
 
     }
+
+    /** 공지사항 삭제 */
+    @PutMapping("/notices/{noticeNo}")
+    public ResponseEntity<ResponseMessage> deleteNotice(@PathVariable("noticeNo") int noticeNo) {
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "삭제 성공", noticeService.deleteNotice(noticeNo)));
+    }
+
 
 }

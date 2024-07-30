@@ -2,7 +2,6 @@ package com.ms.back.Notice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms.back.Notice.dto.NoticeDTO;
-import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +60,7 @@ class NoticeControllerTest {
     void insertNotice() throws Exception {
 
         // given
-        NoticeDTO noticeDTO = new NoticeDTO(3, "제목3", "내용3", 'N', LocalDateTime.now());
+        NoticeDTO noticeDTO = new NoticeDTO(5, "제목3", "내용3", 'N', LocalDateTime.now());
 
         // when
         MvcResult result = mockMvc.perform(post("/notices")
@@ -112,6 +111,30 @@ class NoticeControllerTest {
 
         String content = result.getResponse().getContentAsString();
         System.out.println("Content: " + content);
+    }
+
+    @Test
+    @DisplayName("공지사항 삭제 테스트")
+    void deleteNotice() throws Exception {
+
+        /* 댓글 기능으로 인한 @PutMapping */
+
+        // given
+        int noticeNo = 4;
+
+        // when
+        MvcResult result = mockMvc.perform(put("/notices/{noticeNo}", noticeNo)
+                .contentType(MediaType.APPLICATION_JSON))
+
+        // then
+            .andExpect(jsonPath("$.httpStatusCode").value(200))
+            .andExpect(jsonPath("$.message").value("삭제 성공"))
+            .andExpect(jsonPath("$.results").exists())
+            .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("Content: " + content);
+
     }
 
 }
