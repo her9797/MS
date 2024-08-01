@@ -90,7 +90,7 @@ class NoticeServiceTest {
 
         // when
         Map<String, Object> result = new HashMap<>();
-        result.put("result", noticeService.updateNotice(noticeNo, notice));
+        result.put("result", noticeService.modifyNotice(noticeNo, notice));
 
         // then
         Assertions.assertNotNull(result);

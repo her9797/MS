@@ -30,6 +30,7 @@ public class CmtController {
 
     }
 
+    /** 댓글 수정 */
     @PatchMapping("/comments/{commentNo}")
     public ResponseEntity<ResponseMessage> modifyComment(@PathVariable("commentNo") int commentNo,
                                                          @RequestBody CmtDTO cmtDTO) {

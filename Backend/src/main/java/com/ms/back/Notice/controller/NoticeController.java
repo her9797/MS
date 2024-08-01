@@ -94,7 +94,7 @@ public class NoticeController {
     public ResponseEntity<ResponseMessage> modifyNotice(@PathVariable("noticeNo") int noticeNo,
                                                         @RequestBody NoticeDTO noticeDTO){
 
-        return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", noticeService.updateNotice(noticeNo, noticeDTO)));
+        return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", noticeService.modifyNotice(noticeNo, noticeDTO)));
 
     }
 

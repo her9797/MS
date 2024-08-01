@@ -66,7 +66,7 @@ public class NoticeService {
 
     /** 공지사항 수정 */
     @Transactional
-    public Map<String,Object> updateNotice(int noticeNo, NoticeDTO notice) {
+    public Map<String,Object> modifyNotice(int noticeNo, NoticeDTO notice) {
 
         Map<String, Object> result = new HashMap<>();
 
