@@ -30,6 +30,8 @@ public class NoticeDTO {
         this.modifiedDate = modifiedDate;
     }
 
+
+
     public NoticeDTO(int noticeNo, String title, String content, char deleteYn, LocalDateTime createdDate) {
         this.noticeNo = noticeNo;
         this.title = title;

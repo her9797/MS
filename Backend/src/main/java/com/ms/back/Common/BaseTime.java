@@ -23,7 +23,7 @@ public abstract class BaseTime {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdDate;
 
-    @Column(name = "modified_date", nullable = false)
+    @Column(name = "modified_date", updatable = true, nullable = true)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime modifiedDate;
 
