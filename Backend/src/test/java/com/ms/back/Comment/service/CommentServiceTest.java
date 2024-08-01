@@ -1,5 +1,6 @@
 package com.ms.back.Comment.service;
 
+import com.ms.back.Comment.dto.CmtDTO;
 import com.ms.back.Notice.dto.NoticeDTO;
 import com.ms.back.Notice.entity.Notice;
 import com.ms.back.Notice.service.NoticeService;
@@ -20,6 +21,31 @@ import java.util.Optional;
 class CommentServiceTest {
 
     @Autowired
-    private NoticeService noticeService;
+    private CmtService cmtService;
+
+    @Test
+    @DisplayName("댓글 등록 테스트")
+    void insertCmtTests() {
+
+        // given
+        CmtDTO cmtDTO = new CmtDTO(2, "댓글 내용", "userId", "userPws", "N", LocalDateTime.now());
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            cmtService.insertCmt(cmtDTO);
+            result.put("result", true);
+            System.out.println("cmtDTO : " + cmtDTO);
+        } catch (Exception e) {
+            cmtService.insertCmt(cmtDTO);
+            result.put("result", false);
+        }
+
+        // then
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.get("result"), true);
+
+    }
 
 }
