@@ -25,7 +25,7 @@ class CommentServiceTest {
 
     @Test
     @DisplayName("댓글 등록 테스트")
-    void insertCmtTests() {
+    void insertCmtTest() {
 
         // given
         CmtDTO cmtDTO = new CmtDTO(2, "댓글 내용", "userId", "userPws", "N", LocalDateTime.now());
@@ -45,6 +45,26 @@ class CommentServiceTest {
         // then
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result.get("result"), true);
+
+    }
+
+    @Test
+    @DisplayName("댓글 수정 테스트")
+    void modifyCmtTest() {
+
+        // given
+        int cmtNo = 2;
+
+        CmtDTO cmtDTO = new CmtDTO();
+        cmtDTO.setCmtContent("수정한 댓글 내용");
+        cmtDTO.setModifiedDate(LocalDateTime.now());
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", cmtService.modifyCmt(cmtNo, cmtDTO));
+
+        // then
+        Assertions.assertNotNull(result);
 
     }
 

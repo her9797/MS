@@ -6,9 +6,7 @@ import com.ms.back.Common.ResponseMessage;
 import com.ms.back.Notice.dto.NoticeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +27,14 @@ public class CmtController {
         CmtDTO.setCreatedDate(LocalDateTime.now());
 
         return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", cmtService.insertCmt(CmtDTO)));
+
+    }
+
+    @PatchMapping("/comments/{commentNo}")
+    public ResponseEntity<ResponseMessage> modifyComment(@PathVariable("commentNo") int commentNo,
+                                                         @RequestBody CmtDTO cmtDTO) {
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", cmtService.modifyCmt(commentNo, cmtDTO)));
 
     }
 
