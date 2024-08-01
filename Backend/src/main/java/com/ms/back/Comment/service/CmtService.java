@@ -3,6 +3,7 @@ package com.ms.back.Comment.service;
 import com.ms.back.Comment.dto.CmtDTO;
 import com.ms.back.Comment.entity.Comment;
 import com.ms.back.Comment.repository.CmtRepository;
+import com.ms.back.Notice.dto.NoticeDTO;
 import com.ms.back.Notice.entity.Notice;
 import com.ms.back.Notice.repository.NoticeRepository;
 import jakarta.transaction.Transactional;
@@ -43,5 +44,31 @@ public class CmtService {
             result.put("result", false);
         }
         return result;
+    }
+
+    /** 댓글 수정 */
+    @Transactional
+    public Map<String, Object> modifyCmt(int cmtNo, CmtDTO cmtDTO) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        Comment cmtEntity = cmtRepository.findByCommentNo(cmtNo);
+
+        if (cmtEntity != null) {
+
+            CmtDTO cmt = modelMapper.map(cmtEntity, CmtDTO.class);
+
+            cmt.setCmtContent(cmtDTO.getCmtContent());
+            cmt.setModifiedDate(cmtDTO.getModifiedDate());
+
+            Comment updateCmt = modelMapper.map(cmt, Comment.class);
+            cmtRepository.save(updateCmt);
+
+            result.put("result", true);
+        } else {
+            result.put("result", false);
+        }
+        return result;
+
     }
 }

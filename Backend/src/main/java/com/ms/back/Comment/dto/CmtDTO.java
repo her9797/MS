@@ -15,7 +15,7 @@ public class CmtDTO {
 
     private int noticeNo;
 
-    private String cmcContent;
+    private String cmtContent;
 
     private String userId;
 
@@ -28,22 +28,27 @@ public class CmtDTO {
     private LocalDateTime modifiedDate;
 
 
-    public CmtDTO( int noticeNo, String cmcContent, String userId, String userPwd, String privateYn, LocalDateTime createdDate) {
+    public CmtDTO( int noticeNo, String cmtContent, String userId, String userPwd, String privateYn, LocalDateTime createdDate) {
         this.noticeNo = noticeNo;
-        this.cmcContent = cmcContent;
+        this.cmtContent = cmtContent;
         this.userId = userId;
         this.userPwd = userPwd;
         this.privateYn = privateYn;
         this.createdDate = createdDate;
     }
 
-    public CmtDTO(int commentNo, int noticeNo, String cmcContent, String userId, String userPwd, String privateYn, LocalDateTime createdDate) {
+    public CmtDTO(int commentNo, int noticeNo, String cmtContent, String userId, String userPwd, String privateYn, LocalDateTime createdDate) {
         this.commentNo = commentNo;
         this.noticeNo = noticeNo;
-        this.cmcContent = cmcContent;
+        this.cmtContent = cmtContent;
         this.userId = userId;
         this.userPwd = userPwd;
         this.privateYn = privateYn;
         this.createdDate = createdDate;
+    }
+
+    public CmtDTO(String cmtContent, LocalDateTime modifiedDate) {
+        this.cmtContent = cmtContent;
+        this.modifiedDate = modifiedDate;
     }
 }

@@ -51,4 +51,37 @@ class CommentControllerTest {
 
     }
 
+    @Test
+    @DisplayName("댓글 수정 테스트")
+    void modifyComment() throws Exception {
+
+        // given
+        int commentNo = 1;
+
+        CmtDTO cmtDTO = new CmtDTO(
+                "컨트롤러 댓글 수정 테스트",
+                LocalDateTime.now()
+        );
+
+        // JSON request body 생성
+        String requestBody = String.format(
+                "{\"cmtContent\": \"%s\", \"modifiedDate\": \"%s\"}",
+                cmtDTO.getCmtContent(), cmtDTO.getModifiedDate()
+        );
+
+        // when
+        MvcResult result = mockMvc.perform(patch("/comments/{commentNo}", commentNo)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.httpStatusCode").value(200))
+                .andExpect(jsonPath("$.message").value("수정 성공"))
+                .andExpect(jsonPath("$.results").exists())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("Content: " + content);
+    }
+
 }

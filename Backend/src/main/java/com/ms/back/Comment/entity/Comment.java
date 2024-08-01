@@ -19,7 +19,7 @@ public class Comment extends BaseTime {
 
     @Column(name = "cmt_content", nullable = false)
     @NotBlank(message = "내용은 필수 입력 사항입니다.")
-    private String cmcContent;
+    private String cmtContent;
 
     @Column(name = "user_id", nullable = false)
     private String userId;
