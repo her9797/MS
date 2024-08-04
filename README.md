@@ -30,8 +30,8 @@
 
 ```
 - TDD
-  1. Service
-  2. Controller
+  1. Service : 단위
+  2. Controller : 통합
 
   - Notice
 ```
