@@ -34,6 +34,7 @@
   2. Controller : 통합
 
   - Notice
+  - Comment
 ```
 
 
