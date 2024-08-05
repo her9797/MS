@@ -1,15 +1,22 @@
 package com.ms.back.Comment.controller;
 
 import com.ms.back.Comment.dto.CmtDTO;
+import com.ms.back.Comment.entity.Comment;
 import com.ms.back.Comment.service.CmtService;
 import com.ms.back.Common.ResponseMessage;
 import com.ms.back.Notice.dto.NoticeDTO;
+import com.ms.back.Notice.entity.Notice;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class CmtController {
@@ -19,6 +26,32 @@ public class CmtController {
     @Autowired
     public CmtController(CmtService cmtService) {
         this.cmtService = cmtService;
+    }
+
+    /** 댓글 조회 */
+    @GetMapping("/comments")
+    public ResponseEntity<ResponseMessage> selectNoticeList (@RequestParam(value = "page", defaultValue = "1") int page,
+                                                             @RequestParam(value = "size", defaultValue = "10") int size) {
+
+
+        Page<Comment> cmtLists = cmtService.selectCmtLists(page - 1,size);
+
+        if (cmtLists.isEmpty()) {
+            String errorMessage = "조회 데이터가 존재하지 않습니다";
+            ResponseMessage responseMessage = new ResponseMessage(HttpStatus.NOT_FOUND.value(), errorMessage, null);
+            return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("comment", cmtLists.getContent());
+        response.put("currentPage", cmtLists.getNumber());
+        response.put("totalItems", cmtLists.getTotalElements());
+        response.put("totalPages", cmtLists.getTotalPages());
+        System.out.println(response);
+        ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", response);
+
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+
     }
 
     /** 댓글 등록 */

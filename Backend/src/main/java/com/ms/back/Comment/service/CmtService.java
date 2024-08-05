@@ -9,6 +9,8 @@ import com.ms.back.Notice.repository.NoticeRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -85,6 +87,15 @@ public class CmtService {
         }
 
         return result;
+
+    }
+
+    public Page<Comment> selectCmtLists(int page, int size) {
+
+        // PageRequest 객체로 쉽게 페이지 가져올 수 있음
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        return cmtRepository.findAll(pageRequest);
 
     }
 }
