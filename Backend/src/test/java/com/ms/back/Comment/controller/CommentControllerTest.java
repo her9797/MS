@@ -84,4 +84,27 @@ class CommentControllerTest {
         System.out.println("Content: " + content);
     }
 
+    @Test
+    @DisplayName("댓글 삭제 테스트")
+    void deleteCmtTest() throws Exception {
+
+        // given
+        int commentNo = 2;
+
+        // when
+        MvcResult result = mockMvc.perform(delete("/comments/{commentNo}", commentNo)
+                        .contentType(MediaType.APPLICATION_JSON))
+        //then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.httpStatusCode").value(200))
+                .andExpect(jsonPath("$.message").value("삭제 성공"))
+                .andExpect(jsonPath("$.results").exists())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("Content: " + content);
+
+
+    }
+
 }

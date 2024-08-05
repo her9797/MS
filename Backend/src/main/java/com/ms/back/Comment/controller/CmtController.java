@@ -4,6 +4,7 @@ import com.ms.back.Comment.dto.CmtDTO;
 import com.ms.back.Comment.service.CmtService;
 import com.ms.back.Common.ResponseMessage;
 import com.ms.back.Notice.dto.NoticeDTO;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,13 @@ public class CmtController {
         return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", cmtService.modifyCmt(commentNo, cmtDTO)));
 
     }
+
+    /** 댓글 삭제 */
+    @DeleteMapping("/comments/{commentNo}")
+    public ResponseEntity<ResponseMessage> deleteComment(@PathVariable("commentNo") int commentNo) {
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "삭제 성공", cmtService.deleteCmt(commentNo)));
+    }
+
 
 }
