@@ -30,6 +30,32 @@ class CommentControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
+    @DisplayName("댓글 조회(페이징) 테스트")
+    void selectCmtListTest() throws Exception {
+
+        // given
+        int size = 10;
+        int page = 1;
+
+        // when
+        MvcResult result = mockMvc.perform(get("/comments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("size", String.valueOf(size))
+                        .param("page", String.valueOf(page)))
+
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.httpStatusCode").value(200))
+                .andExpect(jsonPath("$.message").value("조회 성공"))
+                .andExpect(jsonPath("$.results").exists())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("Response Content: " + content);
+
+    }
+
+    @Test
     @DisplayName("공지 내 댓글 등록 테스트")
     void insertCmtTests() throws Exception {
 
