@@ -1,6 +1,7 @@
 package com.ms.back.Comment.service;
 
 import com.ms.back.Comment.dto.CmtDTO;
+import com.ms.back.Comment.entity.Comment;
 import com.ms.back.Notice.dto.NoticeDTO;
 import com.ms.back.Notice.entity.Notice;
 import com.ms.back.Notice.service.NoticeService;
@@ -22,6 +23,21 @@ class CommentServiceTest {
 
     @Autowired
     private CmtService cmtService;
+
+    @Test
+    @DisplayName("댓글 조회(페이징) 테스트")
+    void selectCmtPageTest() {
+
+        // given
+        int page = 1;
+        int size = 10;
+
+        // when
+        Page<Comment> cmtList = cmtService.selectCmtLists(page, size);
+
+        // then
+        Assertions.assertNotNull(cmtList);
+    }
 
     @Test
     @DisplayName("댓글 등록 테스트")
