@@ -68,4 +68,19 @@ class CommentServiceTest {
 
     }
 
+    @Test
+    @DisplayName("댓글 삭제 테스트")
+    void deleteCmtTest() {
+
+        // given
+        int cmtNo = 1;
+
+        // when
+        Map<String, Object> result = cmtService.deleteCmt(cmtNo);
+
+        // then
+        Assertions.assertNotNull(result);
+
+    }
+
 }

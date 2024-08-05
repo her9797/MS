@@ -71,4 +71,20 @@ public class CmtService {
         return result;
 
     }
+
+    public Map<String, Object> deleteCmt(int cmtNo) {
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", true);
+
+        Comment comment = cmtRepository.findByCommentNo(cmtNo);
+
+        if (comment != null) {
+
+            cmtRepository.delete(comment);
+        }
+
+        return result;
+
+    }
 }
