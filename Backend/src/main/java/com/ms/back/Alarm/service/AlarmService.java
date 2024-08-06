@@ -1,5 +1,6 @@
 package com.ms.back.Alarm.service;
 
+import com.ms.back.Alarm.entity.Alarm;
 import com.ms.back.Alarm.repository.AlarmRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,5 +15,11 @@ public class AlarmService {
     @Autowired
     public AlarmService(AlarmRepository alarmRepository) {
         this.alarmRepository = alarmRepository;
+    }
+
+    public Alarm selectAlarmList(String readYn, String userId) {
+
+        return alarmRepository.findByUserIdAndReadYn(userId, readYn);
+
     }
 }
