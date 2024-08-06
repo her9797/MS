@@ -60,7 +60,7 @@ class NoticeControllerTest {
     void selectByNoticeIdTest() throws Exception {
 
         // given
-        int noticeNo = 1;
+        int noticeNo = 5;
 
         // when
         MvcResult result = mockMvc.perform(get("/notices/{noticeNo}", noticeNo)
@@ -83,7 +83,7 @@ class NoticeControllerTest {
     void insertNotice() throws Exception {
 
         // given
-        NoticeDTO noticeDTO = new NoticeDTO(5, "제목3", "내용3", 'N', LocalDateTime.now());
+        NoticeDTO noticeDTO = new NoticeDTO(5, "제목3", "내용3", 'N', LocalDateTime.now(), "user01");
 
         // when
         MvcResult result = mockMvc.perform(post("/notices")
@@ -105,20 +105,21 @@ class NoticeControllerTest {
     void modifyNotice() throws Exception {
 
         // given
-        int noticeNo = 2;
+        int noticeNo = 5;
 
         NoticeDTO noticeDTO = new NoticeDTO(
                 "컨트롤러 본문 수정 테스트",
                 "컨트롤러 제목 수정",
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                "user01"
         );
 
         String modifiedDateStr = noticeDTO.getModifiedDate().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         // JSON request body 생성
         String requestBody = String.format(
-                "{\"content\": \"%s\", \"title\": \"%s\", \"modifiedDate\": \"%s\"}",
-                noticeDTO.getContent(), noticeDTO.getTitle(), modifiedDateStr
+                "{\"content\": \"%s\", \"title\": \"%s\", \"modifiedDate\": \"%s\", \"userId\": \"%s\"}",
+                noticeDTO.getContent(), noticeDTO.getTitle(), modifiedDateStr, noticeDTO.getUserId()
         );
 
         // when

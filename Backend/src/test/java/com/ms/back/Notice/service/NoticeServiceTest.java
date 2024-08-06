@@ -41,7 +41,7 @@ class NoticeServiceTest {
     void selectByNoticeIdTest() {
 
         // given
-        int noticeNo = 1;
+        int noticeNo = 4;
 
         // when
         Optional<Notice> notice = noticeService.selectByNoticeId(noticeNo);
@@ -56,7 +56,7 @@ class NoticeServiceTest {
     void insertNotice() {
 
         // given
-        NoticeDTO notice = new NoticeDTO(4, "제목", "내용", 'N', LocalDateTime.now());
+        NoticeDTO notice = new NoticeDTO(4, "제목", "내용", 'N', LocalDateTime.now(), "user01");
 
         // when
         Map<String, Object> result = new HashMap<>();

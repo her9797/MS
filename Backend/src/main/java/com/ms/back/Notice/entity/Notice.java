@@ -25,6 +25,9 @@ public class Notice extends BaseTime {
     @Column(name = "delete_Yn", nullable = false)
     private String deleteYn;
 
+    @Column(name = "user_id", nullable = false)
+    private String userId;
+
     protected Notice() {}
 
     // deleteYn 상태를 설정하는 메서드
