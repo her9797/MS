@@ -50,7 +50,7 @@ public class NoticeController {
         response.put("currentPage", noticeListPaging.getNumber());
         response.put("totalItems", noticeListPaging.getTotalElements());
         response.put("totalPages", noticeListPaging.getTotalPages());
-        System.out.println(response);
+
         ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", response);
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
