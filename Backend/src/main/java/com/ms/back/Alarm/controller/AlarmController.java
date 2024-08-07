@@ -1,15 +1,16 @@
 package com.ms.back.Alarm.controller;
 
+import com.ms.back.Alarm.dto.AlarmDTO;
 import com.ms.back.Alarm.entity.Alarm;
 import com.ms.back.Alarm.service.AlarmService;
+import com.ms.back.Comment.dto.CmtDTO;
 import com.ms.back.Common.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +44,14 @@ public class AlarmController {
         ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", result);
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+    }
+
+    /** 알람 등록 */
+    @PostMapping("/alarms")
+    public ResponseEntity<ResponseMessage> insertAlarm(@RequestBody AlarmDTO alarmDTO) {
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", alarmService.insertAlarm(alarmDTO)));
+
     }
 
 }

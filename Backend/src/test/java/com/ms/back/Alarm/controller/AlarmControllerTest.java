@@ -1,6 +1,7 @@
 package com.ms.back.Alarm.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ms.back.Alarm.dto.AlarmDTO;
 import com.ms.back.Comment.dto.CmtDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,28 @@ class AlarmControllerTest {
 
         String content = result.getResponse().getContentAsString();
         System.out.println("Response Content: " + content);
+
+    }
+
+    @Test
+    @DisplayName("알람 등록 테스트")
+    void insertAlarmTests() throws Exception {
+
+        // given
+        AlarmDTO alarmDTO = new AlarmDTO("userId", "알람이 등록되었습니다 컨트롤러", "N");
+
+        // when
+        MvcResult result = mockMvc.perform(post("/alarms")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(alarmDTO)))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("등록 성공"))
+                .andExpect(jsonPath("$.results").exists())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("response content : " + content);
 
     }
 
