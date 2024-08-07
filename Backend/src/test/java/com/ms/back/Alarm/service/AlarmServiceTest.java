@@ -1,5 +1,6 @@
 package com.ms.back.Alarm.service;
 
+import com.ms.back.Alarm.dto.AlarmDTO;
 import com.ms.back.Alarm.entity.Alarm;
 import com.ms.back.Comment.dto.CmtDTO;
 import com.ms.back.Comment.entity.Comment;
@@ -35,6 +36,31 @@ class AlarmServiceTest {
 
         // then
         Assertions.assertNotNull(alarm);
+    }
+
+    @Test
+    @DisplayName("알람 등록 테스트")
+    void insertAlarmTest() {
+
+        // given
+        AlarmDTO alarmDTO = new AlarmDTO("user01", "새 메시지가 등록되었습니다.", "Y");
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            alarmService.insertAlarm(alarmDTO);
+            result.put("result", true);
+            System.out.println("alarmDTO : " + alarmDTO);
+        } catch (Exception e) {
+            alarmService.insertAlarm(alarmDTO);
+            result.put("result", false);
+        }
+
+        // then
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.get("result"), true);
+
     }
 
 

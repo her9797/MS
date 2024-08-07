@@ -18,5 +18,9 @@ public class AlarmDTO {
 
     private String readYn;
 
-
+    public AlarmDTO(String userId, String alarmMsg, String readYn) {
+        this.userId = userId;
+        this.alarmMsg = alarmMsg;
+        this.readYn = readYn;
+    }
 }
