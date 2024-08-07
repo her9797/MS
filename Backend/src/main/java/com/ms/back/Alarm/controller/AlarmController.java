@@ -50,8 +50,9 @@ public class AlarmController {
     @PostMapping("/alarms")
     public ResponseEntity<ResponseMessage> insertAlarm(@RequestBody AlarmDTO alarmDTO) {
 
-        return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", alarmService.insertAlarm(alarmDTO)));
+        alarmDTO.setCreatedDate(LocalDateTime.now());
 
+        return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", alarmService.insertAlarm(alarmDTO)));
     }
 
 }

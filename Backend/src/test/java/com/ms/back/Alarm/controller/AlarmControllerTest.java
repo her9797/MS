@@ -59,7 +59,7 @@ class AlarmControllerTest {
     void insertAlarmTests() throws Exception {
 
         // given
-        AlarmDTO alarmDTO = new AlarmDTO("userId", "알람이 등록되었습니다 컨트롤러", "N");
+        AlarmDTO alarmDTO = new AlarmDTO("userId", "알람이 등록되었습니다 컨트롤러", "N", LocalDateTime.now());
 
         // when
         MvcResult result = mockMvc.perform(post("/alarms")

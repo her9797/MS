@@ -3,6 +3,8 @@ package com.ms.back.Alarm.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -18,9 +20,12 @@ public class AlarmDTO {
 
     private String readYn;
 
-    public AlarmDTO(String userId, String alarmMsg, String readYn) {
+    private LocalDateTime createdDate;
+
+    public AlarmDTO(String userId, String alarmMsg, String readYn, LocalDateTime createdDate) {
         this.userId = userId;
         this.alarmMsg = alarmMsg;
         this.readYn = readYn;
+        this.createdDate = createdDate;
     }
 }

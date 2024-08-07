@@ -43,7 +43,7 @@ class AlarmServiceTest {
     void insertAlarmTest() {
 
         // given
-        AlarmDTO alarmDTO = new AlarmDTO("user01", "새 메시지가 등록되었습니다.", "Y");
+        AlarmDTO alarmDTO = new AlarmDTO("user01", "새 메시지가 등록되었습니다.", "Y", LocalDateTime.now());
 
         // when
         Map<String, Object> result = new HashMap<>();
