@@ -56,7 +56,7 @@ public class CmtController {
 
     /** 댓글 등록 */
     @PostMapping("/comments")
-    public ResponseEntity<ResponseMessage> insertNotice(@RequestBody CmtDTO CmtDTO) {
+    public ResponseEntity<ResponseMessage> insertComment(@RequestBody CmtDTO CmtDTO) {
 
         CmtDTO.setCreatedDate(LocalDateTime.now());
 
