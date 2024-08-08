@@ -22,6 +22,10 @@ public class AlarmDTO {
 
     private LocalDateTime createdDate;
 
+    public AlarmDTO(String readYn) {
+        this.readYn = readYn;
+    }
+
     public AlarmDTO(String userId, String alarmMsg, String readYn, LocalDateTime createdDate) {
         this.userId = userId;
         this.alarmMsg = alarmMsg;

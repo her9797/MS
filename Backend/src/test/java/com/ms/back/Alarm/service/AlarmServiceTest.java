@@ -43,7 +43,7 @@ class AlarmServiceTest {
     void insertAlarmTest() {
 
         // given
-        AlarmDTO alarmDTO = new AlarmDTO("user01", "새 메시지가 등록되었습니다.", "Y", LocalDateTime.now());
+        AlarmDTO alarmDTO = new AlarmDTO("user01", "새 메시지가 등록되었습니다.", "N", LocalDateTime.now());
 
         // when
         Map<String, Object> result = new HashMap<>();
@@ -62,6 +62,24 @@ class AlarmServiceTest {
         Assertions.assertEquals(result.get("result"), true);
 
     }
+
+    @Test
+    @DisplayName("알람 수정 테스트")
+    void modifyAlarmTest() {
+
+        // given
+        int alarmNo = 2;
+        String readYn = "Y";
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", alarmService.modifyAlarm(alarmNo, readYn));
+
+        // then
+        Assertions.assertNotNull(result);
+
+    }
+
 
 
 }

@@ -55,4 +55,15 @@ public class AlarmController {
         return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", alarmService.insertAlarm(alarmDTO)));
     }
 
+    /** 알람 읽음 처리 수정 */
+    @PutMapping("/alarms/{alarmNo}")
+    public ResponseEntity<ResponseMessage> modifyAlarm(@PathVariable("alarmNo") int alarmNo,
+                                                       @RequestBody String readYn) {
+
+        readYn = "Y";
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", alarmService.modifyAlarm(alarmNo, readYn)));
+
+    }
+
 }

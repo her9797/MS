@@ -74,6 +74,7 @@ public class CmtService {
 
     }
 
+    /** 댓글 삭제 */
     public Map<String, Object> deleteCmt(int cmtNo) {
 
         Map<String, Object> result = new HashMap<>();
@@ -90,6 +91,7 @@ public class CmtService {
 
     }
 
+    /** 댓글 목록 조회 */
     public Page<Comment> selectCmtLists(int page, int size) {
 
         // PageRequest 객체로 쉽게 페이지 가져올 수 있음
