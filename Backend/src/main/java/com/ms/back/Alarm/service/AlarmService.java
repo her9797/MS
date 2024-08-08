@@ -3,7 +3,10 @@ package com.ms.back.Alarm.service;
 import com.ms.back.Alarm.dto.AlarmDTO;
 import com.ms.back.Alarm.entity.Alarm;
 import com.ms.back.Alarm.repository.AlarmRepository;
+import com.ms.back.Comment.dto.CmtDTO;
 import com.ms.back.Comment.entity.Comment;
+import com.ms.back.Notice.dto.NoticeDTO;
+import com.ms.back.Notice.entity.Notice;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +53,27 @@ public class AlarmService {
         }
         return result;
 
+    }
+
+    public Map<String, Object> modifyAlarm(int alarmNo, String readYn) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        Alarm alarmEntity = alarmRepository.findByAlarmNo(alarmNo);
+
+        if (alarmEntity != null) {
+
+            AlarmDTO alarm = modelMapper.map(alarmEntity, AlarmDTO.class);
+
+            alarm.setReadYn(readYn);
+
+            Alarm updateAlarm = modelMapper.map(alarm, Alarm.class);
+            alarmRepository.save(updateAlarm);
+
+            result.put("result", true);
+        } else {
+            result.put("result", false);
+        }
+        return result;
     }
 }

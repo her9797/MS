@@ -2,7 +2,9 @@ package com.ms.back.Alarm.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms.back.Alarm.dto.AlarmDTO;
+import com.ms.back.Alarm.entity.Alarm;
 import com.ms.back.Comment.dto.CmtDTO;
+import com.ms.back.Notice.dto.NoticeDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -76,5 +79,28 @@ class AlarmControllerTest {
 
     }
 
+    @Test
+    @DisplayName("알람 수정 테스트")
+    void modifyAlarmTest() throws Exception {
+
+        // given
+        int alarmNo = 3;
+        String readYn = "Y";
+
+
+        // when
+        MvcResult result = mockMvc.perform(put("/alarms/{alarmNo}", alarmNo)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(readYn))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.httpStatusCode").value(200))
+                .andExpect(jsonPath("$.message").value("수정 성공"))
+                .andExpect(jsonPath("$.results").exists())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("Content: " + content);
+    }
 
 }
