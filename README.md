@@ -35,6 +35,7 @@
 
   - Notice
   - Comment
+  - Alarm
 ```
 
 
