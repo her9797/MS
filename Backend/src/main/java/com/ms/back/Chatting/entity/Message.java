@@ -1,4 +1,4 @@
-package com.ms.back.Room.entity;
+package com.ms.back.Chatting.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,6 +14,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "msg_id")
     private int msgId;
+
+    @Column(name = "room_id")
+    private int roomId;
 
     @Column(name = "sender_id")
     private String userId;

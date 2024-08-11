@@ -1,4 +1,4 @@
-package com.ms.back.Room.dto;
+package com.ms.back.Chatting.dto;
 
 import lombok.*;
 

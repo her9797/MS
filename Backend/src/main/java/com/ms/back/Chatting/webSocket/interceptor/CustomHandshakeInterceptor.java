@@ -1,4 +1,4 @@
-package com.ms.back.Room.webSocket.interceptor;
+package com.ms.back.Chatting.webSocket.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

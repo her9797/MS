@@ -1,7 +1,7 @@
-package com.ms.back.Room.webSocket.config;
+package com.ms.back.Chatting.webSocket.config;
 
-import com.ms.back.Room.webSocket.handler.SocketHandler;
-import com.ms.back.Room.webSocket.interceptor.CustomHandshakeInterceptor;
+import com.ms.back.Chatting.webSocket.handler.SocketHandler;
+import com.ms.back.Chatting.webSocket.interceptor.CustomHandshakeInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;

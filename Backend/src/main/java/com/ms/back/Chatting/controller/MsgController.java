@@ -1,7 +1,7 @@
-package com.ms.back.Room.controller;
+package com.ms.back.Chatting.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RoomController {
+public class MsgController {
 }
