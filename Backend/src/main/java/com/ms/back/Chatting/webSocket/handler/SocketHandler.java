@@ -1,4 +1,4 @@
-package com.ms.back.Room.webSocket.handler;
+package com.ms.back.Chatting.webSocket.handler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,5 @@
-package com.ms.back.Room.entity;
+package com.ms.back.Chatting.entity;
 
-import com.ms.back.User.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -14,6 +13,7 @@ public class Room {
     private int roomId;
 
     @Column(name = "group_status")
+    @Enumerated(EnumType.STRING)    // 문자열로 저장
     private GroupStatus groupStatus;
 
     protected Room() {}

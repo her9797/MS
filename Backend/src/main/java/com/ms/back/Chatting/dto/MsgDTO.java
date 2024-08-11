@@ -1,4 +1,4 @@
-package com.ms.back.Room.dto;
+package com.ms.back.Chatting.dto;
 
 import lombok.*;
 
@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 public class MsgDTO {
 
     private int msgId;
+
+    private int roomId;
 
     private String userId;
 

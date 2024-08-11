@@ -1,4 +1,4 @@
-package com.ms.back.Room.entity;
+package com.ms.back.Chatting.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
