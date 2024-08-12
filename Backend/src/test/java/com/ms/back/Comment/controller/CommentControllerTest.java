@@ -79,7 +79,7 @@ class CommentControllerTest {
 
     @Test
     @DisplayName("댓글 수정 테스트")
-    void modifyComment() throws Exception {
+    void modifyCmtTest() throws Exception {
 
         // given
         int commentNo = 1;

@@ -1,9 +1,9 @@
 package com.ms.back.Chatting.service;
 
-import com.ms.back.Chatting.dto.RoomDTO;
+import com.ms.back.Chatting.dto.JoinedUserDTO;
+import com.ms.back.Chatting.entity.JoinedUser;
 import com.ms.back.Chatting.entity.Room;
-import com.ms.back.Chatting.repository.RoomRepository;
-import com.ms.back.Notice.entity.Notice;
+import com.ms.back.Chatting.repository.JoinedUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,27 +14,27 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class RoomService {
+public class JoinedUserService {
 
-    private final RoomRepository roomRepository;
+    private final JoinedUserRepository joinedUserRepository;
 
     private final ModelMapper modelMapper;
 
+
     @Autowired
-    public RoomService(RoomRepository roomRepository, ModelMapper modelMapper) {
-        this.roomRepository = roomRepository;
+    public JoinedUserService(JoinedUserRepository joinedUserRepository, ModelMapper modelMapper) {
+        this.joinedUserRepository = joinedUserRepository;
         this.modelMapper = modelMapper;
     }
 
-    /** 방 생성 */
-    public Map<String, Object> insertRoom(RoomDTO roomDTO) {
+    /** 방에 해당하는 유저 등록 */
+    public Map<String, Object> insertJoinedUser(JoinedUserDTO joinedUserDTO) {
 
-        // 방이 생성될 때, JoinedUser 함께 생성되어야함
         Map<String, Object> result = new HashMap<>();
 
         try {
-            Room roomEntity = modelMapper.map(roomDTO, Room.class);
-            roomRepository.save(roomEntity);
+            JoinedUser userEntity = modelMapper.map(joinedUserDTO, JoinedUser.class);
+            joinedUserRepository.save(userEntity);
 
             result.put("result", true);
         } catch (Exception e) {

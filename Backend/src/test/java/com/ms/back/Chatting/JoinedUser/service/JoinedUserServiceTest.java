@@ -1,9 +1,10 @@
-package com.ms.back.Chatting.Room.service;
+package com.ms.back.Chatting.JoinedUser.service;
 
-import com.ms.back.Alarm.dto.AlarmDTO;
+
+import com.ms.back.Chatting.dto.JoinedUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.GroupStatus;
-import com.ms.back.Chatting.service.RoomService;
+import com.ms.back.Chatting.service.JoinedUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,27 +16,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
-public class RoomServiceTest {
+public class JoinedUserServiceTest {
 
     @Autowired
-    private RoomService roomService;
+    private JoinedUserService joinedUserService;
 
     @Test
-    @DisplayName("방 생성 테스트")
-    void insertRoomTest() {
+    @DisplayName("방 생성 시, 해당 방 회원 목록 등록 테스트")
+    void insertJoinedUserTest() {
 
         // given
-        RoomDTO roomDTO = new RoomDTO(GroupStatus.ACTIVE);
+        JoinedUserDTO joinedUserDTO = new JoinedUserDTO(1, "user01", "Y", LocalDateTime.now());
 
         // when
         Map<String, Object> result = new HashMap<>();
 
         try {
-            roomService.insertRoom(roomDTO);
+            joinedUserService.insertJoinedUser(joinedUserDTO);
             result.put("result", true);
-            System.out.println("roomDTO : " + roomDTO);
+            System.out.println("joinedUserDTO : " + joinedUserDTO);
         } catch (Exception e) {
-            roomService.insertRoom(roomDTO);
+            joinedUserService.insertJoinedUser(joinedUserDTO);
             result.put("result", false);
         }
 
@@ -44,7 +45,6 @@ public class RoomServiceTest {
         Assertions.assertEquals(result.get("result"), true);
 
     }
-
 
 
 }
