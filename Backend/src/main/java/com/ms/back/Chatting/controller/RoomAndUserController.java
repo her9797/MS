@@ -25,7 +25,7 @@ public class RoomAndUserController {
     @PostMapping("/roomAndUser")
     public ResponseEntity<ResponseMessage> createRoomAndUser(@RequestBody RoomAndUserDTO roomAndUserDTO) {
 
-        // DTO 두개를 하나의 DTO로 묶어 작업
+        // DTO 두개를 하나의 DTO로 묶어 작업 TODO:: 이렇게 해도 되는지 ? 체크 필요
         return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", roomAndUserService.createRoomAndUser(roomAndUserDTO.getRoomDTO(), roomAndUserDTO.getJoinedUserDTO())));
     }
 
