@@ -23,7 +23,7 @@ public class JoinedUserController {
     @PostMapping("/joinedUser")
     public ResponseEntity<ResponseMessage> insertJoinedUser(@RequestBody JoinedUserDTO joinedUserDTO) {
 
-        // DTO 두개를 하나의 DTO로 묶어 작업
+
         return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", joinedUserService.insertJoinedUser(joinedUserDTO)));
     }
 
