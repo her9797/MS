@@ -1,8 +1,10 @@
-package com.ms.back.Chatting.Room.service;
+package com.ms.back.Chatting.RoomAndUser.service;
 
-import com.ms.back.Alarm.dto.AlarmDTO;
+import com.ms.back.Chatting.dto.JoinedUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.GroupStatus;
+import com.ms.back.Chatting.service.JoinedUserService;
+import com.ms.back.Chatting.service.RoomAndUserService;
 import com.ms.back.Chatting.service.RoomService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -15,27 +17,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
-public class RoomServiceTest {
+public class RoomAndUserServiceTest {
 
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private RoomAndUserService roomAndUserService;
+
     @Test
-    @DisplayName("방 생성 테스트")
-    void insertRoomTest() {
+    @DisplayName("방과 유저 동시 생성 테스트")
+    void insertRoomWithUserTest() {
 
         // given
         RoomDTO roomDTO = new RoomDTO(GroupStatus.ACTIVE);
+        JoinedUserDTO joinedUserDTO = new JoinedUserDTO(1, "user01", "Y", LocalDateTime.now());
+
 
         // when
         Map<String, Object> result = new HashMap<>();
 
         try {
-            roomService.insertRoom(roomDTO);
+            roomAndUserService.createRoomAndUser(roomDTO, joinedUserDTO);
             result.put("result", true);
             System.out.println("roomDTO : " + roomDTO);
         } catch (Exception e) {
-            roomService.insertRoom(roomDTO);
+            roomAndUserService.createRoomAndUser(roomDTO, joinedUserDTO);
             result.put("result", false);
         }
 
