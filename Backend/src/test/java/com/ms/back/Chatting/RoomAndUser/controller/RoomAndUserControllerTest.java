@@ -1,7 +1,8 @@
-package com.ms.back.Chatting.JoinedUser.controller;
+package com.ms.back.Chatting.RoomAndUser.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms.back.Chatting.dto.JoinedUserDTO;
+import com.ms.back.Chatting.dto.RoomAndUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.GroupStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class JoinedUserControllerTest {
+public class RoomAndUserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,16 +31,19 @@ public class JoinedUserControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("방에 해당하는 유저 등록 테스트")
-    void insertJoinedUserTests() throws Exception {
+    @DisplayName("방과 유저 동시 등록 테스트")
+    void insertRoomAndUserTests() throws Exception {
 
         // given
-        JoinedUserDTO joinedUserDTO = new JoinedUserDTO(1, "user01", "Y", LocalDateTime.now());
+        RoomDTO roomDTO = new RoomDTO(GroupStatus.ACTIVE);
+        JoinedUserDTO joinedUserDTO = new JoinedUserDTO("user01", "Y", LocalDateTime.now());
+
+        RoomAndUserDTO roomAndUserDTO = new RoomAndUserDTO(roomDTO, joinedUserDTO);
 
         // when
-        MvcResult result = mockMvc.perform(post("/joinedUser")
+        MvcResult result = mockMvc.perform(post("/roomAndUser")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(joinedUserDTO)))
+                        .content(objectMapper.writeValueAsString(roomAndUserDTO)))
                 // then
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("등록 성공"))
@@ -50,6 +54,5 @@ public class JoinedUserControllerTest {
         System.out.println("response content : " + content);
 
     }
-
 
 }

@@ -27,4 +27,10 @@ public class JoinedUserDTO {
         this.joinedStatus = joinedStatus;
         this.createdAt = createdAt;
     }
+
+    public JoinedUserDTO(String userId, String joinedStatus, LocalDateTime createdAt) {
+        this.userId = userId;
+        this.joinedStatus = joinedStatus;
+        this.createdAt = createdAt;
+    }
 }
