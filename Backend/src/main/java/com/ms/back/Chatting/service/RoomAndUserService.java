@@ -34,6 +34,7 @@ public class RoomAndUserService {
     /** 방과 유저 함께 등록 */
     @Transactional
     public Map<String, Object> createRoomAndUser(RoomDTO roomDTO, JoinedUserDTO joinedUserDTO) {
+
         Map<String, Object> response = new HashMap<>();
 
         try {
@@ -59,4 +60,25 @@ public class RoomAndUserService {
         return response;
     }
 
+    /** 방 / 유저 동시 조회 */
+    public Map<String, Object> selectRoomAndUser(int roomId) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+
+            roomRepository.findById(roomId);
+            joinedUserRepository.findById(roomId);
+
+            // 성공 응답 반환
+            response.put("result", true);
+
+        } catch (Exception e) {
+            // 예외 처리
+            response.put("result", false);
+        }
+
+        return response;
+
+    }
 }

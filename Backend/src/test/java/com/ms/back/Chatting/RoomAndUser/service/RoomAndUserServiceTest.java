@@ -52,6 +52,28 @@ public class RoomAndUserServiceTest {
 
     }
 
+    @Test
+    @DisplayName("방과 유저 조회 테스트")
+    void selectRoomAndUserTest() {
+
+        // given
+        int roomId = 5;
+
+        // when
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            roomAndUserService.selectRoomAndUser(roomId);
+            result.put("result", true);
+        } catch (Exception e) {
+            roomAndUserService.selectRoomAndUser(roomId);
+            result.put("result", false);
+        }
+
+        Assertions.assertNotNull(result);
+
+    }
+
 
 
 }

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -52,6 +53,28 @@ public class RoomAndUserControllerTest {
 
         String content = result.getResponse().getContentAsString();
         System.out.println("response content : " + content);
+
+    }
+
+    @Test
+    @DisplayName("방 / 유저 조회 테스트")
+    void selectRoomAndUserListTest() throws Exception {
+
+        // given
+        int roomId = 5;
+
+        // when
+        MvcResult result = mockMvc.perform(get("/roomAndUser/{roomId}", roomId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.httpStatusCode").value(200))
+                .andExpect(jsonPath("$.message").value("조회 성공"))
+                .andExpect(jsonPath("$.results").exists())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        System.out.println("Content: " + content);
 
     }
 
