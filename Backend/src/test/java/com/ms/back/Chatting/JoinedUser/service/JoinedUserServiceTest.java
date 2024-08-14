@@ -4,7 +4,9 @@ package com.ms.back.Chatting.JoinedUser.service;
 import com.ms.back.Chatting.dto.JoinedUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.GroupStatus;
+import com.ms.back.Chatting.entity.Room;
 import com.ms.back.Chatting.service.JoinedUserService;
+import com.ms.back.Chatting.service.RoomAndUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -21,29 +24,21 @@ public class JoinedUserServiceTest {
     @Autowired
     private JoinedUserService joinedUserService;
 
+    @Autowired
+    private RoomAndUserService roomAndUserService;
+
     @Test
-    @DisplayName("방 생성 시, 해당 방 회원 목록 등록 테스트")
-    void insertJoinedUserTest() {
+    @DisplayName("방 / 유저 조인 조회 테스트")
+    void selectRoomAndUserByRoomIdTest() {
 
         // given
-        JoinedUserDTO joinedUserDTO = new JoinedUserDTO(1, "user01", "Y", LocalDateTime.now());
+        String userId = "user01";
 
         // when
-        Map<String, Object> result = new HashMap<>();
-
-        try {
-            joinedUserService.insertJoinedUser(joinedUserDTO);
-            result.put("result", true);
-            System.out.println("joinedUserDTO : " + joinedUserDTO);
-        } catch (Exception e) {
-            joinedUserService.insertJoinedUser(joinedUserDTO);
-            result.put("result", false);
-        }
+        List<Room> joinedUser = roomAndUserService.selectRoomsByUserId(userId);
 
         // then
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(result.get("result"), true);
-
+        Assertions.assertNotNull(joinedUser);
     }
 
 
