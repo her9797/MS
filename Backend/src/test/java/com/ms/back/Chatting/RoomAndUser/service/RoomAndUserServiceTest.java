@@ -1,8 +1,12 @@
 package com.ms.back.Chatting.RoomAndUser.service;
 
+import com.ms.back.Alarm.entity.Alarm;
 import com.ms.back.Chatting.dto.JoinedUserDTO;
+import com.ms.back.Chatting.dto.RoomAndUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.GroupStatus;
+import com.ms.back.Chatting.entity.JoinedUser;
+import com.ms.back.Chatting.entity.Room;
 import com.ms.back.Chatting.service.JoinedUserService;
 import com.ms.back.Chatting.service.RoomAndUserService;
 import com.ms.back.Chatting.service.RoomService;
@@ -14,7 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @SpringBootTest
 public class RoomAndUserServiceTest {
@@ -31,18 +37,19 @@ public class RoomAndUserServiceTest {
 
         // given
         RoomDTO roomDTO = new RoomDTO(GroupStatus.ACTIVE);
-        JoinedUserDTO joinedUserDTO = new JoinedUserDTO(1, "user01", "Y", LocalDateTime.now());
+        JoinedUserDTO joinedUserDTO = new JoinedUserDTO( "user01", "Y", LocalDateTime.now());
 
+        RoomAndUserDTO roomAndUserDTO = new RoomAndUserDTO(roomDTO, joinedUserDTO);
 
         // when
         Map<String, Object> result = new HashMap<>();
 
         try {
-            roomAndUserService.createRoomAndUser(roomDTO, joinedUserDTO);
+            roomAndUserService.createRoomAndUser(roomAndUserDTO);
             result.put("result", true);
             System.out.println("roomDTO : " + roomDTO);
         } catch (Exception e) {
-            roomAndUserService.createRoomAndUser(roomDTO, joinedUserDTO);
+            roomAndUserService.createRoomAndUser(roomAndUserDTO);
             result.put("result", false);
         }
 
@@ -52,27 +59,6 @@ public class RoomAndUserServiceTest {
 
     }
 
-    @Test
-    @DisplayName("방과 유저 조회 테스트")
-    void selectRoomAndUserTest() {
-
-        // given
-        int roomId = 5;
-
-        // when
-        Map<String, Object> result = new HashMap<>();
-
-        try {
-            roomAndUserService.selectRoomAndUser(roomId);
-            result.put("result", true);
-        } catch (Exception e) {
-            roomAndUserService.selectRoomAndUser(roomId);
-            result.put("result", false);
-        }
-
-        Assertions.assertNotNull(result);
-
-    }
 
 
 

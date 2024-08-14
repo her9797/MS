@@ -1,7 +1,10 @@
 package com.ms.back.Chatting.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,6 +18,10 @@ public class Room {
     @Column(name = "group_status")
     @Enumerated(EnumType.STRING)    // 문자열로 저장
     private GroupStatus groupStatus;
+
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    @JsonIgnore // 직렬화 시 무시
+    private List<JoinedUser> joinedUser;
 
     protected Room() {}
 }

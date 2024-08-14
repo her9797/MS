@@ -57,7 +57,7 @@ public class RoomAndUserControllerTest {
     }
 
     @Test
-    @DisplayName("방 / 유저 조회 테스트")
+    @DisplayName("방 / 유저 상세 조회 테스트")
     void selectRoomAndUserListTest() throws Exception {
 
         // given

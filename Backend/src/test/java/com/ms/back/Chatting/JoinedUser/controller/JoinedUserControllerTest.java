@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,24 +31,25 @@ public class JoinedUserControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("방에 해당하는 유저 등록 테스트")
-    void insertJoinedUserTests() throws Exception {
+    @DisplayName("userId로 식별한 방/유저 조인 조회 테스트")
+    void selectRoomAndUserByRoomIdTest() throws Exception {
 
         // given
-        JoinedUserDTO joinedUserDTO = new JoinedUserDTO(1, "user01", "Y", LocalDateTime.now());
+        String userId = "user01";
 
         // when
-        MvcResult result = mockMvc.perform(post("/joinedUser")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(joinedUserDTO)))
-                // then
+        MvcResult result = mockMvc.perform(get("/joinedUser/{userId}", userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+
+        // then
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("등록 성공"))
+                .andExpect(jsonPath("$.httpStatusCode").value(200))
+                .andExpect(jsonPath("$.message").value("조회 성공"))
                 .andExpect(jsonPath("$.results").exists())
                 .andReturn();
 
         String content = result.getResponse().getContentAsString();
-        System.out.println("response content : " + content);
+        System.out.println("Response Content: " + content);
 
     }
 

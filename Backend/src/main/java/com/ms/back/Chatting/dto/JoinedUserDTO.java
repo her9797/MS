@@ -13,7 +13,7 @@ public class JoinedUserDTO {
 
     private int joinedCode;
 
-    private int roodId;
+    private RoomDTO roodId;
 
     private String userId;
 
@@ -21,7 +21,7 @@ public class JoinedUserDTO {
 
     private LocalDateTime createdAt;
 
-    public JoinedUserDTO(int roodId, String userId, String joinedStatus, LocalDateTime createdAt) {
+    public JoinedUserDTO(RoomDTO roodId, String userId, String joinedStatus, LocalDateTime createdAt) {
         this.roodId = roodId;
         this.userId = userId;
         this.joinedStatus = joinedStatus;
