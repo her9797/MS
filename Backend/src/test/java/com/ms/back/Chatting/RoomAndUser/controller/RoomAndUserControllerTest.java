@@ -56,26 +56,5 @@ public class RoomAndUserControllerTest {
 
     }
 
-    @Test
-    @DisplayName("방 / 유저 상세 조회 테스트")
-    void selectRoomAndUserListTest() throws Exception {
-
-        // given
-        int roomId = 5;
-
-        // when
-        MvcResult result = mockMvc.perform(get("/roomAndUser/{roomId}", roomId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                // then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.httpStatusCode").value(200))
-                .andExpect(jsonPath("$.message").value("조회 성공"))
-                .andExpect(jsonPath("$.results").exists())
-                .andReturn();
-
-        String content = result.getResponse().getContentAsString();
-        System.out.println("Content: " + content);
-
-    }
 
 }

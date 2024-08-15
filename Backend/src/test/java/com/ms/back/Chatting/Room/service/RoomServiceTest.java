@@ -1,8 +1,10 @@
 package com.ms.back.Chatting.Room.service;
 
 import com.ms.back.Alarm.dto.AlarmDTO;
+import com.ms.back.Chatting.dto.RoomAndUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.GroupStatus;
+import com.ms.back.Chatting.entity.Room;
 import com.ms.back.Chatting.service.RoomService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -21,28 +24,17 @@ public class RoomServiceTest {
     private RoomService roomService;
 
     @Test
-    @DisplayName("방 생성 테스트")
-    void insertRoomTest() {
+    @DisplayName("방 / 유저 조인 상세 조회 테스트")
+    void selectRoomDetailTest() {
 
         // given
-        RoomDTO roomDTO = new RoomDTO(GroupStatus.ACTIVE);
+        int roomId = 1;
 
         // when
-        Map<String, Object> result = new HashMap<>();
-
-        try {
-            roomService.insertRoom(roomDTO);
-            result.put("result", true);
-            System.out.println("roomDTO : " + roomDTO);
-        } catch (Exception e) {
-            roomService.insertRoom(roomDTO);
-            result.put("result", false);
-        }
+        RoomAndUserDTO roomDetail = roomService.selectRoomDetail(roomId);
 
         // then
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(result.get("result"), true);
-
+        Assertions.assertNotNull(roomDetail);
     }
 
 

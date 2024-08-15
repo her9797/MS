@@ -2,12 +2,11 @@ package com.ms.back.Chatting.service;
 
 import com.ms.back.Chatting.dto.JoinedUserDTO;
 import com.ms.back.Chatting.dto.RoomAndUserDTO;
-import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.JoinedUser;
 import com.ms.back.Chatting.entity.Room;
 import com.ms.back.Chatting.repository.JoinedUser.JoinedUserRepository;
 import com.ms.back.Chatting.repository.JoinedUser.JoinedUserRepositoryCustom;
-import com.ms.back.Chatting.repository.RoomRepository;
+import com.ms.back.Chatting.repository.Room.RoomRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class RoomAndUserService {

@@ -1,18 +1,21 @@
 package com.ms.back.Chatting.controller;
 
 import com.ms.back.Alarm.dto.AlarmDTO;
+import com.ms.back.Chatting.dto.RoomAndUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.service.RoomService;
 import com.ms.back.Common.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/rooms")
 public class RoomController {
 
     private final RoomService roomService;
@@ -22,10 +25,18 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @PostMapping("/rooms")
-    public ResponseEntity<ResponseMessage> insertRoom(@RequestBody RoomDTO roomDTO) {
+    @GetMapping("/{roomId}")
+    public ResponseEntity<ResponseMessage> getRoomDetail(@PathVariable("roomId") int roomId) {
 
-        return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", roomService.insertRoom(roomDTO)));
+        RoomAndUserDTO roomDetail = roomService.selectRoomDetail(roomId);
+        Map<String, Object> result = new HashMap<>();
+        result.put("roomDetail", roomDetail);
+
+        /** 조건문 / 예외 등 필요 */
+        ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", result);
+
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
+
 
 }
