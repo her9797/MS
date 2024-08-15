@@ -1,9 +1,10 @@
 package com.ms.back.Chatting.service;
 
+import com.ms.back.Chatting.dto.RoomAndUserDTO;
 import com.ms.back.Chatting.dto.RoomDTO;
 import com.ms.back.Chatting.entity.Room;
-import com.ms.back.Chatting.repository.RoomRepository;
-import com.ms.back.Notice.entity.Notice;
+import com.ms.back.Chatting.repository.Room.RoomRepository;
+import com.ms.back.Chatting.repository.Room.RoomRepositoryCustom;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,15 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
 
+    private final RoomRepositoryCustom roomRepositoryCustom;
+
     private final ModelMapper modelMapper;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository, ModelMapper modelMapper) {
+    public RoomService(RoomRepository roomRepository, ModelMapper modelMapper, RoomRepositoryCustom roomRepositoryCustom) {
         this.roomRepository = roomRepository;
         this.modelMapper = modelMapper;
+        this.roomRepositoryCustom = roomRepositoryCustom;
     }
 
     /** 방 생성 */
@@ -44,5 +48,10 @@ public class RoomService {
         }
         return result;
 
+    }
+
+    public RoomAndUserDTO selectRoomDetail(int roomId) {
+        return roomRepositoryCustom.findRoomDetailById(roomId)
+                .orElseThrow(() -> new RuntimeException("Room not found with id " + roomId));
     }
 }
