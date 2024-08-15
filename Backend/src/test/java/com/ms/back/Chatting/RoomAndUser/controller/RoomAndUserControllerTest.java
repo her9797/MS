@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -37,9 +39,13 @@ public class RoomAndUserControllerTest {
 
         // given
         RoomDTO roomDTO = new RoomDTO(GroupStatus.ACTIVE);
+
+        List<JoinedUserDTO> joinedUserDTOList = new ArrayList<>();
         JoinedUserDTO joinedUserDTO = new JoinedUserDTO("user01", "Y", LocalDateTime.now());
 
-        RoomAndUserDTO roomAndUserDTO = new RoomAndUserDTO(roomDTO, joinedUserDTO);
+        joinedUserDTOList.add(joinedUserDTO);
+
+        RoomAndUserDTO roomAndUserDTO = new RoomAndUserDTO(roomDTO, joinedUserDTOList);
 
         // when
         MvcResult result = mockMvc.perform(post("/roomAndUser")

@@ -2,6 +2,8 @@ package com.ms.back.Chatting.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +15,8 @@ public class RoomAndUserDTO {
 
     private RoomDTO roomDTO;
 
-    private JoinedUserDTO joinedUserDTO;
+
+    private List<JoinedUserDTO> joinedUserDTO;    // 한명이 아니기 때문에 List
+
 
 }

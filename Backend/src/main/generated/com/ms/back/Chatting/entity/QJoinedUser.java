@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,8 +17,6 @@ public class QJoinedUser extends EntityPathBase<JoinedUser> {
 
     private static final long serialVersionUID = -554108701L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QJoinedUser joinedUser = new QJoinedUser("joinedUser");
 
     public final DateTimePath<java.time.LocalDateTime> createdAt = createDateTime("createdAt", java.time.LocalDateTime.class);
@@ -28,29 +25,20 @@ public class QJoinedUser extends EntityPathBase<JoinedUser> {
 
     public final StringPath joinedStatus = createString("joinedStatus");
 
-    public final QRoom room;
+    public final NumberPath<Integer> roomId = createNumber("roomId", Integer.class);
 
     public final StringPath userId = createString("userId");
 
     public QJoinedUser(String variable) {
-        this(JoinedUser.class, forVariable(variable), INITS);
+        super(JoinedUser.class, forVariable(variable));
     }
 
     public QJoinedUser(Path<? extends JoinedUser> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QJoinedUser(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QJoinedUser(PathMetadata metadata, PathInits inits) {
-        this(JoinedUser.class, metadata, inits);
-    }
-
-    public QJoinedUser(Class<? extends JoinedUser> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.room = inits.isInitialized("room") ? new QRoom(forProperty("room")) : null;
+        super(JoinedUser.class, metadata);
     }
 
 }

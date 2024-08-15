@@ -29,11 +29,11 @@ public class RoomController {
     public ResponseEntity<ResponseMessage> getRoomDetail(@PathVariable("roomId") int roomId) {
 
         RoomAndUserDTO roomDetail = roomService.selectRoomDetail(roomId);
-        Map<String, Object> result = new HashMap<>();
-        result.put("roomDetail", roomDetail);
+        Map<String, Object> response = new HashMap<>();
+        response.put("roomAndUser", roomDetail);
 
         /** 조건문 / 예외 등 필요 */
-        ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", result);
+        ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", response);
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
