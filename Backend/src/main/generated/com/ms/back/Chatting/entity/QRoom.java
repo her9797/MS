@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -21,8 +20,6 @@ public class QRoom extends EntityPathBase<Room> {
     public static final QRoom room = new QRoom("room");
 
     public final EnumPath<GroupStatus> groupStatus = createEnum("groupStatus", GroupStatus.class);
-
-    public final ListPath<JoinedUser, QJoinedUser> joinedUser = this.<JoinedUser, QJoinedUser>createList("joinedUser", JoinedUser.class, QJoinedUser.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> roomId = createNumber("roomId", Integer.class);
 

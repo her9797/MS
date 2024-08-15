@@ -16,9 +16,6 @@ public class JoinedUser {
     @Column(name = "joined_code")
     private int joinedCode;
 
-//    @Column(name = "rood_id")
-//    private int roodId;
-
     @Column(name = "user_id")
     private String userId;
 
@@ -28,17 +25,27 @@ public class JoinedUser {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne
     @JoinColumn(name = "room_id") // Room 엔티티와의 연관 관계
     @JsonIgnore // 직렬화 시 무시
-    private Room room;
+    private int roomId;
+
+    protected JoinedUser() {}
 
     @Builder
-    public JoinedUser(Room room, String userId, String joinedStatus, LocalDateTime createdAt) {
-        this.room = room;
+    public JoinedUser(int roomId, String userId, String joinedStatus, LocalDateTime createdAt) {
+        this.roomId = roomId;
         this.userId = userId;
         this.joinedStatus = joinedStatus;
         this.createdAt = createdAt;
     }
-    protected JoinedUser() {}
+
+    @Builder
+    public JoinedUser(int joinedCode, String userId, String joinedStatus, LocalDateTime createdAt, int roomId) {
+        this.joinedCode = joinedCode;
+        this.userId = userId;
+        this.joinedStatus = joinedStatus;
+        this.createdAt = createdAt;
+        this.roomId = roomId;
+    }
+
 }

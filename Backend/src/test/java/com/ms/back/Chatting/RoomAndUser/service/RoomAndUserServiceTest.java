@@ -10,6 +10,7 @@ import com.ms.back.Chatting.entity.Room;
 import com.ms.back.Chatting.service.JoinedUserService;
 import com.ms.back.Chatting.service.RoomAndUserService;
 import com.ms.back.Chatting.service.RoomService;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,10 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @SpringBootTest
 public class RoomAndUserServiceTest {
@@ -37,9 +35,16 @@ public class RoomAndUserServiceTest {
 
         // given
         RoomDTO roomDTO = new RoomDTO(GroupStatus.ACTIVE);
-        JoinedUserDTO joinedUserDTO = new JoinedUserDTO( "user01", "Y", LocalDateTime.now());
 
-        RoomAndUserDTO roomAndUserDTO = new RoomAndUserDTO(roomDTO, joinedUserDTO);
+        List<JoinedUserDTO> joinedUserDTOList = new ArrayList<>();
+        JoinedUserDTO joinedUserDTO = new JoinedUserDTO("user01", "Y", LocalDateTime.now());
+        JoinedUserDTO joinedUserDTO2 = new JoinedUserDTO("user02", "Y", LocalDateTime.now());
+
+        joinedUserDTOList.add(joinedUserDTO);
+        joinedUserDTOList.add(joinedUserDTO2);
+
+
+        RoomAndUserDTO roomAndUserDTO = new RoomAndUserDTO(roomDTO, joinedUserDTOList);
 
         // when
         Map<String, Object> result = new HashMap<>();

@@ -27,9 +27,6 @@ public class JoinedUserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Test
     @DisplayName("userId로 식별한 방/유저 조인 조회 테스트")
     void selectRoomAndUserByRoomIdTest() throws Exception {

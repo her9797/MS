@@ -9,6 +9,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -21,32 +22,39 @@ public class RoomRepositoryImpl implements RoomRepositoryCustom {
         QRoom room = QRoom.room;
         QJoinedUser user = QJoinedUser.joinedUser;
 
-        RoomAndUserDTO roomDetailDto = queryFactory
+        // RoomDTO 조회
+        RoomDTO roomDTO = queryFactory
                 .select(Projections.constructor(
-                        RoomAndUserDTO.class,
-                        Projections.constructor(
-                                RoomDTO.class,
-                                room.roomId,
-                                room.groupStatus
-                        ),
-                        Projections.constructor(
-                                JoinedUserDTO.class,
-                                user.joinedCode,
-                                Projections.constructor(
-                                        RoomDTO.class,
-                                        room.roomId,
-                                        room.groupStatus
-                                ),
-                                user.userId,
-                                user.joinedStatus,
-                                user.createdAt
-                        )
+                        RoomDTO.class,
+                        room.roomId,
+                        room.groupStatus
                 ))
                 .from(room)
-                .leftJoin(user).on(user.room.eq(room)) // `room`과 `joinedUser`를 연결
                 .where(room.roomId.eq(roomId))
                 .fetchOne();
 
-        return Optional.ofNullable(roomDetailDto);
+        System.out.println(roomDTO);
+
+        // JoinedUserDTO 목록 조회
+        List<JoinedUserDTO> joinedUserDTO = queryFactory
+                .select(Projections.constructor(
+                        JoinedUserDTO.class,
+                        user.joinedCode,
+                        user.roomId,
+                        user.userId,
+                        user.joinedStatus,
+                        user.createdAt
+                ))
+                .from(user)
+                .where(user.roomId.eq(roomId))
+                .fetch();
+
+        System.out.println(joinedUserDTO);
+
+
+        // RoomDTO와 JoinedUserDTO 목록을 RoomAndUserDTO로 묶어 반환
+        RoomAndUserDTO roomAndUserDTO = new RoomAndUserDTO(roomDTO, joinedUserDTO);
+
+        return Optional.ofNullable(roomAndUserDTO);
     }
 }
