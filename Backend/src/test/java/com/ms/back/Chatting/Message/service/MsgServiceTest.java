@@ -21,8 +21,8 @@ public class MsgServiceTest {
     private MsgService msgService;
 
     @Test
-    @DisplayName("알람 등록 테스트")
-    void insertAlarmTest() {
+    @DisplayName("메시지 등록 테스트")
+    void insertMsgTest() {
 
         // given
         MsgDTO msgDTO = new MsgDTO(1, "user01", "심민섭", "안녕하세요", LocalDateTime.now());
@@ -42,6 +42,12 @@ public class MsgServiceTest {
         // then
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result.get("result"), true);
+
+    }
+
+    @Test
+    @DisplayName("메시지 조회 테스트")
+    void selectMsgTest() {
 
     }
 
