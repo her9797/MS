@@ -2,16 +2,21 @@ package com.ms.back.Chatting.Message.service;
 
 import com.ms.back.Alarm.dto.AlarmDTO;
 import com.ms.back.Chatting.dto.MsgDTO;
+import com.ms.back.Chatting.entity.Message;
+import com.ms.back.Chatting.entity.Room;
 import com.ms.back.Chatting.service.MsgService;
+import com.ms.back.Comment.entity.Comment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -25,7 +30,7 @@ public class MsgServiceTest {
     void insertMsgTest() {
 
         // given
-        MsgDTO msgDTO = new MsgDTO(1, "user01", "심민섭", "안녕하세요", LocalDateTime.now());
+        MsgDTO msgDTO = new MsgDTO(1, "user02", "이인호", "ㅎㅇ", LocalDateTime.now());
 
         // when
         Map<String, Object> result = new HashMap<>();
@@ -48,6 +53,15 @@ public class MsgServiceTest {
     @Test
     @DisplayName("메시지 조회 테스트")
     void selectMsgTest() {
+
+        // given
+        int roomId = 1;
+
+        // when
+        List<Message> msgList = msgService.selectMsg(roomId);
+
+        // then
+        Assertions.assertNotNull(msgList);
 
     }
 
