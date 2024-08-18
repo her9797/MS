@@ -5,10 +5,7 @@
 - JPA
 - SPRING SECURITY JWT
 - Websocket
-- Open API
-  1. pay
-  2. login (QR)
-  3. 고민중
+- 소셜 Login
 ```
 ### FRONT 
 ```
