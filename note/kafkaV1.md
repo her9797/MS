@@ -1,7 +1,6 @@
 ### #1 Kafka
 ```
-Version : 3.8.0
-Scala 2.13  - kafka_2.13-3.8.0.tgz (asc, sha512)
+Version : 3.7.0 (스프링부트와 맞는지 체크 필요)
 ```
 
 ### TEST (WINDOW)
