@@ -37,6 +37,7 @@
   - Message
   - ROOM
   - JoinedUser
+  - Kafka (test)
 ```
 
 
