@@ -18,7 +18,7 @@ Kafka 테스트
 - cd C:\tool\kafka_2.13-3.8.0
 
 토픽 생성
-- .\bin\windows\kafka-topics.bat --create --topic test --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+- .\bin\windows\kafka-topics.bat --create --topic test1 --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 
 토픽 확인
 - .\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092 (확인)
