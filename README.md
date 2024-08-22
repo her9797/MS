@@ -39,5 +39,9 @@
   - JoinedUser
   - Kafka (test)
 ```
+### Plan
+```
+WebSocket & kafka (같이 써보기)
+```
 
 
