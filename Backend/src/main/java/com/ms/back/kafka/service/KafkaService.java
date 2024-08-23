@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
 
+/** kafka test */
 @Service
 @Slf4j
 public class KafkaService {
 
-    @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
+
+    @Autowired
+    public KafkaService(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public String createKafka() {
 

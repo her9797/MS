@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         // 웹소켓 cors 정책으로 인해, 허용 도메인을 지정
-        registry.addHandler(socketHandler, "/wss/chatting")
+        registry.addHandler(socketHandler, "/wss/messages")
                 .addInterceptors(new HttpSessionHandshakeInterceptor(), new CustomHandshakeInterceptor())
                 .setAllowedOrigins("*");
     }

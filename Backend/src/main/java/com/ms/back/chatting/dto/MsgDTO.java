@@ -23,6 +23,8 @@ public class MsgDTO {
 
     private LocalDateTime createdAt;
 
+    private String topic;
+
     public MsgDTO(int roomId, String userId, String userName, String msgContent, LocalDateTime createdAt) {
         this.roomId = roomId;
         this.userId = userId;
@@ -30,4 +32,5 @@ public class MsgDTO {
         this.msgContent = msgContent;
         this.createdAt = createdAt;
     }
+
 }
