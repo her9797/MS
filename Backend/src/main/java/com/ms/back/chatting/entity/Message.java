@@ -1,6 +1,7 @@
 package com.ms.back.chatting.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -31,4 +32,13 @@ public class Message {
     private LocalDateTime createdAt;
 
     protected Message() {}
+
+    @Builder
+    public Message(int roomId, String userId, String userName, String msgContent, LocalDateTime createdAt) {
+        this.roomId = roomId;
+        this.userId = userId;
+        this.userName = userName;
+        this.msgContent = msgContent;
+        this.createdAt = createdAt;
+    }
 }
