@@ -24,6 +24,7 @@
 - QueryDSL
 - MappedSuperclass
 - builder
+- Scheduling
 ```
 ### Development Methodology
 ```
