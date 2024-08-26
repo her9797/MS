@@ -3,7 +3,7 @@ import Card from "../components/common/Card";
 import SubTtitle from "../components/common/SubTitle";
 import '../styles/sans.css';
 
-const Main = () => {
+function Main() {
     return (
         <div class="container px-4 px-lg-5">
             <Preview/>
