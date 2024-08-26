@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Noto Sans Korean';
+  src: url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100..900&display=swap') format('woff2'),
+       url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100..900&display=swap') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
