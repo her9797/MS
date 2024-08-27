@@ -15,8 +15,8 @@ const NavBar = () => {
                         {/* <li class="nav-item"><a class="nav-link" href="#!">Introduce</a></li> */}
                         <li class="nav-item"><a class="nav-link" href="#!">Community</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">Notice</a></li>
-                        <Link to="/login" style={{textDecoration: 'none'}} ><a class="nav-link" >Login</a></Link>
-                        <Link to="/chat" style={{textDecoration: 'none'}} ><a class="nav-link" >Chat</a></Link>
+                        <Link to="/login" style={{textDecoration: 'none'}} ><a className="nav-link" >Login</a></Link>
+                        <Link to="/chat" style={{textDecoration: 'none'}} ><a className="nav-link" >Chat</a></Link>
                     </ul>
                 </div>
             </div>
