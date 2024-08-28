@@ -3,6 +3,7 @@ import Layout from "./layouts/Layout";
 import Main from "./products/Main";
 import Login from "./products/Login";
 import Chat from "./products/Chat";
+import Notice from "./products/Notice";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
           <Route path="/" element={<Main />} />
+          <Route path="notice" element={<Notice />} />
           <Route path="chat" element={<Chat />} />
         </Route>
       </Routes>

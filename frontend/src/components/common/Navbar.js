@@ -14,7 +14,7 @@ const NavBar = () => {
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         {/* <li class="nav-item"><a class="nav-link" href="#!">Introduce</a></li> */}
                         <li class="nav-item"><a class="nav-link" href="#!">Community</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Notice</a></li>
+                        <Link to="/notice" class="nav-item"><a class="nav-link" href="#!">Notice</a></Link>
                         <Link to="/login" style={{textDecoration: 'none'}} ><a className="nav-link" >Login</a></Link>
                         <Link to="/chat" style={{textDecoration: 'none'}} ><a className="nav-link" >Chat</a></Link>
                     </ul>
