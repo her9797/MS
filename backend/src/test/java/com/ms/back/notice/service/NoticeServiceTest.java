@@ -31,7 +31,7 @@ class NoticeServiceTest {
         String deleteYn =  "N";
 
         // when
-        Page<Notice> noticeList = noticeService.selectNoticeLists(page, size, deleteYn);
+        Page<Notice> noticeList = noticeService.selectNoticeLists(deleteYn,page, size);
 
         // then
         Assertions.assertNotNull(noticeList);
