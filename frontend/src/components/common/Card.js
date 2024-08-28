@@ -11,7 +11,8 @@ function Card() {
     useEffect(() => {
         const page = 1;
         const size = 10;
-        dispatch(callSelectNoticeAPI(page, size));
+        const deleteYn = "N";
+        dispatch(callSelectNoticeAPI(page, size, deleteYn));
     }, [dispatch]);
 
     const displayedNotices = notice.slice(0, 3); // 3개까지만 보이도록 제한

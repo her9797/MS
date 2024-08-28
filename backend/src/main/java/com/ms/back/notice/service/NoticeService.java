@@ -30,12 +30,12 @@ public class NoticeService {
     }
 
     /** 페이징 + 공지사항 목록 가져오기 */
-    public Page<Notice> selectNoticeLists(int page, int size) {
+    public Page<Notice> selectNoticeLists(String deleteYn, int page, int size) {
 
         // PageRequest 객체로 쉽게 페이지 가져올 수 있음
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        return noticeRepository.findAll(pageRequest);
+        return noticeRepository.findByDeleteYn(deleteYn, pageRequest);
     }
 
     public Optional<Notice> selectByNoticeId(int noticeNo) {

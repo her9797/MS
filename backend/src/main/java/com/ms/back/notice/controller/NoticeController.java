@@ -28,10 +28,11 @@ public class NoticeController {
     /** 공지사항 조회 */
     @GetMapping("/notices")
     public ResponseEntity<ResponseMessage> selectNoticeList (@RequestParam(value = "page", defaultValue = "1") int page,
-                                                             @RequestParam(value = "size", defaultValue = "10") int size) {
+                                                             @RequestParam(value = "size", defaultValue = "10") int size,
+                                                             @RequestParam(value = "deleteYn", defaultValue = "N") String deleteYn) {
 
 
-        Page<Notice> noticeListPaging = noticeService.selectNoticeLists(page - 1,size);
+        Page<Notice> noticeListPaging = noticeService.selectNoticeLists(deleteYn, page - 1,size);
 
         if (noticeListPaging.isEmpty()) {
             String errorMessage = "조회 데이터가 존재하지 않습니다";

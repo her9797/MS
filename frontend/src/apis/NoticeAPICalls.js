@@ -10,10 +10,10 @@ const headers = {
 };
 
 
-export const callSelectNoticeAPI = (page, size) => {
+export const callSelectNoticeAPI = (deleteYn,page, size) => {
     return async dispatch => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/notices?page=1&size=10`, { headers });
+            const response = await axios.get(`${API_BASE_URL}/notices?eleteYn=N&page=1&size=10`, { headers });
             dispatch({ type: GET_NOTICE, payload: response.data.results });
             return response.data.results;
         } catch (error) {
