@@ -18,8 +18,8 @@ public class JwtUtils {
     private final long expiration;
 
     public JwtUtils(
-            @Value("${jwt.key}") String base64SecretKey,
-            @Value("${jwt.time}") long expiration) {
+            @Value("${jwt.secret-key}") String base64SecretKey,
+            @Value("${jwt.expiration-time}") long expiration) {
         byte[] decodedKey = Base64.getDecoder().decode(base64SecretKey);
         this.secretKey = Keys.hmacShaKeyFor(decodedKey);
         this.expiration = expiration;

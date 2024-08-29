@@ -1,10 +1,44 @@
 import React, { useState } from 'react';
 import '../styles/login.css';  // CSS 파일 import
-import { Link } from 'react-router-dom/dist';
-
+import { Link } from 'react-router-dom';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 function Login() {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [jwtToken, setJwtToken] = useState('');
+
+
+  const handleSuccess = (response) => {
+    // Google의 response 객체에서 credential 추출
+    const { credential } = response;
+    console.log(response);
+    if (credential) {
+      fetch('http://localhost:8080/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: credential }), // 서버로 ID 토큰 전송
+      })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error('Network response was not ok: ' + res.statusText);
+          }
+          return res.json();
+        })
+        .then(data => {
+          console.log('JWT Token:', data.jwtToken);
+          // 로그인 성공 시 메인 페이지로 리다이렉트
+          window.location.href = '/';
+        })
+        .catch(err => console.error('Error:', err));
+    } else {
+      console.error('Authorization code is undefined');
+    }
+  };
+
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  console.log(googleClientId);
 
   return (
     <div className="login">
@@ -58,10 +92,12 @@ function Login() {
                 <span className="login__signup login__signup--signup" onClick={() => setIsSignUp(false)}>  Sign In</span>
               </div>
               <div className="login__social">
-                <a href="#" className="login__social--icon"><i className='bx bxl-facebook'></i></a>
-                <a href="#" className="login__social--icon"><i className='bx bxl-twitter'></i></a>
-                <a href="#" className="login__social--icon"><i className='bx bxl-google'></i></a>
-                <a href="#" className="login__social--icon"><i className='bx bxl-github'></i></a>
+                <GoogleOAuthProvider clientId={googleClientId}>
+                  <GoogleLogin
+                    onSuccess={handleSuccess}
+                    onFailure={(error) => console.error('Google Sign-In Error:', error)}
+                  />
+                </GoogleOAuthProvider>
               </div>
             </form>
           )}
