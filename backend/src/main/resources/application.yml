@@ -32,4 +32,6 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-
+jwt:
+  key: om8D6AyE7xb/ILWdOxFQqPb2gv8FyveXM0lZ1h+7VAo=
+  time: 86400000
