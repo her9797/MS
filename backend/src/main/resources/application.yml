@@ -33,5 +33,7 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 jwt:
-  key: om8D6AyE7xb/ILWdOxFQqPb2gv8FyveXM0lZ1h+7VAo=
-  time: 86400000
+  secret-key: om8D6AyE7xb/ILWdOxFQqPb2gv8FyveXM0lZ1h+7VAo=
+  expiration-time: 86400000
+
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.rC_UDvx6asbmV36bzSsCTeYN8hsfUciSZI78ztGnty0
