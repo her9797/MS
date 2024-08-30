@@ -5,7 +5,7 @@ import '../styles/sans.css';
 
 function Main() {
     return (
-        <div class="container px-4 px-lg-5">
+        <div className="container px-4 px-lg-5">
             <Preview/>
             <SubTtitle/>
             <Card/>
