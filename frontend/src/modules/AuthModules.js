@@ -2,8 +2,8 @@ import { createActions, handleActions } from 'redux-actions';
 
 // 초기 상태 정의
 const initialState = {
-    isLoggedIn: false,
-    token: null,
+    isLoggedIn: !!localStorage.getItem('jwtToken'), // 토큰이 있으면 로그인 상태로 설정
+    token: localStorage.getItem('jwtToken'),
 };
 
 // 액션 타입 정의
@@ -12,8 +12,8 @@ export const LOGOUT = 'auth/LOGOUT';
 
 // 액션 생성 함수 정의
 export const actions = createActions({
-    [LOGIN]: (token) => ({ token }), // 로그인 시 호출되는 액션
-    [LOGOUT]: () => {} // 로그아웃 시 호출되는 액션
+    [LOGIN]: (token) => ({ token }),
+    [LOGOUT]: () => {}
 });
 
 // 리듀서 정의

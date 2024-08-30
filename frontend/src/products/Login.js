@@ -14,9 +14,10 @@ function Login() {
     console.log(response);
     if (credential) {
       try {
-        const data = await authenticateWithGoogle(credential); // API 함수 사용
+        const data = await authenticateWithGoogle(credential);
         localStorage.setItem('jwtToken', data.token);
         console.log('JWT Token:', data.token);
+        
         navigate('/');
       } catch (error) {
         console.error('Error:', error);

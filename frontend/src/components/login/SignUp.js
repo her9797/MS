@@ -1,9 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../modules/AuthModules';
 
 const SignUp = ({ setIsSignUp, handleSuccess }) => {
+    const dispatch = useDispatch();
     const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+    const successLogin = (response) => {
+        if (response.credential) {
+            // 성공적으로 로그인된 경우 액션 디스패치
+            dispatch(actions.auth.login({ token: response.credential })); 
+            // handleSuccess를 호출하여 추가 처리
+            handleSuccess(response);
+        }
+    };
 
     return (
         <form action="" className="login__create" id="login-up">
@@ -29,7 +41,7 @@ const SignUp = ({ setIsSignUp, handleSuccess }) => {
             <div className="login__social">
                 <GoogleOAuthProvider clientId={googleClientId}>
                     <GoogleLogin
-                        onSuccess={handleSuccess} 
+                        onSuccess={successLogin}
                         onError={(error) => console.error('Google Sign-In Error:', error)}
                     />
                 </GoogleOAuthProvider>
