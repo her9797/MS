@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                     return configuration;
                 }))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/public/**").permitAll() // 공개 엔드포인트 설정
+                        .requestMatchers("/public/**", "/notices").permitAll() // 공개 엔드포인트 설정
                         .requestMatchers("/auth/**").permitAll() // OAuth2 엔드포인트 허용
                         .anyRequest().authenticated() // 나머지 모든 요청은 인증 필요
                 )

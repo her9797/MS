@@ -4,6 +4,7 @@ import com.ms.back.common.ResponseMessage;
 import com.ms.back.notice.dto.NoticeDTO;
 import com.ms.back.notice.entity.Notice;
 import com.ms.back.notice.service.NoticeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -76,7 +77,7 @@ public class NoticeController {
 
     /** 공지사항 등록 */
     @PostMapping("/notices")
-    public ResponseEntity<ResponseMessage> insertNotice(@RequestBody NoticeDTO noticeDTO) {
+    public ResponseEntity<ResponseMessage> insertNotice(@RequestBody @Valid NoticeDTO noticeDTO) {
 
         noticeDTO.setCreatedDate(LocalDateTime.now());
 
