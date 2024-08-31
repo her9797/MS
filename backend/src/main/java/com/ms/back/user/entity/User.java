@@ -11,6 +11,7 @@ public class User {
 
     @Id
     @Column(name = "user_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userNo;
 
     @Column(name = "user_id")
@@ -39,6 +40,14 @@ public class User {
     private String userStatus;
 
     protected User(){}
+
+    public User(String userId, String userName, String userEmail, UserRole userRole, String userStatus) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userRole = userRole;
+        this.userStatus = userStatus;
+    }
 
     @Builder
     public User(int userNo, String userId, String userPwd, String userName, String userEmail, String userNickname, UserRole userRole, String userGender, String userStatus) {
