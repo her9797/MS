@@ -11,7 +11,6 @@ const NavBar = () => {
     useEffect(() => {
         // isLoggedIn이 false로 변경되면 navigate('/main') 호출
         if (!isLoggedIn) {
-            alert('로그아웃 되었습니다');
             navigate('/');
         }
     }, [isLoggedIn, navigate]);
@@ -20,6 +19,7 @@ const NavBar = () => {
         // 로컬 스토리지에서 토큰 제거
         localStorage.removeItem('jwtToken');
         // 로그아웃 액션 디스패치
+        alert('로그아웃 되었습니다');
         dispatch(actions.auth.logout()); // 로그아웃 액션 호출
     };
 

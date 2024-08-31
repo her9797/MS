@@ -12,18 +12,22 @@ function Login() {
   const handleSuccess = async (response) => {
     const { credential } = response;
     console.log(response);
+
     if (credential) {
       try {
         const data = await authenticateWithGoogle(credential);
         localStorage.setItem('jwtToken', data.token);
         console.log('JWT Token:', data.token);
-        
+
+        // 성공적으로 로그인 후 홈 페이지로 이동
         navigate('/');
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error during authentication:', error);
+        alert('Authentication failed. Please try again.');
       }
     } else {
       console.error('Authorization code is undefined');
+      alert('Failed to get authorization code. Please try again.');
     }
   };
 
