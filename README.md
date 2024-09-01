@@ -5,7 +5,7 @@
 - JPA
 - SPRING SECURITY JWT
 - Websocket
-- 소셜 Login
+- 소셜 Login (구글,)
 ```
 ### FRONT 
 ```
@@ -38,11 +38,11 @@
   - Message
   - ROOM
   - JoinedUser
-  - Kafka (test)
+  - Kafka
 ```
 ### Plan
 ```
-WebSocket & kafka (같이 써보기)
+WebSocket / Kafka
 ```
 
 
