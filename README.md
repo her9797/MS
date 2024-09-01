@@ -43,6 +43,7 @@
 ### Plan
 ```
 WebSocket / Kafka
+DB index 설정
 ```
 
 
