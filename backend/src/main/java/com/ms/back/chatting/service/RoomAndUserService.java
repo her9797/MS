@@ -83,10 +83,7 @@ public class RoomAndUserService {
 
 
     /** 회원에 해당하는 방 전체 리스트 조회 */
-    public List<Room> selectRoomsByUserId(String userId) {
-
-        List<Room> rooms = joinedUserRepositoryCustom.findRoomsByUserId(userId);
-
-        return rooms;
+    public List<RoomAndUserDTO> selectRoomsByUserId(String userId) {
+        return joinedUserRepositoryCustom.findRoomsByUserId(userId);
     }
 }

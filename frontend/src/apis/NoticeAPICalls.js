@@ -1,13 +1,7 @@
 import { GET_NOTICE } from "../modules/NoticeModule";
 import axios from 'axios';
+import { API_BASE_URL, headers } from './config';
 
-const API_BASE_URL = 'http://localhost:8080';
-
-const headers = {
-    'Content-Type': 'application/json; charset=UTF-8',
-    Accept: '*/*',
-    Authorization: 'Bearer ' + window.localStorage.getItem('jwtToken') // 로컬스토리지에 key : jwtToken 으로 설정
-};
 
 
 export const callSelectNoticeAPI = (deleteYn,page, size) => {
