@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @Slf4j
 public class KafkaProducerService {
@@ -24,6 +26,8 @@ public class KafkaProducerService {
 
     /** 카프카를 이용한 메시지 전송 */
     public void sendMessage(MsgDTO msgDTO) {
+
+        msgDTO.setCreatedAt(LocalDateTime.now());
 
         try {
             // MsgDTO 객체를 JSON 문자열로 변환

@@ -1,4 +1,4 @@
-package com.ms.back.common.utils;
+package com.ms.back.common.Jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -47,13 +47,13 @@ public class JwtUtils {
         }
     }
 
-    public String getUsernameFromToken(String token) {
+    public String getEmailFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
+        return claims.getSubject(); // 이 경우 이메일을 반환
     }
 
     public boolean isTokenExpired(String token) {

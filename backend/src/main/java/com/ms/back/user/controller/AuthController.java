@@ -2,7 +2,9 @@ package com.ms.back.user.controller;
 
 import com.ms.back.auth.token.JwtResponse;
 import com.ms.back.auth.token.TokenRequest;
+import com.ms.back.user.entity.User;
 import com.ms.back.user.service.AuthService;
+import com.ms.back.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -19,9 +21,12 @@ public class AuthController {
 
     private final AuthService authService;
 
+    private final UserService userService;
+
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, UserService userService) {
         this.authService = authService;
+        this.userService = userService;
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -32,6 +37,7 @@ public class AuthController {
             String jwtToken = authService.authenticateWithGoogle(request.getToken());
             log.info("Google Login Success : {}", jwtToken);
             return ResponseEntity.ok(new JwtResponse(jwtToken));
+
         } catch (Exception e) {
             // JSON 형식으로 오류 반환
             Map<String, String> errorResponse = new HashMap<>();
