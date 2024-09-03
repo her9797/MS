@@ -41,6 +41,7 @@ public class User {
 
     protected User(){}
 
+    @Builder
     public User(String userId, String userName, String userEmail, UserRole userRole, String userStatus) {
         this.userId = userId;
         this.userName = userName;
@@ -60,5 +61,10 @@ public class User {
         this.userRole = userRole;
         this.userGender = userGender;
         this.userStatus = userStatus;
+    }
+
+    @Builder
+    public User(String userEmail) {
+        this.userEmail = userEmail;
     }
 }
