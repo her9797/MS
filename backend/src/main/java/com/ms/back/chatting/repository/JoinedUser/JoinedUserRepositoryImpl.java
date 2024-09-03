@@ -1,45 +1,52 @@
 package com.ms.back.chatting.repository.JoinedUser;
 
+import com.ms.back.chatting.dto.JoinedUserDTO;
+import com.ms.back.chatting.dto.RoomAndUserDTO;
+import com.ms.back.chatting.dto.RoomDTO;
 import com.ms.back.chatting.entity.JoinedUser;
+import com.ms.back.chatting.entity.QJoinedUser;
+import com.ms.back.chatting.entity.QRoom;
 import com.ms.back.chatting.entity.Room;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Root;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RequiredArgsConstructor
 public class JoinedUserRepositoryImpl implements JoinedUserRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
-    public List<Room> findRoomsByUserId(String userId) {
+    public List<RoomAndUserDTO> findRoomsByUserId(String userId) {
+        QRoom room = QRoom.room;
+        QJoinedUser joinedUser = QJoinedUser.joinedUser;
 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Room> cq = cb.createQuery(Room.class);
-        Root<Room> roomRoot = cq.from(Room.class);
+        // Room과 관련된 JoinedUser 목록을 먼저 조회
+        List<Room> roomList = jpaQueryFactory.selectFrom(room)
+                .distinct()
+                .join(joinedUser).on(joinedUser.roomId.eq(room.roomId))
+                .where(joinedUser.userId.eq(userId))
+                .fetch();
 
-        // 실제 매핑된 필드명을 사용해야 합니다
-        Join<Room, JoinedUser> joinedUserJoin = roomRoot.join("joinedUser");
+        // 각 Room에 대해 관련된 JoinedUser 목록을 조회
+        return roomList.stream().map(roomEntity -> {
+            // RoomDTO 변환
+            RoomDTO rooms = new RoomDTO(roomEntity.getRoomId(), roomEntity.getGroupStatus());
 
-        cq.select(roomRoot)
-                .distinct(true) // 중복된 결과 제거
-                .where(cb.equal(joinedUserJoin.get("userId"), userId));
+            // JoinedUser 목록 변환
+            List<JoinedUser> joinedUsers = jpaQueryFactory.selectFrom(joinedUser)
+                    .where(joinedUser.roomId.eq(roomEntity.getRoomId()))
+                    .fetch();
 
-        List<Room> rooms = entityManager.createQuery(cq).getResultList();
+            List<JoinedUserDTO> joinedUserList = joinedUsers.stream()
+                    .map(user -> new JoinedUserDTO(user.getRoomId(), user.getUserId())) // 필드에 맞게 수정
+                    .collect(Collectors.toList());
 
-        // 로깅 추가 (디버깅 용도)
-        System.out.println("Number of rooms found: " + rooms.size());
-        return rooms;
+            return new RoomAndUserDTO(rooms, joinedUserList);
+        }).collect(Collectors.toList());
     }
-
 }

@@ -34,4 +34,9 @@ public class JoinedUserDTO {
         this.joinedStatus = joinedStatus;
         this.createdAt = createdAt;
     }
+
+    public JoinedUserDTO(int roodId, String userId) {
+        this.roodId = roodId;
+        this.userId = userId;
+    }
 }

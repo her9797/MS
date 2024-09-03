@@ -1,5 +1,6 @@
 package com.ms.back.chatting.controller;
 
+import com.ms.back.chatting.dto.RoomAndUserDTO;
 import com.ms.back.chatting.entity.Room;
 import com.ms.back.chatting.service.JoinedUserService;
 import com.ms.back.chatting.service.RoomAndUserService;
@@ -29,10 +30,10 @@ public class JoinedUserController {
     @GetMapping("/joinedUser/{userId}")
     public ResponseEntity<ResponseMessage> selectRoomListByUserId(@PathVariable("userId") String userId) {
 
-        List<Room> rooms = roomAndUserService.selectRoomsByUserId(userId);
+        List<RoomAndUserDTO> roomAndUser = roomAndUserService.selectRoomsByUserId(userId);
 
         Map<String, Object> results = new HashMap<>();
-        results.put("rooms", rooms);
+        results.put("results", roomAndUser);
 
         ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", results);
 
