@@ -2,7 +2,7 @@ import React from 'react';
 import ChatList from '../components/chat/ChatList';
 import UserList from '../components/chat/UserList';
 
-function Sidebar() {
+function Sidebar({ onRoomSelect }) {
   return (
     <div className="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0">
       <div className="flex flex-row items-center justify-center h-12 w-full">
@@ -21,7 +21,7 @@ function Sidebar() {
         <div className="text-xs text-gray-500">내 설명</div>
         
       </div>
-      <ChatList title="내 방 목록" count={4} />
+      <ChatList title="내 방 목록" count={4} onRoomClick={onRoomSelect} />
       <UserList title="회원 목록" count={7} />
     </div>
   );

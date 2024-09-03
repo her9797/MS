@@ -1,14 +1,12 @@
 import { jwtDecode } from 'jwt-decode';
 
-
-export const createKafka = async (msg) => {
+export const createKafka = async (msg, roomId) => {
     const token = localStorage.getItem('jwtToken');
     let decodedToken = {};
 
     if (token) {
         try {
             decodedToken = jwtDecode(token); // JWT 디코딩
-            console.log(decodedToken); // 디코딩된 정보를 콘솔에 출력
         } catch (error) {
             console.error('Error decoding token:', error);
         }
@@ -28,15 +26,30 @@ export const createKafka = async (msg) => {
                 topic: 'test1',
                 msgContent: msg,
                 userId,
-                userName
+                userName,
+                roomId
             })
         });
 
+        // 응답을 텍스트로 읽어 콘솔에 출력
+        const textResponse = await response.text();
+
+        // 응답이 성공적이지 않으면 에러 발생
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
 
-        return await response.json();
+        // 응답이 JSON 형식인 경우에만 JSON으로 파싱
+        if (response.headers.get('Content-Type')?.includes('application/json')) {
+            try {
+                return JSON.parse(textResponse);
+            } catch (jsonError) {
+                return textResponse;
+            }
+        } else {
+            // JSON이 아닌 경우, 텍스트로 반환
+            return textResponse;
+        }
     } catch (error) {
         console.error('Error sending message to Kafka:', error);
         throw error;

@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 import noticeReducer from "./NoticeModule";
 import authReducer from "./AuthModules";
-import roomReducer from "./ChatModules";
+import joinedUserReducer from "./ChatModules";
+import roomReducer from "./RoomModules";
 
 const rootReducer = combineReducers({
     noticeReducer,
     authReducer,
+    joinedUserReducer,
     roomReducer
 });
 
