@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ChatItem from './ChatItem';
-import { callSelectJoinedRoomListAPI } from '../../apis/RoomAPICalls';
+import { callSelectJoinedRoomListAPI } from '../../apis/JoinedUserAPICalls';
 import { jwtDecode } from 'jwt-decode';
 
-function ChatList({ title, count }) {
+function ChatList({ title, count, onRoomClick }) {
   const dispatch = useDispatch();
-  const rooms = useSelector(state => state.roomReducer.rooms); // Redux 상태에서 방 리스트 가져오기
+  const rooms = useSelector(state => state.joinedUserReducer.rooms);
 
   const token = localStorage.getItem('jwtToken');
-  const decodedToken = jwtDecode(token); // JWT 디코딩
+  const decodedToken = jwtDecode(token);
   const userId = decodedToken.email;
-
+  
   useEffect(() => {
     if (userId) {
       dispatch(callSelectJoinedRoomListAPI(userId));
     }
   }, [dispatch, userId]);
 
-  // rooms.results에서 방 목록 추출, results가 존재하지 않으면 빈 배열로 기본 설정
-  const roomList = rooms.results || []; // results가 정의되지 않은 경우 빈 배열로 기본 설정
+  const roomList = rooms.results || [];
+
+  const handleRoomClick = (roomId) => {
+    if (onRoomClick) {
+      onRoomClick(roomId);
+    }
+  };
 
   return (
     <div className="flex flex-col mt-8">
@@ -29,22 +34,22 @@ function ChatList({ title, count }) {
       </div>
       <div className="flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto">
         {roomList.length > 0 ? (
-          roomList.map((room, index) => {
-            // 현재 userId를 제외한 다른 사용자 목록 필터링
+          roomList.map((room) => {
             const otherUsers = room.joinedUserDTO
-              .filter(user => user.userId !== userId) // 현재 userId 제외
-              .map(user => user.userId); // userId 추출
+              .filter(user => user.userId !== userId)
+              .map(user => user.userId);
 
             return (
               <ChatItem
-                key={index}
-                name={otherUsers.join(', ')} // 나머지 사용자 ID를 쉼표로 구분된 문자열로 결합
-                unread={room.joinedUserDTO.length > 0} // joinedUserDTO의 길이에 따라 읽지 않은 상태 추정
+                key={room.roomDTO.roomId}
+                onClick={() => handleRoomClick(room.roomDTO.roomId)}
+                name={otherUsers.join(', ')}
+                unread={room.joinedUserDTO.length > 0}
               />
             );
           })
         ) : (
-          <div className="text-gray-500">방이 없습니다</div> // 방이 없는 경우 메시지
+          <div className="text-gray-500">방이 없습니다</div>
         )}
       </div>
     </div>

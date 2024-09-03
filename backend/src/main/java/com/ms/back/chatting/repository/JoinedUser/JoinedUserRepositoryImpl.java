@@ -27,7 +27,6 @@ public class JoinedUserRepositoryImpl implements JoinedUserRepositoryCustom {
 
         // Room과 관련된 JoinedUser 목록을 먼저 조회
         List<Room> roomList = jpaQueryFactory.selectFrom(room)
-                .distinct()
                 .join(joinedUser).on(joinedUser.roomId.eq(room.roomId))
                 .where(joinedUser.userId.eq(userId))
                 .fetch();

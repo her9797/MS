@@ -3,11 +3,13 @@ import ChatHeader from '../components/chat/ChatHeader';
 import ChatMessage from '../components/chat/ChatMessage';
 import MessageInput from '../components/chat/MessageInput';
 import { createKafka } from '../apis/KafkaAPICalls';
+import {jwtDecode} from 'jwt-decode'; // Ensure this import is present
 
-function ChatArea() {
+function ChatArea({roomId}) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [socket, setSocket] = useState(null);
+  const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
@@ -39,15 +41,32 @@ function ChatArea() {
     };
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setCurrentUser(decodedToken.email || '');
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
+
+  const handleSendMessage = async (msg) => {
+    await createKafka(msg, roomId);
+    setMessage(''); 
+  };
+
   return (
     <div className="flex flex-col flex-auto h-full p-6">
       <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
-        <ChatHeader />
-        <ChatMessage messages={messages} />
+        <ChatHeader roomId={roomId} />
+        <ChatMessage messages={messages} currentUser={currentUser} />
         <MessageInput
           message={message}
           setMessage={setMessage}
-          onSend={(msg) => createKafka(msg, setMessage)} // 메시지 전송
+          onSend={handleSendMessage} // 메시지 전송
         />
       </div>
     </div>

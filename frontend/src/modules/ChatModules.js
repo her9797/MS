@@ -5,14 +5,14 @@ const initialState = {
     joinedUserList: []
 };
 
-export const GET_ROOM = 'rooms/GET_ROOMS';
+export const GET_ROOMS_USERS = 'rooms/GET_ROOMS_USERS';
 
 const actions = createActions({
-    [GET_ROOM]: () => {}
+    [GET_ROOMS_USERS]: () => {}
 });
 
-const roomReducer = handleActions({
-    [GET_ROOM]: (state, {payload}) => ({rooms: payload})
+const joinedUserReducer = handleActions({
+    [GET_ROOMS_USERS]: (state, {payload}) => ({rooms: payload})
 }, initialState);
 
-export default roomReducer;
+export default joinedUserReducer;
