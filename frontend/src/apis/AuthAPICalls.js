@@ -1,6 +1,3 @@
-import axios from 'axios';
-import { actions } from "../modules/AuthModules";
-
 /** Google Login
  * Google 인증 토큰을 서버에 전송하여 사용자 인증을 수행합니다.
  * @param {string} credential - Google 로그인에서 받은 인증 토큰.
