@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "message", indexes = {
+@Index(name = "idx_msg_room", columnList = "msg_id, room_id") // 복합 인덱스 설정
+})
 public class Message {
 
 

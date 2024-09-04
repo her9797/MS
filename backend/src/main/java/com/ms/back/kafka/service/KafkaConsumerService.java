@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -78,12 +79,15 @@ public class KafkaConsumerService {
         // 중복 메시지 제거
         Map<String, MsgDTO> uniqueMessages = batchToSave.stream()
                 .collect(Collectors.toMap(
-                        MsgDTO::getMsgContent, // 중복 기준: 메시지 내용
+                        msg -> msg.getMsgContent() + "|" + msg.getUserId(), // 중복 기준: 메시지 내용 + 발신자 ID
                         dto -> dto,
                         (existing, replacement) -> existing // 중복 메시지 처리: 기존 메시지를 유지
                 ));
 
         List<MsgDTO> deduplicatedMessages = new ArrayList<>(uniqueMessages.values());
+
+        // 타임스탬프 기준으로 정렬
+        deduplicatedMessages.sort(Comparator.comparing(MsgDTO::getCreatedAt));
 
         // MsgDTO를 Message 객체로 변환
         List<Message> messages = deduplicatedMessages.stream()
