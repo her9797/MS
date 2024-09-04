@@ -12,7 +12,7 @@ export const callSelectNoticeAPI = (deleteYn,page, size) => {
             dispatch({ type: GET_NOTICE, payload: response.data.results });
             return response.data.results;
         } catch (error) {
-            console.log('공지 조회에 문제 발생', error);
+            console.log('공지 조회에 문제 발생 (없을 수도 있음)', error);
             return [];
         }
     };
