@@ -22,12 +22,33 @@ function ChatMessage({ messages, currentUser }) {
               key={index}
               className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} mb-2`}
             >
-              <div
-                className={`p-3 rounded-xl max-w-xs ${
-                  isCurrentUser ? 'bg-blue-300' : 'bg-gray-300'
-                }`}
-              >
-                <p>{parsedMsg.msgContent || msg}</p> {/* 객체에서 msgContent를 추출 */}
+              <div className="flex flex-col items-start">
+                {/* 상대방 메시지의 경우 */}
+                {!isCurrentUser && (
+                  <>
+                    <div className="text-xs text-gray-600 mb-1">
+                      {parsedMsg.userId}
+                    </div>
+                    <div
+                      className={`p-3 rounded-xl max-w-xs bg-gray-300`}
+                    >
+                      <p>{parsedMsg.msgContent || msg}</p> {/* 객체에서 msgContent를 추출 */}
+                    </div>
+                  </>
+                )}
+                {/* 현재 사용자의 경우 */}
+                {isCurrentUser && (
+                  <>
+                    <div className="text-xs text-gray-600 mt-1 text-right">
+                      {parsedMsg.userId}
+                    </div>
+                    <div
+                      className={`p-3 rounded-xl max-w-xs bg-blue-300`}
+                    >
+                      <p>{parsedMsg.msgContent || msg}</p> {/* 객체에서 msgContent를 추출 */}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           );
