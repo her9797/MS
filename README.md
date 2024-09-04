@@ -62,7 +62,7 @@ DB index 설정
 - **Chat**
   - 기능 : (Room / JoinedUser / Messages) 
   - kafka : docker를 이용해 kafka, zookeeper server를 동작 → kafka producer / consumer / webSocket 순서로 데이터를 보내며 읽을 수 있도록 함
-  - webSocket : 웹소켓 연결 시, 해당 클라이언트의 jwt 를 검증하여, 권한을 체크하게 되고 해당 클라이언트만 사용할 수 있도록 검증
+  - webSocket : 웹소켓 연결 시, 해당 클라이언트의 jwt 를 검증하여, 검증 성공한 클라이언트는 연결 성공
   - 스케줄링 : 해당 로직이 msgContent를 검증하여 중복 데이터가 있을 경우, 해당 데이터 1개만 db에 insert 될 수 있도록 함
  
 - **Notice**
