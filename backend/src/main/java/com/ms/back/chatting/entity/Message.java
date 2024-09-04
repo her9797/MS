@@ -1,6 +1,7 @@
 package com.ms.back.chatting.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,19 +17,20 @@ public class Message {
     @Column(name = "msg_id")
     private int msgId;
 
-    @Column(name = "room_id")
+    @Column(name = "room_id", nullable = false)
     private int roomId;
 
-    @Column(name = "sender_id")
+    @Column(name = "sender_id", nullable = false)
     private String userId;
 
-    @Column(name = "sender_name")
+    @Column(name = "sender_name", nullable = false)
     private String userName;
 
+    @NotNull // 빈 문자열을 보낼수도 있지 않을까 하여, NotNull
     @Column(name = "msg_content")
     private String msgContent;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     protected Message() {}

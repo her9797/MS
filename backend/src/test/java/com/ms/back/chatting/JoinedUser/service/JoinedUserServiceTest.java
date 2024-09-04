@@ -1,6 +1,7 @@
 package com.ms.back.chatting.JoinedUser.service;
 
 
+import com.ms.back.chatting.dto.RoomAndUserDTO;
 import com.ms.back.chatting.entity.Room;
 import com.ms.back.chatting.service.JoinedUserService;
 import com.ms.back.chatting.service.RoomAndUserService;
@@ -29,7 +30,7 @@ public class JoinedUserServiceTest {
         String userId = "user01";
 
         // when
-        List<Room> joinedUser = roomAndUserService.selectRoomsByUserId(userId);
+        List<RoomAndUserDTO> joinedUser = roomAndUserService.selectRoomsByUserId(userId);
 
         // then
         Assertions.assertNotNull(joinedUser);

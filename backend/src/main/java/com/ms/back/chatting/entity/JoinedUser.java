@@ -20,7 +20,7 @@ public class JoinedUser {
     private String userId;
 
     @Column(name = "joined_status")
-    private String joinedStatus;;
+    private String joinedStatus;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -37,15 +37,6 @@ public class JoinedUser {
         this.userId = userId;
         this.joinedStatus = joinedStatus;
         this.createdAt = createdAt;
-    }
-
-    @Builder
-    public JoinedUser(int joinedCode, String userId, String joinedStatus, LocalDateTime createdAt, int roomId) {
-        this.joinedCode = joinedCode;
-        this.userId = userId;
-        this.joinedStatus = joinedStatus;
-        this.createdAt = createdAt;
-        this.roomId = roomId;
     }
 
 }
