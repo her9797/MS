@@ -63,7 +63,9 @@ DB index 설정
   - 기능 : (Room / JoinedUser / Messages) 
   - kafka : docker를 이용해 kafka, zookeeper server를 동작 → kafka producer / consumer / webSocket 순서로 데이터를 보내며 읽을 수 있도록 함
   - webSocket : 웹소켓 연결 시, 해당 클라이언트의 jwt 를 검증하여, 검증 성공한 클라이언트는 연결 성공
-  - 스케줄링 : 해당 로직이 msgContent를 검증하여 중복 데이터가 있을 경우, 해당 데이터 1개만 db에 insert 될 수 있도록 함
+  - 스케줄러 : 해당 로직이 msgContent를 검증하여 중복 데이터가 있을 경우, 해당 데이터 1개만 db에 insert 될 수 있도록 함
+    - 배치 로직 중-1 : 중복 데이터 조건 (msgContent -> msgContent + userId) 변경 같은 방에서 인원들이 'ㅇㅇ'이라고 입력했을 때 데이터 저장 안되었기 때문
+    - 배치 로직 중-2 : db 인덱스 복합으로 주고 데이터 저장된 것 확인했을 때, kafka로 인해 순서대로 저장이 되지 않았음(msgId autoIncrement와 다름) 하여, sort 해주는 작업 추가  
  
 - **Notice**
   - 기본중에 기본이라고 할 수 있는 공지사항 게시판
