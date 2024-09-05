@@ -1,7 +1,6 @@
 import React from 'react';
 
 function ChatItem({ name, unread, onClick }) {
-
   const colors = ['indigo', 'gray', 'orange', 'pink', 'purple'];
   const color = colors[name.length % colors.length];
 

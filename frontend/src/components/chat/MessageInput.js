@@ -1,6 +1,6 @@
 import React from 'react';
 
-function MessageInput({ message, setMessage, onSend, onClick }) {
+function MessageInput({ message, setMessage, onSend }) {
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
