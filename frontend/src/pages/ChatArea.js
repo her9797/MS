@@ -62,7 +62,7 @@ function ChatArea({roomId}) {
     <div className="flex flex-col flex-auto h-full p-6">
       <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
         <ChatHeader roomId={roomId} />
-        <ChatMessage messages={messages} currentUser={currentUser} />
+        <ChatMessage messages={messages} currentUser={currentUser} roomId={roomId} />
         <MessageInput
           message={message}
           setMessage={setMessage}

@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 
 const initialState = {
-
+    msg: []
 };
 
 export const GET_MESSAGES = 'messages/GET_MESSAGES';

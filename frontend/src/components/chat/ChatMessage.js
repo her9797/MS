@@ -1,58 +1,90 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { callSelectMessageAPI } from '../../apis/MessageAPICalls';
 
-function ChatMessage({ messages, currentUser }) {
+function ChatMessage({ messages, currentUser, roomId }) {
+  const dispatch = useDispatch();
+  const apiMsg = useSelector(state => state.messageReducer.msg) || { msg: [] }; // Redux 상태에서 메시지 가져오기
+  const [localMessages, setLocalMessages] = useState(apiMsg); // 상태로 메시지 저장
+
+  // API에서 메시지를 가져오는 효과
+  useEffect(() => {
+    if (roomId) {
+      dispatch(callSelectMessageAPI(roomId)); // API 호출
+    }
+  }, [dispatch, roomId]);
+
+  // Redux 상태가 변경될 때 상태 업데이트
+  useEffect(() => {
+    setLocalMessages(apiMsg);
+  }, [apiMsg]);
+
+  // 새로운 메시지를 문자열 배열에서 객체 배열로 변환하여 상태에 추가
+  useEffect(() => {
+    if (messages && messages.length > 0) {
+      try {
+        // 배열의 각 항목을 JSON으로 파싱
+        const parsedMessages = messages.map(msg => {
+          try {
+            return JSON.parse(msg);
+          } catch (e) {
+            console.error('Error parsing individual message:', e);
+            return null; // 파싱 오류가 발생한 경우, null을 반환하거나 적절히 처리
+          }
+        }).filter(msg => msg !== null); // null 값을 필터링
+
+        // 상태 업데이트: 새로운 메시지를 기존 메시지 배열에 추가
+        setLocalMessages(prevMessages => ({
+          ...prevMessages,
+          msg: [...prevMessages.msg, ...parsedMessages]
+        }));
+      } catch (e) {
+        console.error('Error processing messages:', e);
+      }
+    }
+  }, [messages]);
+
   return (
     <div className="flex flex-col flex-auto h-full overflow-x-auto mb-4">
       <div className="flex flex-col flex-auto">
-        {messages.map((msg, index) => {
-          // JSON 문자열을 객체로 파싱
-          let parsedMsg = {};
-          try {
-            parsedMsg = JSON.parse(msg); // JSON 문자열을 객체로 변환
-          } catch (e) {
-            console.error('Error parsing JSON:', e);
-            parsedMsg = { msgContent: msg, userId: '' }; // JSON 파싱에 실패하면 기본값 사용
-          }
+        {localMessages.length === 0 ? (
+          <div className="text-center text-gray-500">No messages</div>
+        ) : (
+          localMessages.msg.map((msg, index) => {
+            const { msgContent, userId } = msg;
+            const isCurrentUser = userId === currentUser;
 
-          // 현재 사용자와 메시지의 사용자 ID를 비교
-          const isCurrentUser = parsedMsg.userId === currentUser;
-
-          return (
-            <div
-              key={index}
-              className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} mb-2`}
-            >
-              <div className="flex flex-col items-start">
-                {/* 상대방 메시지의 경우 */}
-                {!isCurrentUser && (
-                  <>
-                    <div className="text-xs text-gray-600 mb-1">
-                      {parsedMsg.userId}
-                    </div>
-                    <div
-                      className={`p-3 rounded-xl max-w-xs bg-gray-300`}
-                    >
-                      <p>{parsedMsg.msgContent || msg}</p> {/* 객체에서 msgContent를 추출 */}
-                    </div>
-                  </>
-                )}
-                {/* 현재 사용자의 경우 */}
-                {isCurrentUser && (
-                  <>
-                    <div className="text-xs text-gray-600 mt-1 text-right">
-                      {parsedMsg.userId}
-                    </div>
-                    <div
-                      className={`p-3 rounded-xl max-w-xs bg-blue-300`}
-                    >
-                      <p>{parsedMsg.msgContent || msg}</p> {/* 객체에서 msgContent를 추출 */}
-                    </div>
-                  </>
-                )}
+            return (
+              <div
+                key={index}
+                className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} mb-2`}
+              >
+                <div className="flex flex-col items-start">
+                  {!isCurrentUser && (
+                    <>
+                      <div className="text-xs text-gray-600 mb-1">
+                        {userId}
+                      </div>
+                      <div className={`p-3 rounded-xl max-w-xs bg-gray-300`}>
+                        <p>{msgContent}</p>
+                      </div>
+                    </>
+                  )}
+                  {isCurrentUser && (
+                    <>
+                      <div className="text-xs text-gray-600 mt-1 text-right">
+                        {userId}
+                      </div>
+                      <div className={`p-3 rounded-xl max-w-xs bg-blue-300`}>
+                        <p>{msgContent}</p>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );
