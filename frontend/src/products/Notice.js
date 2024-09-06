@@ -5,14 +5,14 @@ import '../styles/notice.css';
 import PostNtcModal from '../components/notice/postNtcModal';
 import NtcModal from '../components/notice/ntcModal';
 
+
 function Notice() {
     const dispatch = useDispatch();
     const noticeData = useSelector(state => state.noticeReducer.notices || {}); // 기본값 설정
     const { notice = [], totalPages = 0, totalItems = 0 } = noticeData; // 구조 분해 할당
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedNotice, setSelectedNotice] = useState(null); // 선택된 공지사항 저장 상태
-
-    console.log(notice);
+    const [hoveredRowIndex, setHoveredRowIndex] = useState(null); // 호버된 행의 인덱스
 
     useEffect(() => {
         const page = 1;
@@ -35,6 +35,12 @@ function Notice() {
         setModalOpen(false);
         setSelectedNotice(null); // 모달 닫을 때 선택된 공지사항 초기화
     };
+
+    // 마우스 호버 스타일
+    const rowStyle = (index) => ({
+        backgroundColor: hoveredRowIndex === index ? '#f0f0f0' : 'white',
+        cursor: 'pointer'
+    });
 
     return (
         <section>
@@ -67,7 +73,13 @@ function Notice() {
                     <tbody>
                         {notice.length > 0 ? (
                             notice.map((item, index) => (
-                                <tr key={index} onClick={() => handleRowClick(item)}>
+                                <tr
+                                    key={index}
+                                    style={rowStyle(index)}
+                                    onClick={() => handleRowClick(item)}
+                                    onMouseEnter={() => setHoveredRowIndex(index)}
+                                    onMouseLeave={() => setHoveredRowIndex(null)}
+                                >
                                     <td>{item.noticeNo}</td>
                                     <td>{item.title}</td>
                                     <td>{item.content}</td>

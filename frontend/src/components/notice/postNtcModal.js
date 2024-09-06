@@ -12,8 +12,14 @@ const PostNtcModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     const decodedToken = jwtDecode(token); // JWT 디코딩
-    
+
     const handleRegister = async () => {
+        // 제목과 내용이 비어 있는지 확인
+        if (!title.trim() || !content.trim()) {
+            alert('제목과 내용은 필수 입력 사항입니다.');
+            return;
+        }
+
         try {
             const noticeDTO = {
                 title,
@@ -29,7 +35,7 @@ const PostNtcModal = ({ isOpen, onClose }) => {
             setContent('');
         } catch (error) {
             console.error('공지사항 등록 실패', error);
-            alert(error);
+            alert('공지사항 등록에 실패했습니다. 다시 시도해 주세요.');
         }
     };
 
