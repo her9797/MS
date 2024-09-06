@@ -80,7 +80,7 @@ public class NoticeController {
     public ResponseEntity<ResponseMessage> insertNotice(@RequestBody @Valid NoticeDTO noticeDTO) {
 
         noticeDTO.setCreatedDate(LocalDateTime.now());
-
+        noticeDTO.setDeleteYn('N');
         return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", noticeService.insertNotice(noticeDTO)));
 
     }
