@@ -23,7 +23,6 @@ const PostNtcModal = ({ isOpen, onClose }) => {
             await dispatch(callInsertNoticeAPI(noticeDTO));
             dispatch(callSelectNoticeAPI());
             console.log(noticeDTO);
-            alert('공지사항이 등록되었습니다.');
             onClose(); // 모달 닫기
             // 상태 초기화
             setTitle('');

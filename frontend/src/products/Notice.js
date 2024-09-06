@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callSelectNoticeAPI } from '../apis/NoticeAPICalls';
-import PostNtcModal from '../components/notice/postNtcModal';
 import '../styles/notice.css';
+import PostNtcModal from '../components/notice/postNtcModal';
+import NtcModal from '../components/notice/ntcModal';
 
 function Notice() {
     const dispatch = useDispatch();
     const noticeData = useSelector(state => state.noticeReducer.notices || {}); // 기본값 설정
     const { notice = [], totalPages = 0, totalItems = 0 } = noticeData; // 구조 분해 할당
     const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedNotice, setSelectedNotice] = useState(null); // 선택된 공지사항 저장 상태
 
-    console.log(notice)
+    console.log(notice);
 
     useEffect(() => {
         const page = 1;
@@ -24,12 +26,15 @@ function Notice() {
         return date.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식으로 변환
     };
 
+    const handleRowClick = (notice) => {
+        setSelectedNotice(notice);
+        setModalOpen(true);
+    };
 
-
-    const handleOpenModal = () => setModalOpen(true);
-    const handleCloseModal = () => setModalOpen(false);
-
-
+    const handleCloseModal = () => {
+        setModalOpen(false);
+        setSelectedNotice(null); // 모달 닫을 때 선택된 공지사항 초기화
+    };
 
     return (
         <section>
@@ -38,7 +43,7 @@ function Notice() {
                 <button
                     className='btn btn-primary'
                     style={{ marginBottom: '10px', marginLeft: '95%' }}
-                    onClick={handleOpenModal}
+                    onClick={() => setModalOpen(true)}
                 >
                     등록하기
                 </button>
@@ -62,7 +67,7 @@ function Notice() {
                     <tbody>
                         {notice.length > 0 ? (
                             notice.map((item, index) => (
-                                <tr key={index}>
+                                <tr key={index} onClick={() => handleRowClick(item)}>
                                     <td>{item.noticeNo}</td>
                                     <td>{item.title}</td>
                                     <td>{item.content}</td>
@@ -72,12 +77,19 @@ function Notice() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="4">공지사항 없음</td>
+                                <td colSpan="5">공지사항 없음</td>
                             </tr>
                         )}
                     </tbody>
                 </table>
             </div>
+            {selectedNotice && (
+                <NtcModal
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    notice={selectedNotice} // 선택된 공지사항 전달
+                />
+            )}
         </section>
     );
 }
