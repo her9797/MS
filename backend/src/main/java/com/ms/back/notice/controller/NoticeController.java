@@ -79,6 +79,17 @@ public class NoticeController {
     @PostMapping("/notices")
     public ResponseEntity<ResponseMessage> insertNotice(@RequestBody @Valid NoticeDTO noticeDTO) {
 
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", false);
+
+        // 제목과 내용이 빈 문자열 또는 null인지 검사
+        if (noticeDTO.getTitle() == null || noticeDTO.getTitle().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(new ResponseMessage(400, "제목이 필수입니다.", result));
+        }
+        if (noticeDTO.getContent() == null || noticeDTO.getContent().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(new ResponseMessage(400, "내용이 필수입니다.", result));
+        }
+
         noticeDTO.setCreatedDate(LocalDateTime.now());
         noticeDTO.setDeleteYn('N');
         return ResponseEntity.ok().body(new ResponseMessage(200, "등록 성공", noticeService.insertNotice(noticeDTO)));
