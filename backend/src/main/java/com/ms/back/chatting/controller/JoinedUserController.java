@@ -1,5 +1,6 @@
 package com.ms.back.chatting.controller;
 
+import com.ms.back.chatting.dto.JoinedUserDTO;
 import com.ms.back.chatting.dto.RoomAndUserDTO;
 import com.ms.back.chatting.entity.Room;
 import com.ms.back.chatting.service.JoinedUserService;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/joinedUser")
 public class JoinedUserController {
 
     private final JoinedUserService joinedUserService;
@@ -27,7 +29,7 @@ public class JoinedUserController {
         this.roomAndUserService = roomAndUserService;
     }
 
-    @GetMapping("/joinedUser/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<ResponseMessage> selectRoomListByUserId(@PathVariable("userId") String userId) {
 
         List<RoomAndUserDTO> roomAndUser = roomAndUserService.selectRoomsByUserId(userId);
@@ -39,5 +41,14 @@ public class JoinedUserController {
 
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
+
+    @PatchMapping("/{roomId}")
+    public ResponseEntity<ResponseMessage> modifyJoinedStatus(@PathVariable("roomId") int roomId,
+                                                               @RequestBody JoinedUserDTO joinedUserDTO) {
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "수정(삭제) 성공", joinedUserService.modifyJoinedStatus(roomId, joinedUserDTO)));
+    }
+
+
 
 }

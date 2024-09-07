@@ -39,4 +39,10 @@ public class JoinedUser {
         this.createdAt = createdAt;
     }
 
+    public void markAsPatched() {
+        this.joinedStatus = "N";
+    }
+
+
+
 }

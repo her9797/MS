@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @RequiredArgsConstructor
 public class JoinedUserRepositoryImpl implements JoinedUserRepositoryCustom {
 
@@ -25,20 +24,22 @@ public class JoinedUserRepositoryImpl implements JoinedUserRepositoryCustom {
         QRoom room = QRoom.room;
         QJoinedUser joinedUser = QJoinedUser.joinedUser;
 
-        // Room과 관련된 JoinedUser 목록을 먼저 조회
+        // Room과 관련된 JoinedUser 목록을 조회할 때, joinedStatus가 'Y'인 사용자만 포함
         List<Room> roomList = jpaQueryFactory.selectFrom(room)
                 .join(joinedUser).on(joinedUser.roomId.eq(room.roomId))
-                .where(joinedUser.userId.eq(userId))
+                .where(joinedUser.userId.eq(userId)
+                        .and(joinedUser.joinedStatus.eq("Y"))) // joinedStatus가 'Y'인 사용자만 조회
                 .fetch();
 
-        // 각 Room에 대해 관련된 JoinedUser 목록을 조회
+        // 각 Room에 대해 관련된 JoinedUser 목록을 조회할 때, joinedStatus가 'Y'인 사용자만 포함
         return roomList.stream().map(roomEntity -> {
             // RoomDTO 변환
             RoomDTO rooms = new RoomDTO(roomEntity.getRoomId(), roomEntity.getGroupStatus());
 
-            // JoinedUser 목록 변환
+            // JoinedUser 목록 변환 (joinedStatus가 'Y'인 사용자만 포함)
             List<JoinedUser> joinedUsers = jpaQueryFactory.selectFrom(joinedUser)
-                    .where(joinedUser.roomId.eq(roomEntity.getRoomId()))
+                    .where(joinedUser.roomId.eq(roomEntity.getRoomId())
+                            .and(joinedUser.joinedStatus.eq("Y"))) // joinedStatus가 'Y'인 사용자만 조회
                     .fetch();
 
             List<JoinedUserDTO> joinedUserList = joinedUsers.stream()
