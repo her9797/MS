@@ -5,6 +5,7 @@
 - JPA
 - SPRING SECURITY JWT
 - Websocket
+- kafka
 - 소셜 Login (구글,)
 ```
 ### FRONT 
