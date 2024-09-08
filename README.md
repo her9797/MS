@@ -42,8 +42,8 @@
 ```
 ### Plan
 ```
-WebSocket / Kafka
-DB index 설정
+WebSocket / Kafka : 완료
+DB index 설정 : 완료 (@annotation으로 index 설정 후, db 확인 후 정상적으로 create 되는 것 확인)
 ```
 
 ---
