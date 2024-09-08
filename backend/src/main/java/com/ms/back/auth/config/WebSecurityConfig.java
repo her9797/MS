@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
                     configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // React 앱의 URL
-                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                     configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
                     return configuration;
                 }))
@@ -71,7 +71,7 @@ public class WebSecurityConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:3000")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                         .allowedHeaders("Authorization", "Content-Type");
             }
         };

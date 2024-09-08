@@ -44,7 +44,7 @@ public class JoinedUserController {
 
     @PatchMapping("/{roomId}")
     public ResponseEntity<ResponseMessage> modifyJoinedStatus(@PathVariable("roomId") int roomId,
-                                                               @RequestBody JoinedUserDTO joinedUserDTO) {
+                                                              @RequestBody JoinedUserDTO joinedUserDTO) {
 
         return ResponseEntity.ok().body(new ResponseMessage(200, "수정(삭제) 성공", joinedUserService.modifyJoinedStatus(roomId, joinedUserDTO)));
     }
