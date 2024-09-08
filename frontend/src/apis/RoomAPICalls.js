@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { GET_ROOMS } from "../modules/RoomModules";
+import { GET_ROOMS, PATCH_ROOM } from "../modules/RoomModules";
 import { API_BASE_URL, headers } from './config';
+import { type } from '@testing-library/user-event/dist/type';
 
 export const callSelectRoomAndUserListAPI = (roomId) => {
     return async dispatch => {
@@ -15,5 +16,4 @@ export const callSelectRoomAndUserListAPI = (roomId) => {
         }
     };
 };
-
 

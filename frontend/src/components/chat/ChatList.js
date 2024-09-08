@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ChatItem from './ChatItem';
-import { callSelectJoinedRoomListAPI } from '../../apis/JoinedUserAPICalls';
+import { callPatchJoinedUserAPI, callSelectJoinedRoomListAPI } from '../../apis/JoinedUserAPICalls';
 import { jwtDecode } from 'jwt-decode';
 import '../../styles/chatList.css';
 
@@ -33,17 +33,26 @@ function ChatList({ title, count, onRoomClick }) {
   const handleContextMenu = (event, roomId) => {
     event.preventDefault(); // Prevent the default context menu
     setSelectedRoomId(roomId);
-    
+
     setContextMenu({
-      top: event.clientY - 400, 
-      left: event.clientX - 150, 
+      top: event.clientY - 400,
+      left: event.clientX - 150,
     });
   };
 
-  const handleMenuClick = (action) => {
+  const handleMenuClick = async (action) => {
     if (action === 'leave') {
-      console.log(`Leave room ${selectedRoomId}`);
-      // 여기에 방을 나가는 로직 추가
+      const joinedUserDTO = {
+        userId: userId,
+      };
+      console.log(selectedRoomId);
+      console.log(joinedUserDTO);
+      try {
+        await dispatch(callPatchJoinedUserAPI(selectedRoomId, joinedUserDTO));
+        console.log('Successfully left the room');
+      } catch (error) {
+        console.error('Error leaving the room', error);
+      }
     }
     setContextMenu(null);
   };
@@ -77,8 +86,8 @@ function ChatList({ title, count, onRoomClick }) {
       </div>
 
       {contextMenu && (
-        <div 
-          className="absolute bg-white border border-gray-300 shadow-lg rounded" 
+        <div
+          className="absolute bg-white border border-gray-300 shadow-lg rounded"
           style={{ top: contextMenu.top, left: contextMenu.left }}
           onMouseLeave={() => setContextMenu(null)}
         >

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import noticeReducer from "./NoticeModule";
 import authReducer from "./AuthModules";
-import joinedUserReducer from "./ChatModules";
+import joinedUserReducer from "./JoinedUserModules";
 import roomReducer from "./RoomModules";
 import messageReducer from "./MessageModules";
 
