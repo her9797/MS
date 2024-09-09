@@ -51,8 +51,8 @@ function ChatMessage({ messages, currentUser, roomId }) {
           <div className="text-center text-gray-500">No messages</div>
         ) : (
           localMessages.msg.map((msg, index) => {
-            const { msgContent, userId } = msg;
-            const isCurrentUser = userId === currentUser;
+            const { msgContent, userEmail } = msg;
+            const isCurrentUser = userEmail === currentUser;
 
             return (
               <div
@@ -63,7 +63,7 @@ function ChatMessage({ messages, currentUser, roomId }) {
                   {!isCurrentUser && (
                     <>
                       <div className="text-xs text-gray-600 mb-1">
-                        {userId}
+                        {userEmail}
                       </div>
                       <div className={`p-3 rounded-xl max-w-xs bg-gray-300`}>
                         <p>{msgContent}</p>
@@ -73,7 +73,7 @@ function ChatMessage({ messages, currentUser, roomId }) {
                   {isCurrentUser && (
                     <>
                       <div className="text-xs text-gray-600 mt-1 text-right">
-                        {userId}
+                        {userEmail}
                       </div>
                       <div className={`p-3 rounded-xl max-w-xs bg-blue-300`}>
                         <p>{msgContent}</p>

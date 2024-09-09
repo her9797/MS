@@ -2,10 +2,10 @@ import axios from 'axios';
 import { GET_ROOMS_USERS, PATCH_JOINED_USER } from "../modules/JoinedUserModules";
 import { API_BASE_URL, headers } from './config';
 
-export const callSelectJoinedRoomListAPI = (userId) => {
+export const callSelectJoinedRoomListAPI = (userEmail) => {
     return async dispatch => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/joinedUser/${userId}`, { headers });
+            const response = await axios.get(`${API_BASE_URL}/joinedUser/${userEmail}`, { headers });
             dispatch({ type: GET_ROOMS_USERS, payload: response.data.results });
             return response.data.results;
         } catch (error) {

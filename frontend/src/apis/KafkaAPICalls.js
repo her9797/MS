@@ -12,7 +12,7 @@ export const createKafka = async (msg, roomId) => {
         }
     }
 
-    const userId = decodedToken.email || ''; // 디코딩된 이메일이 없으면 빈 문자열
+    const userEmail = decodedToken.email || ''; // 디코딩된 이메일이 없으면 빈 문자열
     const userName = decodedToken.name || ''; // 디코딩된 이름이 없으면 빈 문자열
 
     try {
@@ -25,7 +25,7 @@ export const createKafka = async (msg, roomId) => {
             body: JSON.stringify({
                 topic: 'test1',
                 msgContent: msg,
-                userId,
+                userEmail,
                 userName,
                 roomId
             })
