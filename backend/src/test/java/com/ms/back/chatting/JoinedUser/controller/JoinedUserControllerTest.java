@@ -22,14 +22,14 @@ public class JoinedUserControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("userId로 식별한 방/유저 조인 조회 테스트")
+    @DisplayName("userEmail로 식별한 방/유저 조인 조회 테스트")
     void selectRoomAndUserByRoomIdTest() throws Exception {
 
         // given
-        String userId = "user01";
+        String userEmail = "user01";
 
         // when
-        MvcResult result = mockMvc.perform(get("/joinedUser/{userId}", userId)
+        MvcResult result = mockMvc.perform(get("/joinedUser/{userEmail}", userEmail)
                         .contentType(MediaType.APPLICATION_JSON))
 
         // then

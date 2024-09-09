@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface JoinedUserRepositoryCustom {
 
-    List<RoomAndUserDTO> findRoomsByUserId(String userId);
+    List<RoomAndUserDTO> findRoomsByUserEmail(String userEmail);
 
 
 }

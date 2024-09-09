@@ -13,7 +13,7 @@ public class AlarmDTO {
 
     private int alarmNo;
 
-    private String userId;
+    private String userEmail;
 
     private String alarmMsg;
 
@@ -25,8 +25,8 @@ public class AlarmDTO {
         this.readYn = readYn;
     }
 
-    public AlarmDTO(String userId, String alarmMsg, String readYn, LocalDateTime createdDate) {
-        this.userId = userId;
+    public AlarmDTO(String userEmail, String alarmMsg, String readYn, LocalDateTime createdDate) {
+        this.userEmail = userEmail;
         this.alarmMsg = alarmMsg;
         this.readYn = readYn;
         this.createdDate = createdDate;

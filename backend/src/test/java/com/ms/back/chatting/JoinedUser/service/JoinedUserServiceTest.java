@@ -27,10 +27,10 @@ public class JoinedUserServiceTest {
     void selectRoomAndUserByRoomIdTest() {
 
         // given
-        String userId = "user01";
+        String userEmail = "user01";
 
         // when
-        List<RoomAndUserDTO> joinedUser = roomAndUserService.selectRoomsByUserId(userId);
+        List<RoomAndUserDTO> joinedUser = roomAndUserService.selectRoomsByUserEmail(userEmail);
 
         // then
         Assertions.assertNotNull(joinedUser);

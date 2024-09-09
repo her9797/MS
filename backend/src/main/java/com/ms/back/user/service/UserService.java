@@ -25,15 +25,15 @@ public class UserService {
     }
 
     /** ID로 User 찾기 */
-    public User findByUserId(String userId) {
-        return userRepository.findByUserId(userId);
+    public User findByUserEmail(String userEmail) {
+        return userRepository.findByUserEmail(userEmail);
     }
 
     /** User 등록 (소셜 로그인 시, DB에 해당 회원이 없다면) */
-    public void insertUser(String userId, String name, String email, UserRole userRole,  String userStatus) {
+    public void insertUser(String name, String email, UserRole userRole,  String userStatus) {
 
 
-        User newUser = new User(userId, name, email, userRole, userStatus);
+        User newUser = new User(name, email, userRole, userStatus);
         userRepository.save(newUser);
 
     }

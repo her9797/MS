@@ -27,7 +27,7 @@ public class QMessage extends EntityPathBase<Message> {
 
     public final NumberPath<Integer> roomId = createNumber("roomId", Integer.class);
 
-    public final StringPath userId = createString("userId");
+    public final StringPath userEmail = createString("userEmail");
 
     public final StringPath userName = createString("userName");
 

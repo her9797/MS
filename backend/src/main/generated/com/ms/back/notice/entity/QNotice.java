@@ -35,7 +35,7 @@ public class QNotice extends EntityPathBase<Notice> {
 
     public final StringPath title = createString("title");
 
-    public final StringPath userId = createString("userId");
+    public final StringPath userEmail = createString("userEmail");
 
     public QNotice(String variable) {
         super(Notice.class, forVariable(variable));

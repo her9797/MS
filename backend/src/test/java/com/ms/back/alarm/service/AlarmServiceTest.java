@@ -25,10 +25,10 @@ class AlarmServiceTest {
 
         // given
         String readYn = "N";
-        String userId = "user01";
+        String userEmail = "user01";
 
         // when
-        Alarm alarm = alarmService.selectAlarmList(readYn, userId);
+        Alarm alarm = alarmService.selectAlarmList(readYn, userEmail);
 
         // then
         Assertions.assertNotNull(alarm);

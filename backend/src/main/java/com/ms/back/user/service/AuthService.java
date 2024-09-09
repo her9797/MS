@@ -47,9 +47,9 @@ public class AuthService {
         String email = (String) response.get("email");
 
         // DB에 해당 유저 없을 때, 타는 로직
-        User findUser = userService.findByUserId(email);
+        User findUser = userService.findByUserEmail(email);
         if (findUser == null) {
-            userService.insertUser(email, name, email, UserRole.USER, "ACTIVE");
+            userService.insertUser(name, email, UserRole.USER, "ACTIVE");
         }
 
 

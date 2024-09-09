@@ -26,9 +26,9 @@ public class AlarmService {
     }
 
     /** 알람 조회 */
-    public Alarm selectAlarmList(String readYn, String userId) {
+    public Alarm selectAlarmList(String readYn, String userEmail) {
 
-        return alarmRepository.findByUserIdAndReadYn(userId, readYn);
+        return alarmRepository.findByUserEmailAndReadYn(userEmail, readYn);
 
     }
 

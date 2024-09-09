@@ -20,14 +20,14 @@ public class JoinedUserRepositoryImpl implements JoinedUserRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<RoomAndUserDTO> findRoomsByUserId(String userId) {
+    public List<RoomAndUserDTO> findRoomsByUserEmail(String userEmail) {
         QRoom room = QRoom.room;
         QJoinedUser joinedUser = QJoinedUser.joinedUser;
 
         // Room과 관련된 JoinedUser 목록을 조회할 때, joinedStatus가 'Y'인 사용자만 포함
         List<Room> roomList = jpaQueryFactory.selectFrom(room)
                 .join(joinedUser).on(joinedUser.roomId.eq(room.roomId))
-                .where(joinedUser.userId.eq(userId)
+                .where(joinedUser.userEmail.eq(userEmail)
                         .and(joinedUser.joinedStatus.eq("Y"))) // joinedStatus가 'Y'인 사용자만 조회
                 .fetch();
 
@@ -43,7 +43,7 @@ public class JoinedUserRepositoryImpl implements JoinedUserRepositoryCustom {
                     .fetch();
 
             List<JoinedUserDTO> joinedUserList = joinedUsers.stream()
-                    .map(user -> new JoinedUserDTO(user.getRoomId(), user.getUserId())) // 필드에 맞게 수정
+                    .map(user -> new JoinedUserDTO(user.getRoomId(), user.getUserEmail())) // 필드에 맞게 수정
                     .collect(Collectors.toList());
 
             return new RoomAndUserDTO(rooms, joinedUserList);

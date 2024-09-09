@@ -15,7 +15,7 @@ public class MsgDTO {
 
     private int roomId;
 
-    private String userId;
+    private String userEmail;
 
     private String userName;
 
@@ -25,9 +25,9 @@ public class MsgDTO {
 
     private String topic;
 
-    public MsgDTO(int roomId, String userId, String userName, String msgContent, LocalDateTime createdAt) {
+    public MsgDTO(int roomId, String userEmail, String userName, String msgContent, LocalDateTime createdAt) {
         this.roomId = roomId;
-        this.userId = userId;
+        this.userEmail = userEmail;
         this.userName = userName;
         this.msgContent = msgContent;
         this.createdAt = createdAt;

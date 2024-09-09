@@ -10,21 +10,14 @@ import lombok.Getter;
 public class User {
 
     @Id
-    @Column(name = "user_no")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userNo;
-
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "user_email")
+    private String userEmail;
 
     @Column(name = "user_pwd")
     private String userPwd;
 
     @Column(name = "user_name")
     private String userName;
-
-    @Column(name = "user_email")
-    private String userEmail;
 
     @Column(name = "user_nickname")
     private String userNickname;
@@ -42,8 +35,7 @@ public class User {
     protected User(){}
 
     @Builder
-    public User(String userId, String userName, String userEmail, UserRole userRole, String userStatus) {
-        this.userId = userId;
+    public User(String userName, String userEmail, UserRole userRole, String userStatus) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userRole = userRole;
@@ -51,9 +43,7 @@ public class User {
     }
 
     @Builder
-    public User(int userNo, String userId, String userPwd, String userName, String userEmail, String userNickname, UserRole userRole, String userGender, String userStatus) {
-        this.userNo = userNo;
-        this.userId = userId;
+    public User(String userPwd, String userName, String userEmail, String userNickname, UserRole userRole, String userGender, String userStatus) {
         this.userPwd = userPwd;
         this.userName = userName;
         this.userEmail = userEmail;

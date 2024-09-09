@@ -58,7 +58,7 @@ class CommentControllerTest {
     void insertCmtTests() throws Exception {
 
         // given
-        CmtDTO cmtDTO = new CmtDTO(3, "댓글 내용", "userId", "userPws", "N", LocalDateTime.now());
+        CmtDTO cmtDTO = new CmtDTO(3, "댓글 내용", "userEmail", "userPws", "N", LocalDateTime.now());
 
         // when
         MvcResult result = mockMvc.perform(post("/comments")

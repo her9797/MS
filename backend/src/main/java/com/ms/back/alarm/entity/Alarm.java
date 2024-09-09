@@ -15,8 +15,8 @@ public class Alarm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int alarmNo;
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "user_email", nullable = false)
+    private String userEmail;
 
     @Column(name = "alarm_msg", nullable = false)
     private String alarmMsg;

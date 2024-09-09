@@ -118,8 +118,8 @@ class NoticeControllerTest {
 
         // JSON request body 생성
         String requestBody = String.format(
-                "{\"content\": \"%s\", \"title\": \"%s\", \"modifiedDate\": \"%s\", \"userId\": \"%s\"}",
-                noticeDTO.getContent(), noticeDTO.getTitle(), modifiedDateStr, noticeDTO.getUserId()
+                "{\"content\": \"%s\", \"title\": \"%s\", \"modifiedDate\": \"%s\", \"userEmail\": \"%s\"}",
+                noticeDTO.getContent(), noticeDTO.getTitle(), modifiedDateStr, noticeDTO.getUserEmail()
         );
 
         // when

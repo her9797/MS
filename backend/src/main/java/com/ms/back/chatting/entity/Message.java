@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 })
 public class Message {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "msg_id")
@@ -24,7 +23,7 @@ public class Message {
     private int roomId;
 
     @Column(name = "sender_id", nullable = false)
-    private String userId;
+    private String userEmail;
 
     @Column(name = "sender_name", nullable = false)
     private String userName;
@@ -39,9 +38,9 @@ public class Message {
     protected Message() {}
 
     @Builder
-    public Message(int roomId, String userId, String userName, String msgContent, LocalDateTime createdAt) {
+    public Message(int roomId, String userEmail, String userName, String msgContent, LocalDateTime createdAt) {
         this.roomId = roomId;
-        this.userId = userId;
+        this.userEmail = userEmail;
         this.userName = userName;
         this.msgContent = msgContent;
         this.createdAt = createdAt;
