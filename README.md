@@ -18,6 +18,9 @@
 ```
 - MySQL
 ```
+### ERD (진행 중)
+![ERD](https://github.com/user-attachments/assets/f6b35e02-d32d-401e-bf7e-587c47a41fde)
+https://www.erdcloud.com/d/YcgeDiZvaEtHHbWTz
 
 ### First or Study Used
 ```
