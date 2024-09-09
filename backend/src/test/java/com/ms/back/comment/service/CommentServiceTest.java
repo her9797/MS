@@ -40,7 +40,7 @@ class CommentServiceTest {
     void insertCmtTest() {
 
         // given
-        CmtDTO cmtDTO = new CmtDTO(2, "댓글 내용", "userId", "userPws", "N", LocalDateTime.now());
+        CmtDTO cmtDTO = new CmtDTO(2, "댓글 내용", "userEmail", "userPws", "N", LocalDateTime.now());
 
         // when
         Map<String, Object> result = new HashMap<>();

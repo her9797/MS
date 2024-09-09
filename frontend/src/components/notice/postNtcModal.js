@@ -24,7 +24,7 @@ const PostNtcModal = ({ isOpen, onClose }) => {
             const noticeDTO = {
                 title,
                 content,
-                userId: decodedToken.email  
+                userEmail: decodedToken.email  
             };
             await dispatch(callInsertNoticeAPI(noticeDTO));
             dispatch(callSelectNoticeAPI());

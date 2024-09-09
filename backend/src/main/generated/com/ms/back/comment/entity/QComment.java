@@ -35,7 +35,7 @@ public class QComment extends EntityPathBase<Comment> {
 
     public final StringPath privateYn = createString("privateYn");
 
-    public final StringPath userId = createString("userId");
+    public final StringPath userEmail = createString("userEmail");
 
     public final StringPath userPwd = createString("userPwd");
 

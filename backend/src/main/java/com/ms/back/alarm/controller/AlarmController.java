@@ -25,9 +25,9 @@ public class AlarmController {
 
     @GetMapping("/alarms")
     public ResponseEntity<ResponseMessage> selectAlarmList(@RequestParam( value = "readYn", defaultValue = "N") String readYn,
-                                                           @RequestParam( value = "userId") String userId) {
+                                                           @RequestParam( value = "userEmail") String userEmail) {
 
-        Alarm alarmList = alarmService.selectAlarmList(readYn, userId);
+        Alarm alarmList = alarmService.selectAlarmList(readYn, userEmail);
 
         Map<String, Object> result = new HashMap<>();
 

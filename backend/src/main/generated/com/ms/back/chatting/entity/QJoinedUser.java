@@ -27,7 +27,7 @@ public class QJoinedUser extends EntityPathBase<JoinedUser> {
 
     public final NumberPath<Integer> roomId = createNumber("roomId", Integer.class);
 
-    public final StringPath userId = createString("userId");
+    public final StringPath userEmail = createString("userEmail");
 
     public QJoinedUser(String variable) {
         super(JoinedUser.class, forVariable(variable));

@@ -23,8 +23,8 @@ function ChatHeader({ roomId }) {
         // Filter out the current user (assuming we have the current user's ID)
         const currentUserId = localStorage.getItem('jwtToken') && jwtDecode(localStorage.getItem('jwtToken')).email;
         const otherUsers = joinedUserDTO
-          .filter(user => user.userId !== currentUserId)
-          .map(user => user.userId);
+          .filter(user => user.userEmail !== currentUserId)
+          .map(user => user.userEmail);
 
         setUserNames(otherUsers);
         setUserCount(otherUsers.length);

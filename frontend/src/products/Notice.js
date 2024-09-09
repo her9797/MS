@@ -83,7 +83,7 @@ function Notice() {
                                     <td>{item.noticeNo}</td>
                                     <td>{item.title}</td>
                                     <td>{item.content}</td>
-                                    <td>{item.userId}</td>
+                                    <td>{item.userEmail}</td>
                                     <td>{formatDate(item.createdDate)}</td>
                                 </tr>
                             ))

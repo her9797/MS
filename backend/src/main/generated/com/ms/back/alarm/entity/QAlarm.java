@@ -27,7 +27,7 @@ public class QAlarm extends EntityPathBase<Alarm> {
 
     public final StringPath readYn = createString("readYn");
 
-    public final StringPath userId = createString("userId");
+    public final StringPath userEmail = createString("userEmail");
 
     public QAlarm(String variable) {
         super(Alarm.class, forVariable(variable));

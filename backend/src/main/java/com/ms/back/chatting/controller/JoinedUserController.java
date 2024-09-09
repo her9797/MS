@@ -29,10 +29,10 @@ public class JoinedUserController {
         this.roomAndUserService = roomAndUserService;
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<ResponseMessage> selectRoomListByUserId(@PathVariable("userId") String userId) {
+    @GetMapping("/{userEmail}")
+    public ResponseEntity<ResponseMessage> selectRoomListByUserEmail(@PathVariable("userEmail") String userEmail) {
 
-        List<RoomAndUserDTO> roomAndUser = roomAndUserService.selectRoomsByUserId(userId);
+        List<RoomAndUserDTO> roomAndUser = roomAndUserService.selectRoomsByUserEmail(userEmail);
 
         Map<String, Object> results = new HashMap<>();
         results.put("results", roomAndUser);

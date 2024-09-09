@@ -41,7 +41,7 @@ public class RoomRepositoryImpl implements RoomRepositoryCustom {
                         JoinedUserDTO.class,
                         user.joinedCode,
                         user.roomId,
-                        user.userId,
+                        user.userEmail,
                         user.joinedStatus,
                         user.createdAt
                 ))

@@ -14,13 +14,13 @@ function ChatList({ title, count, onRoomClick }) {
 
   const token = localStorage.getItem('jwtToken');
   const decodedToken = jwtDecode(token);
-  const userId = decodedToken.email;
+  const userEmail = decodedToken.email;
 
   useEffect(() => {
-    if (userId) {
-      dispatch(callSelectJoinedRoomListAPI(userId));
+    if (userEmail) {
+      dispatch(callSelectJoinedRoomListAPI(userEmail));
     }
-  }, [dispatch, userId]);
+  }, [dispatch, userEmail]);
 
   const roomList = rooms.results || [];
 
@@ -43,7 +43,7 @@ function ChatList({ title, count, onRoomClick }) {
   const handleMenuClick = async (action) => {
     if (action === 'leave') {
       const joinedUserDTO = {
-        userId: userId,
+        userEmail: userEmail,
       };
       console.log(selectedRoomId);
       console.log(joinedUserDTO);
@@ -67,8 +67,8 @@ function ChatList({ title, count, onRoomClick }) {
         {roomList.length > 0 ? (
           roomList.map((room) => {
             const otherUsers = room.joinedUserDTO
-              .filter(user => user.userId !== userId)
-              .map(user => user.userId);
+              .filter(user => user.userEmail !== userEmail)
+              .map(user => user.userEmail);
 
             return (
               <ChatItem

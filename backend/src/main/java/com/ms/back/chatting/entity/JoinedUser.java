@@ -16,8 +16,8 @@ public class JoinedUser {
     @Column(name = "joined_code")
     private int joinedCode;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "user_email")
+    private String userEmail;
 
     @Column(name = "joined_status")
     private String joinedStatus;
@@ -32,9 +32,9 @@ public class JoinedUser {
     protected JoinedUser() {}
 
     @Builder
-    public JoinedUser(int roomId, String userId, String joinedStatus, LocalDateTime createdAt) {
+    public JoinedUser(int roomId, String userEmail, String joinedStatus, LocalDateTime createdAt) {
         this.roomId = roomId;
-        this.userId = userId;
+        this.userEmail = userEmail;
         this.joinedStatus = joinedStatus;
         this.createdAt = createdAt;
     }

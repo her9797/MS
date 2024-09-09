@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface JoinedUserRepository extends JpaRepository<JoinedUser, Integer> {
 
 
-    JoinedUser findByRoomIdAndUserId(int roomId, String userId);
+    JoinedUser findByRoomIdAndUserEmail(int roomId, String userEmail);
 }

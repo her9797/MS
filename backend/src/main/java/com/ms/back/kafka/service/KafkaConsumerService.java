@@ -79,7 +79,7 @@ public class KafkaConsumerService {
         // 중복 메시지 제거
         Map<String, MsgDTO> uniqueMessages = batchToSave.stream()
                 .collect(Collectors.toMap(
-                        msg -> msg.getMsgContent() + "|" + msg.getUserId(), // 중복 기준: 메시지 내용 + 발신자 ID
+                        msg -> msg.getMsgContent() + "|" + msg.getUserEmail(), // 중복 기준: 메시지 내용 + 발신자 ID
                         dto -> dto,
                         (existing, replacement) -> existing // 중복 메시지 처리: 기존 메시지를 유지
                 ));

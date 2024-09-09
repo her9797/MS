@@ -21,8 +21,8 @@ public class Comment extends BaseTime {
     @NotBlank(message = "내용은 필수 입력 사항입니다.")
     private String cmtContent;
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "user_email", nullable = false)
+    private String userEmail;
 
     @Column(name = "user_pwd", nullable = false)
     private String userPwd;

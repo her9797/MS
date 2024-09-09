@@ -61,7 +61,7 @@ public class RoomAndUserService {
             for (JoinedUserDTO joinedUserDTO : joinedUserDTOList) {
                 JoinedUser userEntity = new JoinedUser(
                         roomId, // Room 엔티티 참조
-                        joinedUserDTO.getUserId(),
+                        joinedUserDTO.getUserEmail(),
                         joinedStatus, // 서버에서 default  처리.
                         joinedUserDTO.getCreatedAt()
                 );
@@ -84,7 +84,7 @@ public class RoomAndUserService {
 
 
     /** 회원에 해당하는 방 전체 리스트 조회 */
-    public List<RoomAndUserDTO> selectRoomsByUserId(String userId) {
-        return joinedUserRepositoryCustom.findRoomsByUserId(userId);
+    public List<RoomAndUserDTO> selectRoomsByUserEmail(String userEmail) {
+        return joinedUserRepositoryCustom.findRoomsByUserEmail(userEmail);
     }
 }

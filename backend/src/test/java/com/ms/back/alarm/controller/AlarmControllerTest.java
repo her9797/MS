@@ -32,13 +32,13 @@ class AlarmControllerTest {
     void selectAlarmListTest() throws Exception {
 
         // given
-        String userId = "user1";
+        String userEmail = "user1";
         String readYn = "N";
 
         // when
         MvcResult result = mockMvc.perform(get("/alarms")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("userId", userId)
+                        .param("userEmail", userEmail)
                         .param("readYn", readYn))
 
                 // then
@@ -58,7 +58,7 @@ class AlarmControllerTest {
     void insertAlarmTests() throws Exception {
 
         // given
-        AlarmDTO alarmDTO = new AlarmDTO("userId", "알람이 등록되었습니다 컨트롤러", "N", LocalDateTime.now());
+        AlarmDTO alarmDTO = new AlarmDTO("userEmail", "알람이 등록되었습니다 컨트롤러", "N", LocalDateTime.now());
 
         // when
         MvcResult result = mockMvc.perform(post("/alarms")

@@ -25,8 +25,8 @@ public class Notice extends BaseTime {
     @Column(name = "delete_Yn", nullable = false)
     private String deleteYn;
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "user_email", nullable = false)
+    private String userEmail;
 
     protected Notice() {}
 

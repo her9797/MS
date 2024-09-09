@@ -22,7 +22,7 @@ const NtcModal = ({ isOpen, onClose, notice }) => {
                         <input
                             type="text"
                             className="border border-gray-300 p-2 rounded w-full"
-                            value={notice.userId}
+                            value={notice.userEmail}
                             readOnly
                         />
                     </div>
