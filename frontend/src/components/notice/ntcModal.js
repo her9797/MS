@@ -1,7 +1,24 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { callDeleteNoticeAPI, callSelectNoticeAPI } from '../../apis/NoticeAPICalls';
 
 const NtcModal = ({ isOpen, onClose, notice }) => {
+    const dispatch = useDispatch();
     if (!isOpen || !notice) return null;
+    const noticeNo = notice.noticeNo;
+
+    
+    const handleDeleteNotice = async () => {
+        try {
+            // 비동기 작업을 기다리도록 수정
+            await dispatch(callDeleteNoticeAPI(noticeNo));
+            await dispatch(callSelectNoticeAPI());
+            onClose(); // 모달 닫기
+        } catch (error) {
+            console.error('공지사항 삭제 실패', error);
+        }
+    };
+
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
@@ -51,6 +68,12 @@ const NtcModal = ({ isOpen, onClose, notice }) => {
                         className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
                     >
                         닫기
+                    </button>
+                    <button
+                        className="bg-red-400 text-gray-700 px-4 py-2 rounded hover:bg-red-500"
+                        onClick={handleDeleteNotice}
+                    >
+                        삭제
                     </button>
                 </div>
             </div>

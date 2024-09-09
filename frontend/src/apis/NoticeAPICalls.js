@@ -1,4 +1,4 @@
-import { GET_NOTICE, POST_NOTICE } from "../modules/NoticeModule";
+import { GET_NOTICE, POST_NOTICE, PUT_NOTICE } from "../modules/NoticeModule";
 import axios from 'axios';
 import { API_BASE_URL, headers } from './config';
 
@@ -21,18 +21,27 @@ export const callInsertNoticeAPI = (noticeDTO) => {
     return async dispatch => {
         try {
             // POST 요청을 보내면서 noticeDTO를 요청 본문에 포함
-            const response = await axios.post(`${API_BASE_URL}/notices`, noticeDTO, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + window.localStorage.getItem('jwtToken')
-                }
-            });
+            const response = await axios.post(`${API_BASE_URL}/notices`, noticeDTO,);
             // 성공적인 응답 후 상태를 업데이트
             dispatch({ type: POST_NOTICE, payload: response.data.results });
             return response.data.results;
         } catch (error) {
             console.log('공지 등록 실패', error);
             return [];
+        }
+    };
+};
+
+export const callDeleteNoticeAPI = (noticeNo) => {
+    return async dispatch => {
+        try {
+            const response = await axios.put(`${API_BASE_URL}/notices/${noticeNo}`, noticeNo, {
+                headers
+            });
+            dispatch({ type: PUT_NOTICE, payload: response.data.results });
+            return response.data.results;
+        } catch (error) {
+            console.log('공지 삭제 실패', error);
         }
     };
 };
