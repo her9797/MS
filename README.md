@@ -64,7 +64,7 @@ DB index 설정 : 완료 (@annotation으로 index 설정 후, db 확인 후 정�
   - Oauth2 Social Login 구현 하며, jwt 검증 로직 및 google 회원에서 가져온 회원 정보를 검증하여 db에 없으면 저장
   - KAKAO LOGIN
     - 컨트롤러 : 클라이언트에서 전송된 kakao 인증 토큰인 'accessToken'을 받아서 kakao API를 호출하여 인증을 수행 / 인증을 성공하면 JWT 토큰을 생성하여 반환하고 실패하면 오류 메시지를 반환
-    - 서비스 : 헤더 설정(요청에 Kakao accessToken을 포함) / kakao API 호출 후 사용자 정보를 조회 (여기서 KAKAO ID를 받아올 때, String 으로 변환했다가 진짜 애먹음.) key 값이라고 생각했고 "id"로 가져오니 절대 안되서 Object로 타입을 주니 정상적으로 반환 : (Object를 String으로 형변환하여 사용) / 사용자가 db에 없으면, 새로운 사용자로 등록하고, jwt를 생성하여 리턴
+    - 서비스 : 헤더 설정(요청에 Kakao accessToken을 포함) / kakao API 호출 후 사용자 정보를 조회 (여기서 KAKAO ID를 받아올 때, String 으로 변환했다가 진짜 애먹음.) key 값이라고 생각했고 "id"로 가져오니 절대 안되서 Object로 타입을 주니 정상적으로 데이터를 가져올 수 있었다... ( 이후 Object를 String으로 형변환하여 사용 ) / 사용자가 db에 없으면, 새로운 사용자로 등록하고, jwt를 생성하여 리턴하며 정상적으로 로그인을 마치게 된다.
 ```
 kakao : 진짜 난감했던건, 뭘 해도 카카오 로그인 팝업창이 안떴는데, 이건 sdk? 를 안해서라고 한다.. 작동 과정 요약을 하자면 다음과 같다.
 
