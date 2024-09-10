@@ -1,5 +1,5 @@
 /** Google Login
- * Google 인증 토큰을 서버에 전송하여 사용자 인증을 수행합니다.
+ * Google 인증 토큰을 서버에 전송하여 사용자 인증을 수행
  * @param {string} credential - Google 로그인에서 받은 인증 토큰.
  * @returns {Promise<object>} - 서버에서 반환된 데이터.
  */
@@ -28,7 +28,7 @@ export const authenticateWithGoogle = async (credential) => {
   
 
 /**
- * Kakao 인증 토큰을 서버에 전송하여 사용자 인증을 수행합니다.
+ * Kakao 인증 토큰을 서버에 전송하여 사용자 인증을 수행
  * @param {string} token - Kakao 로그인에서 받은 인증 토큰.
  * @returns {Promise<object>} - 서버에서 반환된 데이터.
  */
