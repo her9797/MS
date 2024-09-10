@@ -2,9 +2,7 @@ package com.ms.back.user.controller;
 
 import com.ms.back.auth.token.JwtResponse;
 import com.ms.back.auth.token.TokenRequest;
-import com.ms.back.user.entity.User;
 import com.ms.back.user.service.AuthService;
-import com.ms.back.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -21,17 +19,17 @@ public class AuthController {
 
     private final AuthService authService;
 
-    private final UserService userService;
+
 
     @Autowired
-    public AuthController(AuthService authService, UserService userService) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
-        this.userService = userService;
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/google")
     public ResponseEntity<?> googleAuth(@RequestBody TokenRequest request) {
+
         try {
             // TokenRequest 객체에서 token을 추출
             String jwtToken = authService.authenticateWithGoogle(request.getToken());
@@ -45,5 +43,26 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/kakao")
+    public ResponseEntity<?> kakaoAuth(@RequestBody TokenRequest request) {
+
+        System.out.println("Received request with token: " + request.getToken()); // 로그 추가
+        String accessToken = request.getToken();
+        System.out.println(accessToken);
+        try {
+            String jwtToken = authService.authenticateWithKakao(accessToken);
+            System.out.println(jwtToken);
+            log.info("Kakao Login Success : {}", jwtToken);
+
+            return ResponseEntity.ok(new JwtResponse(jwtToken));
+        } catch (Exception e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Invalid token");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
+
 
 }

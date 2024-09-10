@@ -1,5 +1,6 @@
 package com.ms.back.common.Jwt;
 
+import com.ms.back.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
