@@ -32,10 +32,8 @@ public class UserService {
     /** User 등록 (소셜 로그인 시, DB에 해당 회원이 없다면) */
     public void insertUser(String name, String email, UserRole userRole,  String userStatus) {
 
-
         User newUser = new User(name, email, userRole, userStatus);
         userRepository.save(newUser);
-
     }
 
 }

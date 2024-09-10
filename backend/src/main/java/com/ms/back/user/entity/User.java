@@ -43,18 +43,9 @@ public class User {
     }
 
     @Builder
-    public User(String userPwd, String userName, String userEmail, String userNickname, UserRole userRole, String userGender, String userStatus) {
-        this.userPwd = userPwd;
+    public User(String userEmail, String userName, String userNickname) {
+        this.userEmail = userEmail;
         this.userName = userName;
-        this.userEmail = userEmail;
         this.userNickname = userNickname;
-        this.userRole = userRole;
-        this.userGender = userGender;
-        this.userStatus = userStatus;
-    }
-
-    @Builder
-    public User(String userEmail) {
-        this.userEmail = userEmail;
     }
 }
