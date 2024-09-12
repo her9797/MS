@@ -21,7 +21,6 @@ const SignUp = ({ setIsSignUp, handleSuccess }) => {
         }
     };
 
-    /* kakao 로그인은 jsKey를 로드해야함 */
     useEffect(() => {
         if (!window.Kakao) {
             const script = document.createElement('script');
@@ -40,7 +39,6 @@ const SignUp = ({ setIsSignUp, handleSuccess }) => {
         }
     }, [kakaoClientId]);
 
-    // Kakao 로그인 성공 처리
     const kakaoSuccessLogin = async (response) => {
         try {
             const { access_token } = response.response;
@@ -49,8 +47,11 @@ const SignUp = ({ setIsSignUp, handleSuccess }) => {
                 localStorage.setItem('jwtToken', result.token);
                 console.log(result.token);
                 console.log('JWT Token:', result.token);
-        
-                // 성공적으로 로그인 후 홈 페이지로 이동
+                
+                // Dispatch login action to update Redux state
+                dispatch(actions.auth.login({ token: result.token }));
+
+                // Navigate to the home page
                 navigate('/');
             } else {
                 console.error('Access token is undefined');
