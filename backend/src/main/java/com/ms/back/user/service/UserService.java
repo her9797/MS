@@ -62,7 +62,7 @@ public class UserService {
                 .userNickname(" ")
                 .userRole(UserRole.USER)
                 .userGender(" ")
-                .userStatus("Y")
+                .userStatus("ACTIVE")
                 .build();
 
         userRepository.save(newUser);
