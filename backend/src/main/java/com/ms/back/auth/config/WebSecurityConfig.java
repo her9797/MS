@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -45,7 +47,7 @@ public class WebSecurityConfig {
                     return configuration;
                 }))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/public/**", "/notices", "/wss/**").permitAll() // 공개 엔드포인트 설정 , WebSocket jwt 검증 로직 있음
+                        .requestMatchers("/public/**", "/notices", "/users/signUp", "/wss/**").permitAll() // 공개 엔드포인트 설정 , WebSocket jwt 검증 로직 있음
                         .requestMatchers("/auth/**").permitAll() // OAuth2 엔드포인트 허용
                         .anyRequest().authenticated() // 나머지 모든 요청은 인증 필요
                 )
@@ -75,6 +77,12 @@ public class WebSecurityConfig {
                         .allowedHeaders("Authorization", "Content-Type");
             }
         };
+    }
+
+    /** 비밀번호 인코더 빈 주입 */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 

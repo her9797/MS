@@ -42,10 +42,63 @@ public class User {
         this.userStatus = userStatus;
     }
 
-    @Builder
-    public User(String userEmail, String userName, String userNickname) {
-        this.userEmail = userEmail;
-        this.userName = userName;
-        this.userNickname = userNickname;
+    /** 얘는 커스텀 빌더임 직접 작성 */
+    private User(UserBuilder builder) {
+        this.userEmail = builder.userEmail;
+        this.userPwd = builder.userPwd;
+        this.userName = builder.userName;
+        this.userNickname = builder.userNickname;
+        this.userRole = builder.userRole;
+        this.userGender = builder.userGender;
+        this.userStatus = builder.userStatus;
+    }
+
+    public static class UserBuilder {
+        private String userEmail;
+        private String userPwd;
+        private String userName;
+        private String userNickname;
+        private UserRole userRole;
+        private String userGender;
+        private String userStatus;
+
+        public UserBuilder userEmail(String userEmail) {
+            this.userEmail = userEmail;
+            return this;
+        }
+
+        public UserBuilder userPwd(String userPwd) {
+            this.userPwd = userPwd;
+            return this;
+        }
+
+        public UserBuilder userName(String userName) {
+            this.userName = userName;
+            return this;
+        }
+
+        public UserBuilder userNickname(String userNickname) {
+            this.userNickname = userNickname;
+            return this;
+        }
+
+        public UserBuilder userRole(UserRole userRole) {
+            this.userRole = userRole;
+            return this;
+        }
+
+        public UserBuilder userGender(String userGender) {
+            this.userGender = userGender;
+            return this;
+        }
+
+        public UserBuilder userStatus(String userStatus) {
+            this.userStatus = userStatus;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }
