@@ -47,10 +47,8 @@ public class UserService {
      * */
     public String signUp(UserDTO userDTO) {
 
-        // Find user by email
         User findUser = userRepository.findByUserEmail(userDTO.getUserEmail());
 
-        // Check if the user exists
         if (findUser != null && findUser.getUserEmail().equals(userDTO.getUserEmail())) {
             return "중복된 ID 입니다.";
         }

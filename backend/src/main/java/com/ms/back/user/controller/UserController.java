@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -23,9 +22,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/signUp")
-    public String signUp (@RequestBody UserDTO userDTO) {
-
+    @PostMapping("/users")
+    public String signUp(@RequestBody UserDTO userDTO) {
+        System.out.println(userDTO);
         return userService.signUp(userDTO);
     }
 
