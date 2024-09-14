@@ -6,7 +6,7 @@
 - SPRING SECURITY JWT
 - Websocket
 - kafka
-- 소셜 Login (구글, 카카오)
+- 소셜 Login (구글, 카카오, 네이버)
 ```
 ### FRONT 
 ```
