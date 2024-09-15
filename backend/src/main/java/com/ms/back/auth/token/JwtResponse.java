@@ -1,6 +1,7 @@
 package com.ms.back.auth.token;
 
 public class JwtResponse {
+
     private String token;
 
     public JwtResponse(String token) {

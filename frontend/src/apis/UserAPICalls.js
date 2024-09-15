@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { POST_USER } from "../modules/UserModules";
+import { POST_LOGIN_USER, POST_USER } from "../modules/UserModules";
 import { API_BASE_URL } from './config';
 
 export const callPostUserAPI = (userDTO) => {
@@ -21,3 +21,21 @@ export const callPostUserAPI = (userDTO) => {
     };
 };
 
+export const callLoginUserAPI = (userDTO) => {
+    return async dispatch => {
+        try {
+            console.log('로그인 요청 데이터:', userDTO);
+            const response = await axios.post(`${API_BASE_URL}/users/normal`, userDTO, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            console.log('API 응답 데이터:', response.data);
+            dispatch({ type: POST_LOGIN_USER, payload: response.data });
+            return response.data;
+        } catch (error) {
+            console.error('로그인 문제 발생:', error);
+            throw error;
+        }
+    };
+};

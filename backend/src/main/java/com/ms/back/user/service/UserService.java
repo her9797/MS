@@ -88,4 +88,8 @@ public class UserService {
         return "회원가입 성공";
     }
 
+    /** 비밀번호 검증 메서드 */
+    public boolean validatePassword(String rawPassword, String encodedPassword) {
+        return encoder.matches(rawPassword, encodedPassword);
+    }
 }
