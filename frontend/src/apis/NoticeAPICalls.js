@@ -21,7 +21,7 @@ export const callInsertNoticeAPI = (noticeDTO) => {
     return async dispatch => {
         try {
             // POST 요청을 보내면서 noticeDTO를 요청 본문에 포함
-            const response = await axios.post(`${API_BASE_URL}/notices`, noticeDTO,);
+            const response = await axios.post(`${API_BASE_URL}/notices`, noticeDTO, { headers });
             // 성공적인 응답 후 상태를 업데이트
             dispatch({ type: POST_NOTICE, payload: response.data.results });
             return response.data.results;

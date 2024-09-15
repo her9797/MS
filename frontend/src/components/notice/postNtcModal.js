@@ -12,7 +12,7 @@ const PostNtcModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     const decodedToken = jwtDecode(token); // JWT 디코딩
-
+    console.log(decodedToken);
     const handleRegister = async () => {
         // 제목과 내용이 비어 있는지 확인
         if (!title.trim() || !content.trim()) {
@@ -24,7 +24,7 @@ const PostNtcModal = ({ isOpen, onClose }) => {
             const noticeDTO = {
                 title,
                 content,
-                userEmail: decodedToken.email  
+                userEmail: decodedToken.email
             };
             await dispatch(callInsertNoticeAPI(noticeDTO));
             dispatch(callSelectNoticeAPI());
