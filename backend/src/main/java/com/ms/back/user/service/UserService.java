@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Pattern;
+
 
 @Service
 @Slf4j
@@ -47,6 +49,24 @@ public class UserService {
      * */
     public String signUp(UserDTO userDTO) {
 
+        // 이메일 유효성 정규식 패턴
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern emailPatternCompiled = Pattern.compile(emailPattern);
+
+        // 비밀번호 유효성 정규식 패턴
+        String passwordPattern = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#])[a-zA-Z\\d!@#]{6,15}$";
+        Pattern passwordPatternCompiled = Pattern.compile(passwordPattern);
+
+        // 이메일 유효성 검사
+        if (!emailPatternCompiled.matcher(userDTO.getUserEmail()).matches()) {
+            return "유효하지 않은 이메일 형식입니다.";
+        }
+
+        // 비밀번호 유효성 검사
+        if (!passwordPatternCompiled.matcher(userDTO.getUserPwd()).matches()) {
+            return "비밀번호는 6~15자 사이의 영문자, 숫자 및 특수 기호 (!, @, #)만 포함할 수 있습니다.";
+        }
+
         User findUser = userRepository.findByUserEmail(userDTO.getUserEmail());
 
         if (findUser != null && findUser.getUserEmail().equals(userDTO.getUserEmail())) {
@@ -67,4 +87,5 @@ public class UserService {
 
         return "회원가입 성공";
     }
+
 }
