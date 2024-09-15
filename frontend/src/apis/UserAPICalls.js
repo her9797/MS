@@ -12,8 +12,8 @@ export const callPostUserAPI = (userDTO) => {
                 },
             });
             console.log('API 응답 데이터:', response.data);
-            dispatch({ type: POST_USER, payload: response.data.results });
-            return response.data.results;
+            dispatch({ type: POST_USER, payload: response.data });
+            return response.data;
         } catch (error) {
             console.error('회원가입 문제 발생:', error);
             throw error;
