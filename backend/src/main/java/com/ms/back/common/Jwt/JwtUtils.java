@@ -26,13 +26,15 @@ public class JwtUtils {
         this.expiration = expiration;
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String userId, String name, String email) {
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
-                .compact();
+                .setSubject(userId) // 사용자 ID를 Subject로 설정
+                .claim("name", name) // 사용자 이름 클레임 추가
+                .claim("email", email) // 사용자 이메일 클레임 추가
+                .setIssuedAt(new Date()) // 발급 시간
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // 만료 시간
+                .signWith(SignatureAlgorithm.HS256, secretKey) // 서명
+                .compact(); // JWT 생성
     }
 
     public boolean validateToken(String token) {

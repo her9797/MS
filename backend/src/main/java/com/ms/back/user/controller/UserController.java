@@ -38,7 +38,13 @@ public class UserController {
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         User foundUser = userService.findByUserEmail(user.getUserEmail());
         if (foundUser != null && userService.validatePassword(user.getUserPwd(), foundUser.getUserPwd())) {
-            String token = jwtUtils.generateToken(foundUser.getUserEmail());
+
+            // JWT 생성 시 이메일과 이름을 전달
+            String token = jwtUtils.generateToken(
+                    foundUser.getUserEmail(),
+                    foundUser.getUserName(),
+                    foundUser.getUserEmail()
+            );
 
             TokenRequest tokenRequest = new TokenRequest();
             tokenRequest.setToken(token);
