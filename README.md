@@ -61,6 +61,7 @@ DB index 설정 : 완료 (@annotation으로 index 설정 후, db 확인 후 정�
 
 - **LOGIN**
   - 스프링 Security / JWT
+  - 일반 로그인
   - Oauth2 Social Login 구현 하며, jwt 검증 로직 및 google 회원에서 가져온 회원 정보를 검증하여 db에 없으면 저장
   - KAKAO LOGIN
     - 컨트롤러 : 클라이언트에서 전송된 kakao 인증 토큰인 'accessToken'을 받아서 kakao API를 호출하여 인증을 수행 / 인증을 성공하면 JWT 토큰을 생성하여 반환하고 실패하면 오류 메시지를 반환
