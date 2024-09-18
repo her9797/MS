@@ -26,7 +26,7 @@ const SignIn = ({ setIsSignUp }) => {
             navigate('/');
         } catch (error) {
             console.error('로그인 실패:', error);
-            setError('로그인 실패. 이메일과 비밀번호를 확인해 주세요.');
+            alert('로그인 실패. 이메일과 비밀번호를 확인해 주세요.');
         }
     };
 
@@ -55,10 +55,10 @@ const SignIn = ({ setIsSignUp }) => {
                 />
             </div>
             {error && <p className="error-message">{error}</p>}
-            <button type="submit" className="login__button">Sign In</button>
+            <button type="submit" className="login__button" style={{width:'100%'}}>Sign In</button>
             <div>
                 <span className="login__account login__account--account">Don't Have an Account?</span>
-                <span className="login__signin login__signin--signup" onClick={() => setIsSignUp(true)}> Sign Up</span>
+                <span className="login__signin login__signin--signup" onClick={() => setIsSignUp(true)} > Sign Up</span>
             </div>
         </form>
     );

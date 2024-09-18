@@ -148,23 +148,24 @@ const SignUp = ({ setIsSignUp, handleSuccess, onLogout }) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit" className="login__button">Sign Up</button>
+                <button type="submit" className="login__button" style={{width:'100%'}}>Sign Up</button>
                 <div>
                     <span className="login__account login__account--account">Already have an Account?</span>
                     <span className="login__signup login__signup--signup" onClick={() => setIsSignUp(false)}> Sign In</span>
                 </div>
                 <div className="login__social">
-                    <GoogleOAuthProvider clientId={googleClientId}>
+                    <GoogleOAuthProvider clientId={googleClientId} style={{width: '100%', textAlign: 'center'}}>
                         <GoogleLogin
                             onSuccess={successLogin}
                             onError={(error) => console.error('Google Sign-In Error:', error)}
                         />
                     </GoogleOAuthProvider>
+                    
                     <KakaoLogin
                         jsKey={kakaoClientId}
                         onSuccess={kakaoSuccessLogin}
                         onError={kakaoFailureLogin}
-                        style={{ width: '200px', height: '40px', background: '#F7E02F', color: '#3E3E3E', borderRadius: '5px', textAlign: 'center', lineHeight: '40px', cursor: 'pointer' }}
+                        style={{ width: '200px', height: '40px', background: '#F7E02F', color: '#3E3E3E', borderRadius: '5px', textAlign: 'center', lineHeight: '40px', cursor: 'pointer', width:'100%', marginTop: '2%' }}
                     >
                         카카오 로그인
                     </KakaoLogin>
