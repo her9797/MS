@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 
@@ -91,5 +92,10 @@ public class UserService {
     /** 비밀번호 검증 메서드 */
     public boolean validatePassword(String rawPassword, String encodedPassword) {
         return encoder.matches(rawPassword, encodedPassword);
+    }
+
+    public List<User> findUserList() {
+
+        return userRepository.findAll();
     }
 }
