@@ -8,7 +8,7 @@ import '../../styles/chatList.css';
 function ChatList({ title, count, onRoomClick }) {
   const dispatch = useDispatch();
   const rooms = useSelector(state => state.joinedUserReducer.rooms);
-
+  
   const [contextMenu, setContextMenu] = useState(null);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
 
@@ -22,7 +22,7 @@ function ChatList({ title, count, onRoomClick }) {
     }
   }, [dispatch, userEmail]);
 
-  const roomList = rooms.results || [];
+  const roomList = rooms?.results || []; // 에러 방지
 
   const handleRoomClick = (roomId) => {
     if (onRoomClick) {
@@ -31,9 +31,8 @@ function ChatList({ title, count, onRoomClick }) {
   };
 
   const handleContextMenu = (event, roomId) => {
-    event.preventDefault(); // Prevent the default context menu
+    event.preventDefault();
     setSelectedRoomId(roomId);
-
     setContextMenu({
       top: event.clientY - 400,
       left: event.clientX - 150,
@@ -45,8 +44,6 @@ function ChatList({ title, count, onRoomClick }) {
       const joinedUserDTO = {
         userEmail: userEmail,
       };
-      console.log(selectedRoomId);
-      console.log(joinedUserDTO);
       try {
         await dispatch(callPatchJoinedUserAPI(selectedRoomId, joinedUserDTO));
         console.log('Successfully left the room');
@@ -61,7 +58,7 @@ function ChatList({ title, count, onRoomClick }) {
     <div className="relative flex flex-col mt-8">
       <div className="flex flex-row items-center justify-between text-xs">
         <span className="font-bold">{title}</span>
-        <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">{count}</span>
+        <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">{roomList.length}</span>
       </div>
       <div className="flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto">
         {roomList.length > 0 ? (
