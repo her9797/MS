@@ -5,13 +5,13 @@ import { callPatchJoinedUserAPI, callSelectJoinedRoomListAPI } from '../../apis/
 import { jwtDecode } from 'jwt-decode';
 import '../../styles/chatList.css';
 
-function ChatList({ title, count, onRoomClick }) {
+function ChatList({ title, onRoomClick, addChatRoom }) {
   const dispatch = useDispatch();
   const rooms = useSelector(state => state.joinedUserReducer.rooms);
   
   const [contextMenu, setContextMenu] = useState(null);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
-
+  
   const token = localStorage.getItem('jwtToken');
   const decodedToken = jwtDecode(token);
   const userEmail = decodedToken.email;
@@ -22,7 +22,7 @@ function ChatList({ title, count, onRoomClick }) {
     }
   }, [dispatch, userEmail]);
 
-  const roomList = rooms?.results || []; // 에러 방지
+  const roomList = rooms?.results || [];
 
   const handleRoomClick = (roomId) => {
     if (onRoomClick) {
@@ -46,12 +46,17 @@ function ChatList({ title, count, onRoomClick }) {
       };
       try {
         await dispatch(callPatchJoinedUserAPI(selectedRoomId, joinedUserDTO));
+        await dispatch(callSelectJoinedRoomListAPI(userEmail));
         console.log('Successfully left the room');
       } catch (error) {
         console.error('Error leaving the room', error);
       }
     }
     setContextMenu(null);
+  };
+
+  const addNewChatRoom = (newRoom) => {
+    roomList.push(newRoom); // 새로운 방 추가
   };
 
   return (
