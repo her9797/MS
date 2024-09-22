@@ -2,6 +2,7 @@ package com.ms.back.chatting.service;
 
 import com.ms.back.chatting.dto.JoinedUserDTO;
 import com.ms.back.chatting.dto.RoomAndUserDTO;
+import com.ms.back.chatting.entity.GroupStatus;
 import com.ms.back.chatting.entity.JoinedUser;
 import com.ms.back.chatting.entity.Room;
 import com.ms.back.chatting.repository.JoinedUser.JoinedUserRepository;
@@ -50,6 +51,11 @@ public class RoomAndUserService {
                 throw new IllegalArgumentException("혼자서는 채팅을 할 수 없죠?");
             }
 
+            if (joinedUserDTOList.size() >= 3) {
+                roomAndUserDTO.getRoomDTO().setGroupStatus(GroupStatus.ACTIVE);
+            } else {
+                roomAndUserDTO.getRoomDTO().setGroupStatus(GroupStatus.INACTIVE);
+            }
             // Room 엔티티 생성 및 저장
             Room roomEntity = modelMapper.map(roomAndUserDTO.getRoomDTO(), Room.class);
             roomRepository.save(roomEntity); // roomId 저장
