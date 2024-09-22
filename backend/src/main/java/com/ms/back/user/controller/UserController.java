@@ -32,8 +32,6 @@ public class UserController {
         this.jwtUtils = jwtUtils;
     }
 
-
-
     @PostMapping("")
     public String signUp(@RequestBody UserDTO userDTO) {
         System.out.println(userDTO);

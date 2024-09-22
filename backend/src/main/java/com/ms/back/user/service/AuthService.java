@@ -30,7 +30,6 @@ public class AuthService {
     @Value("${jwt.expiration-time}")
     private long expirationTime;
 
-
     final String GOOGLE_URL = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=";
 
     final String KAKAO_URL = "https://kapi.kakao.com/v2/user/me";
