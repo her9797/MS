@@ -7,6 +7,7 @@ import Main from "./products/Main";
 import Login from "./products/Login";
 import Chat from "./products/Chat";
 import Notice from "./products/Notice";
+import AccountSettings from './pages/AccountSettings';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route index element={<Main />} />
             <Route path="notice" element={<Notice />} />
             <Route path="chat" element={<Chat />} />
+            <Route path="accountSettings" element={<AccountSettings />} />
           </Route>
         </Routes>
       </BrowserRouter>

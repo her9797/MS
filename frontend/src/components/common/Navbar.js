@@ -41,6 +41,7 @@ const NavBar = () => {
                                     <a className="nav-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>Logout</a>
                                 </li>
                                 <Link to="/chat" style={{ textDecoration: 'none' }}><a className="nav-link">Chat</a></Link>
+                                <Link to="/accountSettings" className="nav-item"><a className="nav-link" href="#!">MyPage</a></Link>
                             </>
                         ) : (
                             <Link to="/login" style={{ textDecoration: 'none' }}><a className="nav-link">Login</a></Link>
