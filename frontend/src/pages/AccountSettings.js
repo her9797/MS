@@ -61,8 +61,8 @@ const AccountSettings = () => {
                                 ))}
                             </div>
                             <div className="mt-2">
-                                <button type="submit" className="btn btn-primary me-2">Save changes</button>
-                                <button type="reset" className="btn btn-outline-secondary">Cancel</button>
+                                <button type="submit" className="btn btn-primary me-2">변경사항 저장</button>
+                                <button type="reset" className="btn btn-outline-secondary">취소</button>
                             </div>
                         </form>
                     </div>
