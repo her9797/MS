@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 
@@ -97,5 +99,12 @@ public class UserService {
     public List<User> findUserList() {
 
         return userRepository.findAll();
+    }
+
+    /** User 상섿조회 */
+    public Optional<User> findUserByUserEmail(String userEmail) {
+
+        return userRepository.findUserByUserEmail(userEmail);
+
     }
 }
