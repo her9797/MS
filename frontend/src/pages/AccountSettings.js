@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { callUserDetailAPI } from '../apis/UserAPICalls';
-import {jwtDecode} from 'jwt-decode'; 
+import { callUserDetailAPI, callModifyUser } from '../apis/UserAPICalls';
+import { jwtDecode } from 'jwt-decode'; 
 
 const AccountSettings = () => {
     const dispatch = useDispatch();
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState({});
+    const [formData, setFormData] = useState({
+        userNickname: '',
+        userGender: '',
+    });
 
     const token = localStorage.getItem('jwtToken');
     const decodedToken = jwtDecode(token);
@@ -15,15 +19,35 @@ const AccountSettings = () => {
         dispatch(callUserDetailAPI(userEmail))
             .then(data => {
                 setUser(data.results.user);
+                setFormData({
+                    userNickname: data.results.user.userNickname,
+                    userGender: data.results.user.userGender,
+                });
             })
             .catch(error => {
                 console.error('API 호출 중 오류 발생:', error);
             });
-    }, [dispatch]);
+    }, [dispatch, userEmail]);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // 변경사항 저장 로직
+        dispatch(callModifyUser(userEmail, formData))
+            .then(data => {
+                console.log('회원 정보 수정 완료:', data);
+                callUserDetailAPI();
+                alert('성공적으로 변경 되었습니다.');
+            })
+            .catch(error => {
+                console.error('회원 정보 수정 오류 발생:', error);
+            });
     };
 
     const handleDeleteAccount = (event) => {
@@ -65,9 +89,9 @@ const AccountSettings = () => {
                         <form id="formAccountSettings" onSubmit={handleSubmit}>
                             <div className="row">
                                 {[
-                                    { label: 'Name', id: 'name', type: 'text', placeholder: user.userName },
-                                    { label: 'Nickname', id: 'nickname', type: 'text', placeholder: user.userNickName },
-                                    { label: 'Email', id: 'email', type: 'email', placeholder: user.userEmail },
+                                    { label: 'Name', id: 'name', type: 'text', placeholder: user.userName, disabled: true },
+                                    { label: 'Nickname', id: 'nickname', type: 'text', placeholder: user.userNickname },
+                                    { label: 'Email', id: 'email', type: 'email', placeholder: user.userEmail, disabled: true },
                                     { label: 'Gender', id: 'gender', type: 'text', placeholder: user.userGender },
                                 ].map((input, index) => (
                                     <div className="mb-3 col-12" key={index}>
@@ -76,8 +100,11 @@ const AccountSettings = () => {
                                             className="form-control"
                                             type={input.type}
                                             id={input.id}
-                                            name={input.id}
+                                            name={input.id === 'nickname' ? 'userNickname' : input.id === 'gender' ? 'userGender' : ''}
                                             placeholder={input.placeholder}
+                                            value={input.id === 'nickname' ? formData.userNickname : input.id === 'gender' ? formData.userGender : ''}
+                                            onChange={handleChange}
+                                            disabled={input.disabled}
                                         />
                                     </div>
                                 ))}
