@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { POST_LOGIN_USER, POST_USER } from "../modules/UserModules";
+import { PATCH_USER, POST_LOGIN_USER, POST_USER } from "../modules/UserModules";
 import { API_BASE_URL, headers } from './config';
 
 export const callPostUserAPI = (userDTO) => {
@@ -63,6 +63,20 @@ export const callUserDetailAPI = (userEmail) => {
             return response.data;
         } catch (error) {
             console.error('회원 상세 조회 문제 발생:', error);
+            throw error;
+        }
+    };
+};
+
+export const callModifyUser = (userEmail, userDTO) => {
+    return async dispatch => {
+        try {
+            const response = await axios.patch(`${API_BASE_URL}/users/${userEmail}` , userDTO, { headers });
+            console.log('API 응답 데이터:', response.data);
+            dispatch({ type: PATCH_USER, payload: response.data });
+            return response.data;
+        } catch (error) {
+            console.error('회원 정보 수정 문제 발생:', error);
             throw error;
         }
     };

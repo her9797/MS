@@ -7,13 +7,15 @@ const initialState = {
 export const POST_USER = 'users/POST_USER';
 export const POST_LOGIN_USER = 'users/POST_LOGIN_USER';
 export const GET_USER = 'users/GET_USER';
-export const GET_USER_DETAIL = 'users/GET_USER_DETAIL'
+export const GET_USER_DETAIL = 'users/GET_USER_DETAIL';
+export const PATCH_USER = 'users/PATCH_USER';
 
 const actions = createActions({
     [POST_USER]: () => {},
     [POST_LOGIN_USER]: () => {},
     [GET_USER]: () => {},
-    [GET_USER_DETAIL]: () => {}
+    [GET_USER_DETAIL]: () => {},
+    [PATCH_USER]: () => {}
 });
 
 const userReducer = handleActions({
@@ -21,6 +23,7 @@ const userReducer = handleActions({
     [POST_LOGIN_USER]: (state, {payload}) => ({payload}),
     [GET_USER]: (state, {payload}) => ({payload}),
     [GET_USER_DETAIL]: (state, {payload}) => ({payload}),
+    [PATCH_USER]: (state, {payload}) => ({payload}),
 }, initialState);
 
 export default userReducer;
