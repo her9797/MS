@@ -1,15 +1,20 @@
 package com.ms.back.user.service;
 
+import com.ms.back.comment.dto.CmtDTO;
+import com.ms.back.comment.entity.Comment;
 import com.ms.back.common.Jwt.JwtUtils;
 import com.ms.back.user.dto.UserDTO;
 import com.ms.back.user.dto.UserRole;
 import com.ms.back.user.entity.User;
 import com.ms.back.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -26,11 +31,14 @@ public class UserService {
 
     private final PasswordEncoder encoder;
 
+    private final ModelMapper modelMapper;
+
     @Autowired
-    public UserService(UserRepository userRepository, JwtUtils jwtUtils, PasswordEncoder encoder) {
+    public UserService(UserRepository userRepository, JwtUtils jwtUtils, PasswordEncoder encoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.jwtUtils = jwtUtils;
         this.encoder = encoder;
+        this.modelMapper = modelMapper;
     }
 
     /** ID로 User 찾기 */
@@ -101,10 +109,43 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    /** User 상섿조회 */
+    /** User 상세조회 */
     public Optional<User> findUserByUserEmail(String userEmail) {
 
         return userRepository.findUserByUserEmail(userEmail);
 
     }
+
+    /** 유저 필드 변경 */
+    @Transactional
+    public Map<String, Object> modifyUser(String userEmail, UserDTO userDTO) {
+        Map<String, Object> result = new HashMap<>();
+
+        User userEntity = userRepository.findByUserEmail(userEmail);
+
+        if (userEntity != null) {
+            // 기존 사용자 정보를 DTO로 매핑
+            UserDTO existingUserDTO = modelMapper.map(userEntity, UserDTO.class);
+
+            // 닉네임 수정
+            if (userDTO.getUserNickname() != null && !userDTO.getUserNickname().isEmpty()) {
+                existingUserDTO.setUserNickname(userDTO.getUserNickname());
+            }
+
+            // 성별 수정
+            if (userDTO.getUserGender() != null && !userDTO.getUserGender().isEmpty()) {
+                existingUserDTO.setUserGender(userDTO.getUserGender());
+            }
+
+            // DTO를 다시 엔티티로 매핑
+            User updateUser = modelMapper.map(existingUserDTO, User.class);
+            userRepository.save(updateUser);
+
+            result.put("result", true);
+        } else {
+            result.put("result", false);
+        }
+        return result;
+    }
+
 }

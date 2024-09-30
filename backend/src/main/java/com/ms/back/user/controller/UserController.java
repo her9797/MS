@@ -93,4 +93,10 @@ public class UserController {
             return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
         }
     }
+
+    @PatchMapping("{userEmail}")
+    public ResponseEntity<ResponseMessage> modifyUser(@PathVariable ("userEmail") String userEmail, @RequestBody UserDTO userDTO) {
+
+        return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", userService.modifyUser(userEmail, userDTO)));
+    }
 }
