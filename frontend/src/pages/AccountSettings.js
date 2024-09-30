@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { callUserDetailAPI } from '../apis/UserAPICalls';
+import {jwtDecode} from 'jwt-decode'; 
 
 const AccountSettings = () => {
+    const dispatch = useDispatch();
+    const [user, setUser] = useState('');
+
+    const token = localStorage.getItem('jwtToken');
+    const decodedToken = jwtDecode(token);
+    const userEmail = decodedToken.email;
+
+    useEffect(() => {
+        dispatch(callUserDetailAPI(userEmail))
+            .then(data => {
+                setUser(data.results.user);
+            })
+            .catch(error => {
+                console.error('API 호출 중 오류 발생:', error);
+            });
+    }, [dispatch]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        // 변경사항 저장 로직
     };
 
     const handleDeleteAccount = (event) => {
         event.preventDefault();
+        // 회원 탈퇴 로직
     };
 
     return (
@@ -43,10 +65,10 @@ const AccountSettings = () => {
                         <form id="formAccountSettings" onSubmit={handleSubmit}>
                             <div className="row">
                                 {[
-                                    { label: 'Name', id: 'name', type: 'text', placeholder: 'Enter your name' },
-                                    { label: 'Nickname', id: 'nickname', type: 'text', placeholder: 'Enter your nickname' },
-                                    { label: 'Email', id: 'email', type: 'email', placeholder: 'john.doe@example.com' },
-                                    { label: 'Gender', id: 'gender', type: 'text', placeholder: 'Enter your gender' },
+                                    { label: 'Name', id: 'name', type: 'text', placeholder: user.userName },
+                                    { label: 'Nickname', id: 'nickname', type: 'text', placeholder: user.userNickName },
+                                    { label: 'Email', id: 'email', type: 'email', placeholder: user.userEmail },
+                                    { label: 'Gender', id: 'gender', type: 'text', placeholder: user.userGender },
                                 ].map((input, index) => (
                                     <div className="mb-3 col-12" key={index}>
                                         <label htmlFor={input.id} className="form-label">{input.label}</label>

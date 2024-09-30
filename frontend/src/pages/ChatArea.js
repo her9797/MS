@@ -3,7 +3,7 @@ import ChatHeader from '../components/chat/ChatHeader';
 import ChatMessage from '../components/chat/ChatMessage';
 import MessageInput from '../components/chat/MessageInput';
 import { createKafka } from '../apis/KafkaAPICalls';
-import {jwtDecode} from 'jwt-decode'; // Ensure this import is present
+import {jwtDecode} from 'jwt-decode'; 
 
 function ChatArea({roomId}) {
   const [messages, setMessages] = useState([]);

@@ -53,3 +53,17 @@ export const callUserListAPI = () => {
         }
     };
 };
+
+export const callUserDetailAPI = (userEmail) => {
+    return async dispatch => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/users/${userEmail}` , { headers });
+            console.log('API 응답 데이터:', response.data);
+            dispatch({ type: POST_LOGIN_USER, payload: response.data });
+            return response.data;
+        } catch (error) {
+            console.error('회원 상세 조회 문제 발생:', error);
+            throw error;
+        }
+    };
+};
