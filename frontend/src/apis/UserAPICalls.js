@@ -35,6 +35,19 @@ export const callLoginUserAPI = (userDTO) => {
             return response.data;
         } catch (error) {
             console.error('로그인 문제 발생:', error);
+
+            // 서버에서 에러 메시지를 가져옴
+            const errorMessage = error.response?.data || '로그인 중 문제가 발생했습니다.';
+
+            // 사용자에게 적절한 메시지 표시
+            if (error.response?.status === 403) {
+                alert("계정이 비활성 상태입니다. 고객 지원에 문의하세요."); // 비활성 계정 메시지
+            } else if (error.response?.status === 401) {
+                alert("잘못된 이메일 또는 비밀번호입니다!"); // 잘못된 이메일/비밀번호 메시지
+            } else {
+                alert(errorMessage); // 다른 에러에 대한 기본 메시지
+            }
+
             throw error;
         }
     };
