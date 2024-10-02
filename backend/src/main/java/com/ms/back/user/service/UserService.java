@@ -137,6 +137,11 @@ public class UserService {
                 existingUserDTO.setUserGender(userDTO.getUserGender());
             }
 
+            // 회원 탈퇴
+            if (userDTO.getUserStatus() != null && !userDTO.getUserStatus().isEmpty()) {
+                existingUserDTO.setUserStatus("INACTIVE");
+            }
+
             // DTO를 다시 엔티티로 매핑
             User updateUser = modelMapper.map(existingUserDTO, User.class);
             userRepository.save(updateUser);

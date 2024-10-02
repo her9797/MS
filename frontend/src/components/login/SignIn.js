@@ -26,7 +26,6 @@ const SignIn = ({ setIsSignUp }) => {
             navigate('/');
         } catch (error) {
             console.error('로그인 실패:', error);
-            alert('로그인 실패. 이메일과 비밀번호를 확인해 주세요.');
         }
     };
 

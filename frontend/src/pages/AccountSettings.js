@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'; // useNavigate import 추가
 import { callUserDetailAPI, callModifyUser } from '../apis/UserAPICalls';
 import { jwtDecode } from 'jwt-decode'; 
 
 const AccountSettings = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate(); // useNavigate 훅 사용
     const [user, setUser] = useState({});
     const [formData, setFormData] = useState({
         userNickname: '',
@@ -42,7 +44,6 @@ const AccountSettings = () => {
         dispatch(callModifyUser(userEmail, formData))
             .then(data => {
                 console.log('회원 정보 수정 완료:', data);
-                callUserDetailAPI();
                 alert('성공적으로 변경 되었습니다.');
             })
             .catch(error => {
@@ -52,7 +53,26 @@ const AccountSettings = () => {
 
     const handleDeleteAccount = (event) => {
         event.preventDefault();
-        // 회원 탈퇴 로직
+        const isConfirmed = document.getElementById('accountActivation').checked;
+
+        if (!isConfirmed) {
+            alert('회원 탈퇴를 원하시면 체크박스를 선택하세요.');
+            return;
+        }
+
+        // 회원 탈퇴를 위한 API 호출
+        dispatch(callModifyUser(userEmail, { userStatus: 'INACTIVE' }))
+            .then(data => {
+                console.log('회원 탈퇴 완료:', data);
+                alert('회원 탈퇴 성공');
+                
+                // 로그아웃 처리
+                localStorage.removeItem('jwtToken'); // 토큰 삭제
+                navigate('/login'); // 로그인 페이지로 리다이렉트
+            })
+            .catch(error => {
+                console.error('회원 탈퇴 오류 발생:', error);
+            });
     };
 
     return (
@@ -88,24 +108,38 @@ const AccountSettings = () => {
                     <div className="card-body">
                         <form id="formAccountSettings" onSubmit={handleSubmit}>
                             <div className="row">
-                                {[
+                                {[ 
                                     { label: 'Name', id: 'name', type: 'text', placeholder: user.userName, disabled: true },
                                     { label: 'Nickname', id: 'nickname', type: 'text', placeholder: user.userNickname },
                                     { label: 'Email', id: 'email', type: 'email', placeholder: user.userEmail, disabled: true },
-                                    { label: 'Gender', id: 'gender', type: 'text', placeholder: user.userGender },
+                                    { label: 'Gender', id: 'gender', type: 'select', placeholder: user.userGender },
                                 ].map((input, index) => (
                                     <div className="mb-3 col-12" key={index}>
                                         <label htmlFor={input.id} className="form-label">{input.label}</label>
-                                        <input
-                                            className="form-control"
-                                            type={input.type}
-                                            id={input.id}
-                                            name={input.id === 'nickname' ? 'userNickname' : input.id === 'gender' ? 'userGender' : ''}
-                                            placeholder={input.placeholder}
-                                            value={input.id === 'nickname' ? formData.userNickname : input.id === 'gender' ? formData.userGender : ''}
-                                            onChange={handleChange}
-                                            disabled={input.disabled}
-                                        />
+                                        {input.type === 'select' ? (
+                                            <select
+                                                className="form-control"
+                                                id={input.id}
+                                                name="userGender"
+                                                value={formData.userGender}
+                                                onChange={handleChange}
+                                            >
+                                                <option value="">성별 선택</option>
+                                                <option value="남">남</option>
+                                                <option value="여">여</option>
+                                            </select>
+                                        ) : (
+                                            <input
+                                                className="form-control"
+                                                type={input.type}
+                                                id={input.id}
+                                                name={input.id === 'nickname' ? 'userNickname' : input.id}
+                                                placeholder={input.placeholder}
+                                                value={input.id === 'nickname' ? formData.userNickname : ''}
+                                                onChange={handleChange}
+                                                disabled={input.disabled}
+                                            />
+                                        )}
                                     </div>
                                 ))}
                             </div>

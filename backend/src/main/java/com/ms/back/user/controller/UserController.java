@@ -43,23 +43,34 @@ public class UserController {
     @PostMapping("/normal")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         User foundUser = userService.findByUserEmail(user.getUserEmail());
-        if (foundUser != null && userService.validatePassword(user.getUserPwd(), foundUser.getUserPwd())) {
 
-            // JWT 생성 시 이메일과 이름을 전달
-            String token = jwtUtils.generateToken(
-                    foundUser.getUserEmail(),
-                    foundUser.getUserName(),
-                    foundUser.getUserEmail()
-            );
-
-            TokenRequest tokenRequest = new TokenRequest();
-            tokenRequest.setToken(token);
-
-            return ResponseEntity.ok().body(tokenRequest);
-        } else {
+        if (foundUser == null) {
             return ResponseEntity.status(401).body("Invalid email or password!");
         }
+
+        // 사용자 상태 체크
+        if ("INACTIVE".equals(foundUser.getUserStatus())) {
+            return ResponseEntity.status(403).body("Your account is inactive. Please contact support."); // 비활성 계정에 대한 응답
+        }
+
+        // 비밀번호 확인
+        if (!userService.validatePassword(user.getUserPwd(), foundUser.getUserPwd())) {
+            return ResponseEntity.status(401).body("Invalid email or password!");
+        }
+
+        // JWT 생성 시 이메일과 이름을 전달
+        String token = jwtUtils.generateToken(
+                foundUser.getUserEmail(),
+                foundUser.getUserName(),
+                foundUser.getUserEmail()
+        );
+
+        TokenRequest tokenRequest = new TokenRequest();
+        tokenRequest.setToken(token);
+
+        return ResponseEntity.ok().body(tokenRequest);
     }
+
 
     @GetMapping("")
     public ResponseEntity<ResponseMessage> findUserList() {
@@ -99,4 +110,5 @@ public class UserController {
 
         return ResponseEntity.ok().body(new ResponseMessage(200, "수정 성공", userService.modifyUser(userEmail, userDTO)));
     }
+
 }
