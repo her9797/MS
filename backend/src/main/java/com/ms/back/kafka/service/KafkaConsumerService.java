@@ -63,7 +63,7 @@ public class KafkaConsumerService {
     }
 
     /** 배치 작업 메서드 */
-    @Scheduled(fixedRate = 60000) // 5분마다 배치 저장
+    @Scheduled(fixedRate = 60000)
     public void insertMessageByBatch() {
         List<MsgDTO> batchToSave;
         synchronized (messageBatch) {
