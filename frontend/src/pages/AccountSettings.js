@@ -54,12 +54,12 @@ const AccountSettings = () => {
     const handleDeleteAccount = (event) => {
         event.preventDefault();
         const isConfirmed = document.getElementById('accountActivation').checked;
-
+    
         if (!isConfirmed) {
             alert('회원 탈퇴를 원하시면 체크박스를 선택하세요.');
             return;
         }
-
+    
         // 회원 탈퇴를 위한 API 호출
         dispatch(callModifyUser(userEmail, { userStatus: 'INACTIVE' }))
             .then(data => {

@@ -21,6 +21,6 @@ public class UserDTO {
 
     private String userGender;
 
-    private String userStatus;
+    private UserStatus userStatus;
 
 }

@@ -5,6 +5,7 @@ import com.ms.back.comment.entity.Comment;
 import com.ms.back.common.Jwt.JwtUtils;
 import com.ms.back.user.dto.UserDTO;
 import com.ms.back.user.dto.UserRole;
+import com.ms.back.user.dto.UserStatus;
 import com.ms.back.user.entity.User;
 import com.ms.back.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -138,8 +139,8 @@ public class UserService {
             }
 
             // 회원 탈퇴
-            if (userDTO.getUserStatus() != null && !userDTO.getUserStatus().isEmpty()) {
-                existingUserDTO.setUserStatus("INACTIVE");
+            if (userDTO.getUserStatus() != null) {
+                existingUserDTO.setUserStatus(UserStatus.INACTIVE);
             }
 
             // DTO를 다시 엔티티로 매핑
