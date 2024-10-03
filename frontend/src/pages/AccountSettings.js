@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; // useNavigate import 추가
+import { useNavigate } from 'react-router-dom';
 import { callUserDetailAPI, callModifyUser } from '../apis/UserAPICalls';
 import { jwtDecode } from 'jwt-decode'; 
+import ConfirmationModal from '../components/common/ConfirmationModal.js';
 
 const AccountSettings = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // useNavigate 훅 사용
-    const [user, setUser] = useState({});
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
     const [formData, setFormData] = useState({
         userNickname: '',
         userGender: '',
     });
+    const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false); // 모달 상태 관리
+    const [confirmDelete, setConfirmDelete] = useState(false); // 체크박스 상태 관리
 
     const token = localStorage.getItem('jwtToken');
     const decodedToken = jwtDecode(token);
@@ -25,9 +29,11 @@ const AccountSettings = () => {
                     userNickname: data.results.user.userNickname,
                     userGender: data.results.user.userGender,
                 });
+                setLoading(false);
             })
             .catch(error => {
                 console.error('API 호출 중 오류 발생:', error);
+                setLoading(false);
             });
     }, [dispatch, userEmail]);
 
@@ -51,29 +57,33 @@ const AccountSettings = () => {
             });
     };
 
-    const handleDeleteAccount = (event) => {
-        event.preventDefault();
-        const isConfirmed = document.getElementById('accountActivation').checked;
-    
-        if (!isConfirmed) {
-            alert('회원 탈퇴를 원하시면 체크박스를 선택하세요.');
-            return;
-        }
-    
-        // 회원 탈퇴를 위한 API 호출
+    const handleDeleteAccount = () => {
         dispatch(callModifyUser(userEmail, { userStatus: 'INACTIVE' }))
             .then(data => {
                 console.log('회원 탈퇴 완료:', data);
                 alert('회원 탈퇴 성공');
-                
-                // 로그아웃 처리
-                localStorage.removeItem('jwtToken'); // 토큰 삭제
-                navigate('/login'); // 로그인 페이지로 리다이렉트
+                localStorage.removeItem('jwtToken');
+                navigate('/login');
             })
             .catch(error => {
                 console.error('회원 탈퇴 오류 발생:', error);
             });
+        setShowModal(false); // 모달 닫기
     };
+
+    const handleShowModal = () => {
+        if (confirmDelete) {
+            setShowModal(true); // 체크박스가 선택된 경우에만 모달 열기
+        } else {
+            alert('회원 탈퇴를 원하시면 체크박스를 선택하세요.');
+        }
+    };
+
+    const handleCloseModal = () => setShowModal(false); // 모달 닫기
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="flex flex-col flex-auto h-full p-6">
@@ -110,9 +120,9 @@ const AccountSettings = () => {
                             <div className="row">
                                 {[ 
                                     { label: 'Name', id: 'name', type: 'text', placeholder: user.userName, disabled: true },
-                                    { label: 'Nickname', id: 'nickname', type: 'text', placeholder: user.userNickname },
+                                    { label: 'Nickname', id: 'nickname', type: 'text', placeholder: '닉네임', name: 'userNickname' },
                                     { label: 'Email', id: 'email', type: 'email', placeholder: user.userEmail, disabled: true },
-                                    { label: 'Gender', id: 'gender', type: 'select', placeholder: user.userGender },
+                                    { label: 'Gender', id: 'gender', type: 'select', placeholder: '성별 선택', name: 'userGender' },
                                 ].map((input, index) => (
                                     <div className="mb-3 col-12" key={index}>
                                         <label htmlFor={input.id} className="form-label">{input.label}</label>
@@ -120,7 +130,7 @@ const AccountSettings = () => {
                                             <select
                                                 className="form-control"
                                                 id={input.id}
-                                                name="userGender"
+                                                name={input.name}
                                                 value={formData.userGender}
                                                 onChange={handleChange}
                                             >
@@ -133,9 +143,9 @@ const AccountSettings = () => {
                                                 className="form-control"
                                                 type={input.type}
                                                 id={input.id}
-                                                name={input.id === 'nickname' ? 'userNickname' : input.id}
+                                                name={input.name}
                                                 placeholder={input.placeholder}
-                                                value={input.id === 'nickname' ? formData.userNickname : ''}
+                                                value={input.name === 'userNickname' ? formData.userNickname : ''}
                                                 onChange={handleChange}
                                                 disabled={input.disabled}
                                             />
@@ -159,16 +169,30 @@ const AccountSettings = () => {
                                 <p className="mb-0">회원 탈퇴를 하시게 되면, 회원의 정보가 전부 사라지게 됩니다.</p>
                             </div>
                         </div>
-                        <form id="formAccountDeactivation" onSubmit={handleDeleteAccount}>
-                            <div className="form-check mb-3">
-                                <input className="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" />
-                                <label className="form-check-label" htmlFor="accountActivation">회원 탈퇴</label>
-                            </div>
-                            <button type="submit" className="btn btn-danger deactivate-account">회원 탈퇴</button>
-                        </form>
+                        <div className="form-check mb-3">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="confirmDelete"
+                                checked={confirmDelete}
+                                onChange={() => setConfirmDelete(prev => !prev)}
+                            />
+                            <label className="form-check-label" htmlFor="confirmDelete">
+                                회원 탈퇴 확인
+                            </label>
+                        </div>
+                        <button type="button" className="btn btn-danger" onClick={handleShowModal}>회원 탈퇴</button>
                     </div>
                 </div>
             </div>
+
+            {/* 분리된 모달 컴포넌트 */}
+            <ConfirmationModal
+                show={showModal}
+                onClose={handleCloseModal}
+                onConfirm={handleDeleteAccount}
+                message="정말로 회원 탈퇴를 하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+            />
         </div>
     );
 };
