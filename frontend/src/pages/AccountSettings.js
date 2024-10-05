@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { callUserDetailAPI, callModifyUser } from '../apis/UserAPICalls';
+import { callModifyUser, callUserDetailAPI } from '../apis/UserAPICalls';
 import { jwtDecode } from 'jwt-decode'; 
 import ConfirmationModal from '../components/common/ConfirmationModal.js';
 
@@ -14,9 +14,8 @@ const AccountSettings = () => {
         userGender: '',
     });
     const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(false); // 모달 상태 관리
-    const [confirmDelete, setConfirmDelete] = useState(false); // 체크박스 상태 관리
-
+    const [showModal, setShowModal] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const token = localStorage.getItem('jwtToken');
     const decodedToken = jwtDecode(token);
     const userEmail = decodedToken.email;
@@ -68,18 +67,18 @@ const AccountSettings = () => {
             .catch(error => {
                 console.error('회원 탈퇴 오류 발생:', error);
             });
-        setShowModal(false); // 모달 닫기
+        setShowModal(false);
     };
 
     const handleShowModal = () => {
         if (confirmDelete) {
-            setShowModal(true); // 체크박스가 선택된 경우에만 모달 열기
+            setShowModal(true);
         } else {
             alert('회원 탈퇴를 원하시면 체크박스를 선택하세요.');
         }
     };
 
-    const handleCloseModal = () => setShowModal(false); // 모달 닫기
+    const handleCloseModal = () => setShowModal(false);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -93,7 +92,7 @@ const AccountSettings = () => {
                     <div className="card-body">
                         <div className="d-flex align-items-start align-items-sm-center gap-4">
                             <img
-                                src="../img/1.png"
+                                src={`http://localhost:8080/uploads/${user.userProfile.fileName}`} // 이미지 URL 업데이트
                                 alt="user-avatar"
                                 className="d-block rounded"
                                 height="100"

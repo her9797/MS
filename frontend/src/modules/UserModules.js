@@ -15,7 +15,7 @@ const actions = createActions({
     [POST_LOGIN_USER]: () => {},
     [GET_USER]: () => {},
     [GET_USER_DETAIL]: () => {},
-    [PATCH_USER]: () => {}
+    [PATCH_USER]: () => {},
 });
 
 const userReducer = handleActions({
