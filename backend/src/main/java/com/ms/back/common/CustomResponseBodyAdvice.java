@@ -23,13 +23,16 @@ public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType,
                                   Class<? extends HttpMessageConverter<?>> converterType,
                                   ServerHttpRequest request, ServerHttpResponse response) {
-        // Add custom headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
-        headers.set("Custom-Header", "CustomValue");
-
-        // Set headers to the response
-        response.getHeaders().addAll(headers);
+        // 특정 URL 패턴을 체크
+        if (request.getURI().getPath().contains("/uploadUserProfile")) {
+            // 파일 업로드 요청의 경우 Content-Type을 다르게 설정
+            response.getHeaders().set(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+        } else {
+            // 그 외의 요청에 대해 Custom Header 설정
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Custom-Header", "CustomValue");
+            response.getHeaders().addAll(headers);
+        }
 
         return body;
     }

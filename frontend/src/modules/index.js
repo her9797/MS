@@ -6,6 +6,7 @@ import roomReducer from "./RoomModules";
 import messageReducer from "./MessageModules";
 import userReducer from "./UserModules";
 import roomAndUserReducer from "./RoomAndUserModules";
+import profileReducer from "./ProfileModules";
 
 const rootReducer = combineReducers({
     noticeReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     roomReducer,
     messageReducer,
     userReducer,
-    roomAndUserReducer
+    roomAndUserReducer,
+    profileReducer
 });
 
 export default rootReducer;

@@ -32,6 +32,9 @@ public class User {
     @Column(name = "user_satatus")
     private String userStatus;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private UserProfile userProfile; // UserProfile 추가
+
     protected User(){}
 
     @Builder

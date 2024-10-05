@@ -154,4 +154,8 @@ public class UserService {
         return result;
     }
 
+    public Optional<User> findUserWithProfileByEmail(String userEmail) {
+        return userRepository.findUserWithProfileByUserEmail(userEmail);
+
+    }
 }
