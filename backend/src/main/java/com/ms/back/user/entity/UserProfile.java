@@ -1,5 +1,6 @@
 package com.ms.back.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -16,16 +17,22 @@ public class UserProfile {
     @Column(name = "FILE_NAME")
     private String fileName;
 
-    @Column(name = "user_email")
-    private String userEmail;
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_email", referencedColumnName = "user_email", nullable = false)
+    private User user; // User와의 관계 추가
 
     @Builder
-    public UserProfile(Long id, String fileName, String userEmail) {
+    public UserProfile(Long id, String fileName, User user) {
         this.id = id;
         this.fileName = fileName;
-        this.userEmail = userEmail;
+        this.user = user;
     }
 
     protected UserProfile() {
+    }
+
+    public String getImageUrl() {
+        return "http://localhost:8080/uploads/" + fileName; // 서버의 이미지 URL
     }
 }
