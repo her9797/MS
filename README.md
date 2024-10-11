@@ -30,7 +30,7 @@ https://www.erdcloud.com/d/YcgeDiZvaEtHHbWTz
 - builder
 - Scheduling
 - Kafka
-
+- Docker Desktop (dockerCompose.yml 사용)
 ```
 ### Development Methodology
 ```
