@@ -29,6 +29,8 @@ https://www.erdcloud.com/d/YcgeDiZvaEtHHbWTz
 - MappedSuperclass
 - builder
 - Scheduling
+- Kafka
+
 ```
 ### Development Methodology
 ```
